@@ -14,7 +14,7 @@ const storageBucket = process.env.REACT_APP_STORAGE_BUCKET;
 console.log(storageBucket);
 const messagingSenderId = process.env.REACT_APP_MESSAGING_SENDER_ID;
 console.log(messagingSenderId);
-const appId = process.env.REACT_APP_APP_ID;
+const appId = secrets.REACT_APP_APP_ID;
 console.log(appId);
 const measurementId = process.env.REACT_APP_MEASUREMENT_ID;
 console.log(measurementId);
