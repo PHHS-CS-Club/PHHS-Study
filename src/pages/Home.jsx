@@ -6,7 +6,7 @@ export default function Home() {
 		//Search functionality aswell
 		//Any other related features
 		<>
-			<div>Home</div>
+			<div>Home Dev addition for test</div>
 		</>
 	);
 }
