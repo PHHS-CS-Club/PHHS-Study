@@ -29,7 +29,7 @@ export default function Signin() {
 		//current database structure has each account with a role, email, and display name
 		//all of which are accessed through user/ with their user id
 		<>
-			<div>Account Page</div>
+			<div>Account Page Dev Test Addition</div>
 			<button onClick={logOut}>Log Out</button>
 		</>
 	);
