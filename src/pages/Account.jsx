@@ -1,16 +1,23 @@
 import React, { useEffect } from "react";
-import { set, ref } from "firebase/database";
+import { set, ref, onValue } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
 
 export default function Signin() {
 	const { user, logOut } = UserAuth();
 	useEffect(() => {
+		//Updates user's data when opening account page
 		if (user.uid !== undefined) {
-			set(ref(database, "users/" + user.uid), {
-				username: user.displayName,
-				email: user.email,
-				role: "student",
+			const dbRef = ref(database, "users/" + user.uid);
+			onValue(dbRef, (snapshot) => {
+				const data = snapshot.val();
+				if (!data) {
+					set(dbRef, {
+						username: user.displayName,
+						email: user.email,
+						role: "student",
+					});
+				}
 			});
 		}
 	}, [user]);

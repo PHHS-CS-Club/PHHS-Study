@@ -3,6 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+	//Always loaded, used to link back to account and home page etc
 	const { user } = UserAuth();
 	return (
 		<>
