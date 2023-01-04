@@ -5,12 +5,11 @@
   "targets": {
     "flashcard-website-acc7a": {
       "hosting": {
-        "main": [
-          "\u001b[200~phhs-study",
-          "phhs-study"
-        ],
         "test": [
           "flashcard-website-acc7a"
+        ],
+        "study": [
+          "phhs-study"
         ]
       }
     }
