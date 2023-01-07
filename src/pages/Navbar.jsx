@@ -10,22 +10,18 @@ export default function Navbar() {
     <>
       <nav class="navbar-outmost-nav">
         <ul class="navbar-header">
-          <li class="navbar-link-to-home">
-            <Link class="navbar-link-to-home" to="/Home">
-              Home
+          <Link class="navbar-link-to-home" to="/Home">
+            <li class="navbar-to-home">Home</li>
+          </Link>
+          {user?.displayName ? (
+            <Link class="navbar-link-to-account" to="/Account">
+              <li class="navbar-to-signin-account">Account</li>
             </Link>
-          </li>
-          <li class="navbar-link-to-signin-account">
-            {user?.displayName ? (
-              <Link class="navbar-link-to-account" to="/Account">
-                Account
-              </Link>
-            ) : (
-              <Link class="navbar-link-to-signin" to="SignIn">
-                Sign In
-              </Link>
-            )}
-          </li>
+          ) : (
+            <Link class="navbar-link-to-signin" to="SignIn">
+              <li class="navbar-to-signin-account">Sign In</li>
+            </Link>
+          )}
         </ul>
       </nav>
 

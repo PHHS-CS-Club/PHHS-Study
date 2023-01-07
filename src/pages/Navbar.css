@@ -8,17 +8,22 @@
   padding: 0;
 }
 
-.navbar-header li {
+.navbar-link-to-home,
+.navbar-to-home,
+.navbar-link-to-account,
+.navbar-link-to-signin,
+.navbar-to-signin-account {
   flex: 1;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
   font-size: 20px;
   background-color: rgb(0, 0, 0);
+  height: 60px;
+  line-height: 60px;
 }
 
 .navbar-header li:hover {
   background-color: rgb(10, 60, 199);
+  cursor: pointer;
 }
 
 .navbar-link-to-home,
