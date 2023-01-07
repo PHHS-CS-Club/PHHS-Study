@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "flashcard-website-acc7a"
-  }
+  },
+  "targets": {
+    "flashcard-website-acc7a": {
+      "hosting": {
+        "test": [
+          "flashcard-website-acc7a"
+        ],
+        "study": [
+          "phhs-study"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
