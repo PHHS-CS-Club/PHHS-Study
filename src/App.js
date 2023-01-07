@@ -9,28 +9,28 @@ import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
-	return (
-		<div className="App">
-			<AuthContextProvider>
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Navbar />}>
-							<Route path="Home" element={<Home />} />
-							<Route
-								path="Account"
-								element={
-									<Protected>
-										<Account />
-									</Protected>
-								}
-							/>
-							<Route path="SignIn" element={<Signin />} />
-						</Route>
-					</Routes>
-				</BrowserRouter>
-			</AuthContextProvider>
-		</div>
-	);
+  return (
+    <div className="App">
+      <AuthContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navbar />}>
+              <Route path="Home" element={<Home />} />
+              <Route
+                path="Account"
+                element={
+                  <Protected>
+                    <Account />
+                  </Protected>
+                }
+              />
+              <Route path="SignIn" element={<Signin />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthContextProvider>
+    </div>
+  );
 }
 
 export default App;

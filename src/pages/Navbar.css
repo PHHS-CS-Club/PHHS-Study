@@ -1,0 +1,25 @@
+.navbar-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.navbar-link-to-home {
+  flex: 1;
+  background-color: rgb(245, 137, 137);
+  text-align: center;
+}
+
+.navbar-link-to-signin-account {
+  flex: 1;
+  background-color: rgb(148, 148, 255);
+  text-align: center;
+}
+
+.navbar-filler {
+  flex: 1;
+  text-align: center;
+  background-color: lightgreen;
+}
