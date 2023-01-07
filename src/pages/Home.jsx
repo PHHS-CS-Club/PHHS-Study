@@ -1,12 +1,13 @@
 import React from "react";
+import "./Home.css";
 
 export default function Home() {
-	return (
-		//Flashcard select stuff should go in here
-		//Search functionality aswell
-		//Any other related features
-		<>
-			<div>Home Dev addition for test</div>
-		</>
-	);
+  return (
+    //Flashcard select stuff should go in here
+    //Search functionality aswell
+    //Any other related features
+    <>
+      <div class="home-starter">Home Dev addition for test</div>
+    </>
+  );
 }

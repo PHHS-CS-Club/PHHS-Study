@@ -8,19 +8,24 @@ export default function Navbar() {
   const { user } = UserAuth();
   return (
     <>
-      <nav>
+      <nav class="navbar-outmost-nav">
         <ul class="navbar-header">
           <li class="navbar-link-to-home">
-            <Link to="/Home">Home</Link>
+            <Link class="navbar-link-to-home" to="/Home">
+              Home
+            </Link>
           </li>
           <li class="navbar-link-to-signin-account">
             {user?.displayName ? (
-              <Link to="/Account">Account</Link>
+              <Link class="navbar-link-to-account" to="/Account">
+                Account
+              </Link>
             ) : (
-              <Link to="SignIn">Sign In</Link>
+              <Link class="navbar-link-to-signin" to="SignIn">
+                Sign In
+              </Link>
             )}
           </li>
-          <li class="navbar-filler">filler</li>
         </ul>
       </nav>
 
