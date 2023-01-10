@@ -21,15 +21,25 @@
   line-height: 60px;
 }
 
-.navbar-header li:hover {
-  background-color: rgb(10, 60, 199);
-  cursor: pointer;
-}
-
 .navbar-link-to-home,
 .navbar-link-to-account,
 .navbar-link-to-signin {
   color: inherit;
   text-decoration: none;
   color: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+}
+.navbar-link-to-home:hover,
+.navbar-link-to-account:hover,
+.navbar-link-to-signin:hover {
+  background-color: rgb(10, 60, 199);
+  cursor: pointer;
+}
+
+.navbar-to-home,
+.navbar-to-signin-account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
