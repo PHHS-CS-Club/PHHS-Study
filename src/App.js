@@ -5,6 +5,8 @@ import Account from "./pages/Account";
 import Navbar from "./pages/Navbar";
 import Signin from "./pages/Signin";
 import Protected from "./components/Protected";
+import CreateSet from "./pages/CreateSet";
+
 import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -21,6 +23,14 @@ function App() {
 								element={
 									<Protected>
 										<Account />
+									</Protected>
+								}
+							/>
+							<Route
+								path="CreateSet"
+								element={
+									<Protected>
+										<CreateSet />
 									</Protected>
 								}
 							/>
