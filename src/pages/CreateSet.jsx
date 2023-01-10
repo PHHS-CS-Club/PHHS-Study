@@ -1,6 +1,6 @@
 import { uuidv4 } from "@firebase/util";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
