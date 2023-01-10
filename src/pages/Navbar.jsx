@@ -14,6 +14,13 @@ export default function Navbar() {
 					</li>
 					<li>
 						{user?.displayName ? (
+							<Link to="/CreateSet">Create Set</Link>
+						) : (
+							<></>
+						)}
+					</li>
+					<li>
+						{user?.displayName ? (
 							<Link to="/Account">Account</Link>
 						) : (
 							<Link to="SignIn">Sign In</Link>
