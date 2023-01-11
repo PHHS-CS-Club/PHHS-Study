@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import "./Navbar.css";
 
 export default function Navbar() {
 	//Always loaded, used to link back to account and home page etc
@@ -28,8 +29,7 @@ export default function Navbar() {
 					</li>
 				</ul>
 			</nav>
-
-			<Outlet />
-		</>
-	);
+      <Outlet />
+    </>
+  );
 }
