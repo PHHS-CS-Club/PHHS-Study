@@ -21,6 +21,8 @@ export default function CreateSet() {
 				Name: name,
 				Classes: ["test class 1", "test class 2"],
 			});
+			setCards([]);
+			setName("");
 		} else {
 			alert("You must add a card");
 		}
@@ -73,8 +75,10 @@ export default function CreateSet() {
 		<>
 			<div>
 				<input
+					id="setNameInput"
 					type="text"
 					placeholder="Name set"
+					value={name}
 					onChange={(event) => {
 						setName(event.target.value);
 					}}
