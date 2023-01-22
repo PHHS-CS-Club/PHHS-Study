@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
+import "./CreateSet.css";
 
 export default function CreateSet() {
   const { user } = UserAuth();
@@ -82,14 +83,16 @@ export default function CreateSet() {
           return (
             <div key={card.id}>
               {" "}
-              <input
+              <textarea
                 type="text"
                 placeholder="Front"
+                id="front-side"
                 onChange={(event) => updateFront(event.target.value, card.id)}
               />
-              <input
+              <textarea
                 type="text"
                 placeholder="Back"
+                id="back-side"
                 onChange={(event) => updateBack(event.target.value, card.id)}
               />
               <button onClick={() => deleteCard(card.id)}>Delete</button>

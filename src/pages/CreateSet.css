@@ -1,0 +1,33 @@
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+#front-side {
+  border: 1px solid rgb(0, 0, 0);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+  height: 80px;
+  width: 200px;
+  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+  margin-right: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  resize: none;
+}
+#back-side {
+  border: 1px solid rgb(0, 0, 0);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+  height: 80px;
+  width: 200px;
+  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+  margin-right: 30px;
+  margin-top: 10px;
+  resize: none;
+}
