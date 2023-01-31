@@ -31,6 +31,15 @@ export default function Signin() {
     //all of which are accessed through user/ with their user id
     <>
       <div class="account-starter">Account Page Dev Test Addition 2</div>
+      <p>
+        username:
+      </p>
+      <p>
+        email:
+      </p>
+      <p>
+        most popular decks:
+      </p>
       <button class="account-logout" onClick={logOut}>
         Log Out
       </button>
