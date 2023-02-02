@@ -2,12 +2,17 @@ textarea:focus,
 input:focus {
   outline: 0;
 }
+#name-set {
+  border: 1px solid rgb(0, 0, 0);
+  text-align: center;
+  margin-left: 20px;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+  resize: none;
+}
 #front-side {
   border: 1px solid rgb(0, 0, 0);
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 15px 10xp 15px 10px;
   text-align: center;
   height: 80px;
   width: 200px;
@@ -19,10 +24,7 @@ input:focus {
 }
 #back-side {
   border: 1px solid rgb(0, 0, 0);
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 15px 10xp 15px 10px;
   text-align: center;
   height: 80px;
   width: 200px;
@@ -30,4 +32,15 @@ input:focus {
   margin-right: 30px;
   margin-top: 10px;
   resize: none;
+}
+.delete-button {
+  color: white;
+  height: 30px;
+  width: 70px;
+  border: 1px solid #0347ff;
+  background-color: #0347ff;
+  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+}
+.delete-button:hover {
+  opacity: 0.8;
 }

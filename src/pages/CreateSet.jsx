@@ -72,9 +72,10 @@ export default function CreateSet() {
   return (
     <>
       <div>
-        <input
+        <textarea
           type="text"
           placeholder="Name set"
+          id="name-set"
           onChange={(event) => {
             setName(event.target.value);
           }}
@@ -95,7 +96,9 @@ export default function CreateSet() {
                 id="back-side"
                 onChange={(event) => updateBack(event.target.value, card.id)}
               />
-              <button onClick={() => deleteCard(card.id)}>Delete</button>
+              <button class="delete-button" onClick={() => deleteCard(card.id)}>
+                Delete
+              </button>
             </div>
           );
         })}
