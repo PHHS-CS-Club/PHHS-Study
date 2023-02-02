@@ -34,13 +34,44 @@ input:focus {
   resize: none;
 }
 .delete-button {
-  color: white;
+  position: absolute;
+  margin-top: 67px;
+  color: rgb(241, 241, 241);
   height: 30px;
   width: 70px;
-  border: 1px solid #0347ff;
-  background-color: #0347ff;
+  border: 1px solid #0039d4;
+  border-radius: 3px;
+  background-color: #0039d4;
   box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
 }
 .delete-button:hover {
   opacity: 0.8;
+}
+.add-card-button {
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  width: 75px;
+  margin-top: 10px;
+  margin-left: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+}
+.create-set-button {
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  width: 90px;
+  margin-top: 10px;
+  margin-left: 30px;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+}
+.add-card-button:hover,
+.create-set-button:hover {
+  opacity: 0.8;
+}
+.add-card-message {
+  margin-top: 10px;
+  margin-left: 20px;
 }

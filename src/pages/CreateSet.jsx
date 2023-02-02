@@ -103,11 +103,15 @@ export default function CreateSet() {
           );
         })}
         <br />
-        <button onClick={createCard}>Add card</button>
+        <button class="add-card-button" onClick={createCard}>
+          Add card
+        </button>
         {cards.length !== 0 ? (
-          <button onClick={() => writeSet()}>Create Set</button>
+          <button class="create-set-button" onClick={() => writeSet()}>
+            Create Set
+          </button>
         ) : (
-          <div>Please add a card</div>
+          <div class="add-card-message">Please add a card</div>
         )}
       </div>
     </>
