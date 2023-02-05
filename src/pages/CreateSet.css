@@ -39,9 +39,9 @@ input:focus {
   color: rgb(241, 241, 241);
   height: 30px;
   width: 70px;
-  border: 1px solid #0039d4;
+  border: 1px solid rgb(207, 0, 0);
   border-radius: 3px;
-  background-color: #0039d4;
+  background-color: rgb(207, 0, 0);
   box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
 }
 .delete-button:hover {
