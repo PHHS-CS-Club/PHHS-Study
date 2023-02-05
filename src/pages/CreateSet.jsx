@@ -71,7 +71,7 @@ export default function CreateSet() {
 
   return (
     <>
-      <div>
+      <div class="create-set-container">
         <textarea
           type="text"
           placeholder="Name set"
