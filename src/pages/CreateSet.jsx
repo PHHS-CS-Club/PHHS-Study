@@ -10,21 +10,14 @@ export default function CreateSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
-  function writeSet() {
-    if (cards.length !== 0) {
-      let newId = uuidv4();
-      set(ref(database, newId), {
-        cards,
-      });
-      set(ref(database, "flashcard-sets/" + newId), {
-        Author: user.uid,
-        Name: name,
-        Classes: ["test class 1", "test class 2"],
-      });
-    } else {
-      alert("You must add a card");
-    }
-  }
+  const createCard = () => {
+    const list = cards.concat({
+      id: uuidv4(),
+      front: "",
+      back: "",
+    });
+    setCards(list);
+  };
 
 	function writeSet() {
 		if (cards.length !== 0) {
