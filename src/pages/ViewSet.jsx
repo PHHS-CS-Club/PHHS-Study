@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
+import './ViewSet.css';
 
 export default function ViewSet() {
   const [cards, setCards] = useState([]);
@@ -20,10 +21,10 @@ export default function ViewSet() {
     <div>
       {cards.map((card) => {
         return (
-          <>
-            <div>{card.front}</div>
-            <div>{card.back}</div>
-          </>
+          <div className="card-container">
+            <div className="view-front">{card.front}</div>
+            <div className="view-back">{card.back}</div>
+          </div>
         );
       })}
     </div>
