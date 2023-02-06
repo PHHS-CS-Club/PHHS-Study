@@ -14,6 +14,7 @@ export default function SearchPage() {
       console.log(data);
     });
     console.log(flashcardMeta);
+    // eslint-disable-next-line
   }, []);
 
   return (
