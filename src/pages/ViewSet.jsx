@@ -13,7 +13,7 @@ export default function ViewSet() {
       console.log(data.cards);
       setCards(data.cards);
     });
-  }, []);
+  }, [id]);
 
   console.log(cards);
   return (
