@@ -32,8 +32,8 @@ export default function Signin() {
     //current database structure has each account with a role, email, and display name
     //all of which are accessed through user/ with their user id
     <>
-      <div class="account-starter">Account Page Dev Test Addition 2</div>
-      <button class="account-logout" onClick={logOut}>
+      <div className="account-starter">Account Page Dev Test Addition 2</div>
+      <button className="account-logout" onClick={logOut}>
         Log Out
       </button>
     </>
