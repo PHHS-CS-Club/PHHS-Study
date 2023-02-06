@@ -23,7 +23,7 @@ export default function Signin() {
         }
       });
     }
-  }, [id]);
+  }, [id, user]);
 
   return (
     //display any user information from signed in user here
