@@ -1,3 +1,7 @@
 .account-starter {
   padding-top: 100px;
 }
+.field-text {
+  display: inline-block;
+  margin-right: 20px;
+}
