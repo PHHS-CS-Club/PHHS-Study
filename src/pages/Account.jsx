@@ -3,11 +3,9 @@ import { set, ref, onValue } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import "./Account.css";
 
 export default function Signin() {
-  let { id } = useParams();
   let { id } = useParams();
   const { user, logOut } = UserAuth();
   useEffect(() => {
