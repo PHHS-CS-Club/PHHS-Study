@@ -3,9 +3,11 @@ import { set, ref, onValue } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./Account.css";
 
 export default function Signin() {
+  let { id } = useParams();
   let { id } = useParams();
   const { user, logOut } = UserAuth();
   useEffect(() => {
@@ -14,7 +16,7 @@ export default function Signin() {
       const dbRef = ref(database, "users/" + id);
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data && id === user.uid) {
+        if (!data && id === user.uid && id === user.uid) {
           set(dbRef, {
             username: user.displayName,
             email: user.email,

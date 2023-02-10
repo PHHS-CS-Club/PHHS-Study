@@ -25,8 +25,8 @@ export default function Signin() {
 
   return (
     <>
-      <div class="signin-total">
-        <div class="signin-text">Sign In Below</div>
+      <div className="signin-total">
+        <div className="signin-text">Sign In Below</div>
         <GoogleButton class="sign-google-link" onClick={handleGoogleSignIn} />
       </div>
     </>
