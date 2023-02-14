@@ -18,6 +18,10 @@ export default function ViewSet() {
   console.log(cards);
   return (
     <div>
+      {/* Make these render new components for flashcard modes */}
+      <button> Flashcard mode </button>
+      <button> Learn mode </button>
+      <button> Flashcard games </button>
       {cards.map((card) => {
         return (
           <>

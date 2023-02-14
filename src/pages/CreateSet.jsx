@@ -19,23 +19,23 @@ export default function CreateSet() {
     setCards(list);
   };
 
-	function writeSet() {
-		if (cards.length !== 0) {
-			let newId = uuidv4();
-			set(ref(database, newId), {
-				cards,
-			});
-			set(ref(database, "flashcard-sets/" + newId), {
-				Author: user.uid,
-				Name: name,
-				Classes: ["test class 1", "test class 2"],
-			});
-			setCards([]);
-			setName("");
-		} else {
-			alert("You must add a card");
-		}
-	}
+  function writeSet() {
+    if (cards.length !== 0) {
+      let newId = uuidv4();
+      set(ref(database, newId), {
+        cards,
+      });
+      set(ref(database, "flashcard-sets/" + newId), {
+        Author: user.uid,
+        Name: name,
+        Classes: ["test class 1", "test class 2"],
+      });
+      setCards([]);
+      setName("");
+    } else {
+      alert("You must add a card");
+    }
+  }
 
   function updateFront(text, id) {
     const list = cards.map((card) => {
