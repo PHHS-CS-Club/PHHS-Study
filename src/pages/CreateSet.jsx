@@ -11,6 +11,7 @@ export default function CreateSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
+  const [classes, setClasses] = useState({});
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -18,6 +19,16 @@ export default function CreateSet() {
       back: "",
     });
     setCards(list);
+  };
+
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.checked;
+    const boxss = target.name;
+    if (value !== undefined) {
+      setClasses({ ...classes, [boxss]: value });
+    }
+    console.log(boxss);
   };
 
   function checkbox(x) {
@@ -28,9 +39,10 @@ export default function CreateSet() {
           style={{ display: "inline" }}
           type="checkbox"
           name={x}
-          id={x}
+          id={x + "-box"}
+          onChange={handleChange}
         ></input>{" "}
-        <label style={{ display: "inline", "user-select": "none" }} for={x}>
+        <label style={{ display: "inline", userSelect: "none" }} htmlFor={x}>
           {x}
         </label>
         <br />
@@ -44,10 +56,17 @@ export default function CreateSet() {
       set(ref(database, newId), {
         cards,
       });
+      let trueClasses = [];
+      Object.keys(classes).forEach((x) => {
+        if (classes[x] === true) {
+          trueClasses.push(x);
+        }
+      });
+      console.log(trueClasses);
       set(ref(database, "flashcard-sets/" + newId), {
         Author: user.uid,
         Name: name,
-        Classes: ["test class 1", "test class 2"],
+        Classes: trueClasses,
       });
       setCards([]);
       setName("");
@@ -127,15 +146,15 @@ export default function CreateSet() {
           );
         })}
         <br />
-        <button class="add-card-button" onClick={createCard}>
+        <button className="add-card-button" onClick={createCard}>
           Add card
         </button>
         {cards.length !== 0 ? (
-          <button class="create-set-button" onClick={() => writeSet()}>
+          <button className="create-set-button" onClick={() => writeSet()}>
             Create Set
           </button>
         ) : (
-          <div class="add-card-message">Please add a card</div>
+          <div className="add-card-message">Please add a card</div>
         )}
       </div>
       <br />
@@ -148,28 +167,47 @@ export default function CreateSet() {
           justifyContent: "center",
         }}
       >
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="science" style={{ display: "inline", margin: "5px" }}>
+          <div>Science</div>
+          <br />
           {Classes.SCIENCES.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="history" style={{ display: "inline", margin: "5px" }}>
+          <div>History</div>
+          <br />
           {Classes.HISTORY.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="math" style={{ display: "inline", margin: "5px" }}>
+          <div>Math</div>
+          <br />
           {Classes.MATH.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="english" style={{ display: "inline", margin: "5px" }}>
+          <div>English</div>
+          <br />
           {Classes.ENGLISH.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="world_language" style={{ display: "inline", margin: "5px" }}>
+          <div>World Languages</div>
+          <br />
           {Classes.WORLD_LANGS.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="njrotc" style={{ display: "inline", margin: "5px" }}>
+          <div>NJROTC</div>
+          <br />
           {Classes.NJROTC.map((x) => checkbox(x))}
         </div>
-        <div style={{ display: "inline", margin: "5px" }}>
+        <div id="compsci" style={{ display: "inline", margin: "5px" }}>
+          <div>Comp Sci</div>
+          <br />
           {Classes.COMPSCI.map((x) => checkbox(x))}
         </div>
       </div>
+      <button
+        onClick={() => {
+          console.log(classes);
+        }}
+      ></button>
     </>
   );
 }
