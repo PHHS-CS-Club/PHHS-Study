@@ -5,11 +5,13 @@ import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import "./CreateSet.css";
+import * as Classes from "../constants/classes";
 
 export default function CreateSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
+  const [classes, setClasses] = useState({});
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -19,23 +21,59 @@ export default function CreateSet() {
     setCards(list);
   };
 
-	function writeSet() {
-		if (cards.length !== 0) {
-			let newId = uuidv4();
-			set(ref(database, newId), {
-				cards,
-			});
-			set(ref(database, "flashcard-sets/" + newId), {
-				Author: user.uid,
-				Name: name,
-				Classes: ["test class 1", "test class 2"],
-			});
-			setCards([]);
-			setName("");
-		} else {
-			alert("You must add a card");
-		}
-	}
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.checked;
+    const boxss = target.name;
+    if (value !== undefined) {
+      setClasses({ ...classes, [boxss]: value });
+    }
+    console.log(boxss);
+  };
+
+  function checkbox(x) {
+    return (
+      <div style={{ display: "inline" }}>
+        {" "}
+        <input
+          style={{ display: "inline" }}
+          type="checkbox"
+          name={x}
+          id={x + "-box"}
+          onChange={handleChange}
+        ></input>{" "}
+        <label style={{ display: "inline", userSelect: "none" }} htmlFor={x}>
+          {x}
+        </label>
+        <br />
+      </div>
+    );
+  }
+
+  function writeSet() {
+    if (cards.length !== 0) {
+      let newId = uuidv4();
+      set(ref(database, newId), {
+        cards,
+      });
+      let trueClasses = [];
+      Object.keys(classes).forEach((x) => {
+        if (classes[x] === true) {
+          trueClasses.push(x);
+        }
+      });
+      console.log(trueClasses);
+      set(ref(database, "flashcard-sets/" + newId), {
+        Author: user.uid,
+        Name: name,
+        Classes: trueClasses,
+      });
+      setCards([]);
+      setName("");
+    } else {
+      alert("You must add a card");
+    }
+  }
 
   function updateFront(text, id) {
     const list = cards.map((card) => {
@@ -73,7 +111,7 @@ export default function CreateSet() {
 
   return (
     <>
-      <div class="create-set-container">
+      <div className="create-set-container">
         <textarea
           type="text"
           placeholder="Name set"
@@ -98,24 +136,78 @@ export default function CreateSet() {
                 id="back-side"
                 onChange={(event) => updateBack(event.target.value, card.id)}
               />
-              <button class="delete-button" onClick={() => deleteCard(card.id)}>
+              <button
+                className="delete-button"
+                onClick={() => deleteCard(card.id)}
+              >
                 Delete
               </button>
             </div>
           );
         })}
         <br />
-        <button class="add-card-button" onClick={createCard}>
+        <button className="add-card-button" onClick={createCard}>
           Add card
         </button>
         {cards.length !== 0 ? (
-          <button class="create-set-button" onClick={() => writeSet()}>
+          <button className="create-set-button" onClick={() => writeSet()}>
             Create Set
           </button>
         ) : (
-          <div class="add-card-message">Please add a card</div>
+          <div className="add-card-message">Please add a card</div>
         )}
       </div>
+      <br />
+      <div style={{ textAlign: "center", fontWeight: "600", fontSize: "20px" }}>
+        Classes
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div id="science" style={{ display: "inline", margin: "5px" }}>
+          <div>Science</div>
+          <br />
+          {Classes.SCIENCES.map((x) => checkbox(x))}
+        </div>
+        <div id="history" style={{ display: "inline", margin: "5px" }}>
+          <div>History</div>
+          <br />
+          {Classes.HISTORY.map((x) => checkbox(x))}
+        </div>
+        <div id="math" style={{ display: "inline", margin: "5px" }}>
+          <div>Math</div>
+          <br />
+          {Classes.MATH.map((x) => checkbox(x))}
+        </div>
+        <div id="english" style={{ display: "inline", margin: "5px" }}>
+          <div>English</div>
+          <br />
+          {Classes.ENGLISH.map((x) => checkbox(x))}
+        </div>
+        <div id="world_language" style={{ display: "inline", margin: "5px" }}>
+          <div>World Languages</div>
+          <br />
+          {Classes.WORLD_LANGS.map((x) => checkbox(x))}
+        </div>
+        <div id="njrotc" style={{ display: "inline", margin: "5px" }}>
+          <div>NJROTC</div>
+          <br />
+          {Classes.NJROTC.map((x) => checkbox(x))}
+        </div>
+        <div id="compsci" style={{ display: "inline", margin: "5px" }}>
+          <div>Comp Sci</div>
+          <br />
+          {Classes.COMPSCI.map((x) => checkbox(x))}
+        </div>
+      </div>
+      <button
+        onClick={() => {
+          console.log(classes);
+        }}
+      ></button>
     </>
   );
 }
