@@ -5,6 +5,7 @@ import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import "./CreateSet.css";
+import * as Classes from "../constants/classes";
 
 export default function CreateSet() {
   const { user } = UserAuth();
@@ -18,6 +19,24 @@ export default function CreateSet() {
     });
     setCards(list);
   };
+
+  function checkbox(x) {
+    return (
+      <div style={{ display: "inline" }}>
+        {" "}
+        <input
+          style={{ display: "inline" }}
+          type="checkbox"
+          name={x}
+          id={x}
+        ></input>{" "}
+        <label style={{ display: "inline", "user-select": "none" }} for={x}>
+          {x}
+        </label>
+        <br />
+      </div>
+    );
+  }
 
   function writeSet() {
     if (cards.length !== 0) {
@@ -73,7 +92,7 @@ export default function CreateSet() {
 
   return (
     <>
-      <div class="create-set-container">
+      <div className="create-set-container">
         <textarea
           type="text"
           placeholder="Name set"
@@ -98,7 +117,10 @@ export default function CreateSet() {
                 id="back-side"
                 onChange={(event) => updateBack(event.target.value, card.id)}
               />
-              <button class="delete-button" onClick={() => deleteCard(card.id)}>
+              <button
+                className="delete-button"
+                onClick={() => deleteCard(card.id)}
+              >
                 Delete
               </button>
             </div>
@@ -115,6 +137,38 @@ export default function CreateSet() {
         ) : (
           <div class="add-card-message">Please add a card</div>
         )}
+      </div>
+      <br />
+      <div style={{ textAlign: "center", fontWeight: "600", fontSize: "20px" }}>
+        Classes
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.SCIENCES.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.HISTORY.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.MATH.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.ENGLISH.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.WORLD_LANGS.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.NJROTC.map((x) => checkbox(x))}
+        </div>
+        <div style={{ display: "inline", margin: "5px" }}>
+          {Classes.COMPSCI.map((x) => checkbox(x))}
+        </div>
       </div>
     </>
   );
