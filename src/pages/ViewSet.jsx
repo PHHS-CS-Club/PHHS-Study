@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
-import './ViewSet.css';
+import "katex/dist/katex.min.css";
+import "./ViewSet.css";
 
 export default function ViewSet() {
   const [cards, setCards] = useState([]);
