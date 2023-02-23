@@ -91,6 +91,8 @@ export default function CreateSet() {
           id: card.id,
           front: text,
           back: card.back,
+          mathModeFront: card.mathModeFront,
+          mathModeBack: card.mathModeBack,
         };
       }
       return card;
@@ -135,6 +137,8 @@ export default function CreateSet() {
           id: card.id,
           front: card.front,
           back: text,
+          mathModeFront: card.mathModeFront,
+          mathModeBack: card.mathModeBack,
         };
       }
       return card;
@@ -154,7 +158,8 @@ export default function CreateSet() {
             bottom: "-2px",
           }}
           checked={
-            frontBack === "front" ? card.mathModeFront : card.mathModeBack
+            (frontBack === "front" && card?.mathModeFront) ||
+            (frontBack === "back" && card?.mathModeBack)
           }
           type="checkbox"
           name={frontBack + id}
@@ -180,15 +185,11 @@ export default function CreateSet() {
         >
           Math Mode
         </label>
-        {frontBack === "back" ? (
-          <TiDelete
-            size="20"
-            className="delete-button"
-            onClick={() => deleteCard(card.id)}
-          ></TiDelete>
+        {/*frontBack === "back" ? (
+          
         ) : (
           <></>
-        )}
+        )*/}
       </>
     );
   }
@@ -197,14 +198,14 @@ export default function CreateSet() {
     if (frontBack === "front" && card.mathModeFront === true) {
       return (
         <>
-          <InlineMath>{card.front}</InlineMath>
+          <InlineMath style={{ position: "relative" }}>{card.front}</InlineMath>
           {mathModeButtons(card, frontBack, id)}
         </>
       );
     } else if (frontBack === "back" && card.mathModeBack === true) {
       return (
         <>
-          <InlineMath>{card.back}</InlineMath>
+          <InlineMath style={{ position: "relative" }}>{card.back}</InlineMath>
           {mathModeButtons(card, frontBack, id)}
         </>
       );
@@ -240,6 +241,13 @@ export default function CreateSet() {
 
   return (
     <>
+      <button
+        onClick={() => {
+          console.log(cards);
+        }}
+      >
+        log
+      </button>
       <div className="create-set-container">
         <textarea
           type="text"
@@ -255,15 +263,17 @@ export default function CreateSet() {
             <div
               style={{
                 display: "flex",
-                width: "630px",
-                flexDirection: "row",
+                justifyContent: "stretch",
                 alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "10px",
+                margin: "10px",
               }}
               key={card.id}
             >
-              {" "}
+              <TiDelete
+                size="20"
+                className="delete-button"
+                onClick={() => deleteCard(card.id)}
+              ></TiDelete>{" "}
               <div
                 style={{
                   display: "inline",
@@ -273,6 +283,7 @@ export default function CreateSet() {
                   textAlign: "center",
                   height: "100px",
                   width: "300px",
+                  margin: "5px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}
               >
@@ -287,6 +298,7 @@ export default function CreateSet() {
                   textAlign: "center",
                   height: "100px",
                   width: "300px",
+                  margin: "5px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}
               >
