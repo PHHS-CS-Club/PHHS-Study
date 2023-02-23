@@ -192,6 +192,15 @@ export default function CreateSet() {
         >
           Math Mode
         </label>
+        {frontBack === "back" ? (
+          <TiDelete
+            size="20"
+            className="delete-button"
+            onClick={() => deleteCard(card.id)}
+          ></TiDelete>
+        ) : (
+          <></>
+        )}
       </>
     );
   }
@@ -262,6 +271,7 @@ export default function CreateSet() {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
+                marginBottom: "10px",
               }}
               key={card.id}
             >
@@ -294,11 +304,6 @@ export default function CreateSet() {
               >
                 {genCardBox(card, "back", i)}
               </div>
-              <TiDelete
-                size="20"
-                className="delete-button"
-                onClick={() => deleteCard(card.id)}
-              ></TiDelete>
             </div>
           );
         })}

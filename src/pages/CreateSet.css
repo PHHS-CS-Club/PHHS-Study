@@ -35,11 +35,12 @@ input:focus {
 }
 .delete-button {
   position: relative;
-  right: 19px;
-  top: -43px;
+  right: -140px;
+  top: -105px;
   color: rgb(241, 241, 241);
   border-radius: 32px;
   fill: rgb(207, 0, 0);
+  z-index: 2;
 }
 .delete-button:hover {
   transition: 0.15s;
