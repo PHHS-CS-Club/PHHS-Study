@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
+import { InlineMath } from "react-katex";
+import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
 import "./CreateSet.css";
 import * as Classes from "../constants/classes";
@@ -13,6 +15,7 @@ export default function CreateSet() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
+  const [mathModes, setMathModes] = useState({});
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -25,7 +28,7 @@ export default function CreateSet() {
     setCards(list);
   };
 
-  const handleChange = (event) => {
+  const handleClassChange = (event) => {
     const target = event.target;
     const value = target.checked;
     const boxss = target.name;
@@ -33,6 +36,19 @@ export default function CreateSet() {
       setClasses({ ...classes, [boxss]: value });
     }
     console.log(boxss);
+  };
+
+  const handleMathMode = (event) => {
+    const target = event.target;
+    const value = target.checked;
+    const boxss = target.name;
+    if (value !== undefined) {
+      setMathModes({ ...mathModes, [boxss]: value });
+    }
+  };
+
+  const logMathMode = () => {
+    console.log(cards);
   };
 
   function checkbox(x) {
@@ -44,7 +60,7 @@ export default function CreateSet() {
           type="checkbox"
           name={x}
           id={x + "-box"}
-          onChange={handleChange}
+          onChange={handleClassChange}
         ></input>{" "}
         <label style={{ display: "inline", userSelect: "none" }} htmlFor={x}>
           {x}
@@ -92,6 +108,36 @@ export default function CreateSet() {
     });
     setCards(list);
   }
+  function updateFrontMath(id, mathMode) {
+    const list = cards.map((card) => {
+      if (card.id === id) {
+        return {
+          id: card.id,
+          front: card.front,
+          back: card.back,
+          mathModeFront: mathMode,
+          mathModeBack: card.mathModeBack,
+        };
+      }
+      return card;
+    });
+    setCards(list);
+  }
+  function updateBackMath(id, mathMode) {
+    const list = cards.map((card) => {
+      if (card.id === id) {
+        return {
+          id: card.id,
+          front: card.front,
+          back: card.back,
+          mathModeBack: mathMode,
+          mathModeFront: card.mathModeFront,
+        };
+      }
+      return card;
+    });
+    setCards(list);
+  }
 
   function updateBack(text, id) {
     const list = cards.map((card) => {
@@ -105,6 +151,87 @@ export default function CreateSet() {
       return card;
     });
     setCards(list);
+  }
+
+  function mathModeButtons(card, frontBack, id) {
+    return (
+      <>
+        <input
+          id={frontBack + id}
+          style={{
+            position: "absolute",
+            zIndex: "2",
+            left: "230px",
+            bottom: "-2px",
+          }}
+          checked={
+            frontBack === "front" ? card.mathModeFront : card.mathModeBack
+          }
+          type="checkbox"
+          name={frontBack + id}
+          onChange={(event) => {
+            if (frontBack === "front") {
+              console.log("upd " + id + ": to " + event.target.checked);
+              updateFrontMath(card.id, event.target.checked);
+            } else if (frontBack === "back") {
+              updateBackMath(card.id, event.target.checked);
+            }
+          }}
+        />
+        <label
+          style={{
+            position: "absolute",
+            fontSize: "10px",
+            left: "250px",
+            bottom: "0px",
+            zIndex: "2",
+            userSelect: "none",
+          }}
+          htmlFor={frontBack + id}
+        >
+          Math Mode
+        </label>
+      </>
+    );
+  }
+
+  function genCardBox(card, frontBack, id) {
+    if (frontBack === "front" && card.mathModeFront === true) {
+      return (
+        <>
+          <InlineMath>{card.front}</InlineMath>
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    } else if (frontBack === "back" && card.mathModeBack === true) {
+      return (
+        <>
+          <InlineMath>{card.back}</InlineMath>
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <textarea
+            type="text"
+            placeholder={frontBack.charAt(0).toUpperCase() + frontBack.slice(1)}
+            className={frontBack + "-side"}
+            id={frontBack}
+            value={frontBack === "front" ? card.front : card.back}
+            onChange={(event) => {
+              if (frontBack === "front") {
+                updateFront(event.target.value, card.id);
+              } else if (frontBack === "back") {
+                updateBack(event.target.value, card.id);
+              }
+            }}
+          />
+
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    }
   }
 
   const deleteCard = (id) => {
@@ -124,74 +251,44 @@ export default function CreateSet() {
             setName(event.target.value);
           }}
         />
-        {cards.map((card) => {
+        {cards.map((card, i) => {
           return (
-            <div key={card.id}>
+            <div
+              style={{ display: "flex", width: "fit-content" }}
+              key={card.id}
+            >
               {" "}
-              <div style={{ display: "inline", position: "relative" }}>
-                {" "}
-                <textarea
-                  type="text"
-                  placeholder="Front"
-                  id="front-side"
-                  style={{ position: "relative", zIndex: "1" }}
-                  onChange={(event) => updateFront(event.target.value, card.id)}
-                />
-                <input
-                  id={"card-front-math-" + card}
-                  style={{
-                    position: "absolute",
-                    zIndex: "2",
-                    left: "230px",
-                    top: "-2px",
-                  }}
-                  type="checkbox"
-                />
-                <label
-                  style={{
-                    position: "absolute",
-                    fontSize: "10px",
-                    left: "250px",
-                    top: "0px",
-                    zIndex: "2",
-                    userSelect: "none",
-                  }}
-                  htmlFor={"card-front-math-" + card}
-                >
-                  Math Mode
-                </label>
+              <div
+                style={{
+                  display: "inline",
+                  position: "relative",
+                  border: "1px solid",
+                  padding: "2px",
+                  textAlign: "center",
+                  height: "100px",
+                  width: "300px",
+                  marginTop: "10px",
+                  marginRight: "30px",
+                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
+                }}
+              >
+                {genCardBox(card, "front", i)}
               </div>
-              <div style={{ display: "inline", position: "relative" }}>
-                {" "}
-                <textarea
-                  type="text"
-                  placeholder="Back"
-                  id="back-side"
-                  onChange={(event) => updateBack(event.target.value, card.id)}
-                />
-                <input
-                  id={"card-back-math-" + card}
-                  style={{
-                    position: "absolute",
-                    zIndex: "2",
-                    left: "230px",
-                    top: "-2px",
-                  }}
-                  type="checkbox"
-                />
-                <label
-                  style={{
-                    position: "absolute",
-                    fontSize: "10px",
-                    left: "250px",
-                    top: "0px",
-                    zIndex: "2",
-                    userSelect: "none",
-                  }}
-                  htmlFor={"card-back-math-" + card}
-                >
-                  Math Mode
-                </label>
+              <div
+                style={{
+                  display: "inline",
+                  position: "relative",
+                  border: "1px solid",
+                  padding: "2px",
+                  textAlign: "center",
+                  height: "100px",
+                  width: "300px",
+                  marginTop: "10px",
+                  marginRight: "30px",
+                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
+                }}
+              >
+                {genCardBox(card, "back", i)}
               </div>
               <button
                 className="delete-button"
