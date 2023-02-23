@@ -16,10 +16,11 @@ export default function CreateSet() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
-  const [mathModes, setMathModes] = useState({});
+  //remove after using these
+  /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
-
+  /* eslint-enable */
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -37,19 +38,6 @@ export default function CreateSet() {
       setClasses({ ...classes, [boxss]: value });
     }
     console.log(boxss);
-  };
-
-  const handleMathMode = (event) => {
-    const target = event.target;
-    const value = target.checked;
-    const boxss = target.name;
-    if (value !== undefined) {
-      setMathModes({ ...mathModes, [boxss]: value });
-    }
-  };
-
-  const logMathMode = () => {
-    console.log(cards);
   };
 
   function checkbox(x) {
