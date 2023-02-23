@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleButton } from "react-google-button";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import "./Signin.css";
 
 export default function Signin() {
   const { googleSignIn, user } = UserAuth();
+  const [accPath, setAccPath] = useState("");
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
@@ -17,8 +18,8 @@ export default function Signin() {
   };
 
   useEffect(() => {
-    if (user !== null) {
-      navigate("/Account");
+    if (user?.displayName) {
+      setAccPath("/Account/" + user.uid);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
