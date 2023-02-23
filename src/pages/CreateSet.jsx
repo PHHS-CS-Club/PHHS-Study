@@ -155,7 +155,7 @@ export default function CreateSet() {
             position: "absolute",
             zIndex: "2",
             right: "485px",
-            top: "-2px",
+            top: "-18px",
           }}
           checked={
             (frontBack === "front" && card?.mathModeFront) ||
@@ -177,7 +177,7 @@ export default function CreateSet() {
             position: "absolute",
             fontSize: "10px",
             right: "432px",
-            top: "2px",
+            top: "-13px",
             zIndex: "2",
             userSelect: "none",
           }}

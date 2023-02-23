@@ -46,6 +46,7 @@ input:focus {
   position: relative;
   right: -1025px;
   top: -92px;
+  opacity: 0.8;
   color: rgb(241, 241, 241);
   border-radius: 32px;
   fill: rgb(207, 0, 0);
