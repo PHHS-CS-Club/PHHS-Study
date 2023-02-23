@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
+import * as mke from "mathkeyboardengine";
 import "./CreateSet.css";
 import * as Classes from "../constants/classes";
 
@@ -12,6 +13,9 @@ export default function CreateSet() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
+  let latexConfiguration = new mke.LatexConfiguration();
+  let keyboardMemory = new mke.KeyboardMemory();
+
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -124,18 +128,71 @@ export default function CreateSet() {
           return (
             <div key={card.id}>
               {" "}
-              <textarea
-                type="text"
-                placeholder="Front"
-                id="front-side"
-                onChange={(event) => updateFront(event.target.value, card.id)}
-              />
-              <textarea
-                type="text"
-                placeholder="Back"
-                id="back-side"
-                onChange={(event) => updateBack(event.target.value, card.id)}
-              />
+              <div style={{ display: "inline", position: "relative" }}>
+                {" "}
+                <textarea
+                  type="text"
+                  placeholder="Front"
+                  id="front-side"
+                  style={{ position: "relative", zIndex: "1" }}
+                  onChange={(event) => updateFront(event.target.value, card.id)}
+                />
+                <input
+                  id={"card-front-math-" + card}
+                  style={{
+                    position: "absolute",
+                    zIndex: "2",
+                    left: "230px",
+                    top: "-2px",
+                  }}
+                  type="checkbox"
+                />
+                <label
+                  style={{
+                    position: "absolute",
+                    fontSize: "10px",
+                    left: "250px",
+                    top: "0px",
+                    zIndex: "2",
+                    userSelect: "none",
+                  }}
+                  htmlFor={"card-front-math-" + card}
+                >
+                  Math Mode
+                </label>
+              </div>
+              <div style={{ display: "inline", position: "relative" }}>
+                {" "}
+                <textarea
+                  type="text"
+                  placeholder="Back"
+                  id="back-side"
+                  onChange={(event) => updateBack(event.target.value, card.id)}
+                />
+                <input
+                  id={"card-back-math-" + card}
+                  style={{
+                    position: "absolute",
+                    zIndex: "2",
+                    left: "230px",
+                    top: "-2px",
+                  }}
+                  type="checkbox"
+                />
+                <label
+                  style={{
+                    position: "absolute",
+                    fontSize: "10px",
+                    left: "250px",
+                    top: "0px",
+                    zIndex: "2",
+                    userSelect: "none",
+                  }}
+                  htmlFor={"card-back-math-" + card}
+                >
+                  Math Mode
+                </label>
+              </div>
               <button
                 className="delete-button"
                 onClick={() => deleteCard(card.id)}
@@ -203,11 +260,6 @@ export default function CreateSet() {
           {Classes.COMPSCI.map((x) => checkbox(x))}
         </div>
       </div>
-      <button
-        onClick={() => {
-          console.log(classes);
-        }}
-      ></button>
     </>
   );
 }
