@@ -154,8 +154,8 @@ export default function CreateSet() {
           style={{
             position: "absolute",
             zIndex: "2",
-            left: "230px",
-            bottom: "-2px",
+            right: "485px",
+            top: "-2px",
           }}
           checked={
             (frontBack === "front" && card?.mathModeFront) ||
@@ -176,8 +176,8 @@ export default function CreateSet() {
           style={{
             position: "absolute",
             fontSize: "10px",
-            left: "250px",
-            bottom: "0px",
+            right: "432px",
+            top: "2px",
             zIndex: "2",
             userSelect: "none",
           }}
@@ -198,7 +198,14 @@ export default function CreateSet() {
     if (frontBack === "front" && card.mathModeFront === true) {
       return (
         <>
-          <InlineMath style={{ position: "relative" }}>{card.front}</InlineMath>
+          <div style={{overflow: "auto", height: "100%"}}>
+            <InlineMath  
+            className="katex-display" 
+            math={card.front} 
+            maxExpand="5"
+            >
+            </InlineMath>
+          </div>
           {mathModeButtons(card, frontBack, id)}
         </>
       );
@@ -281,8 +288,8 @@ export default function CreateSet() {
                   border: "1px solid",
                   padding: "2px",
                   textAlign: "center",
-                  height: "100px",
-                  width: "300px",
+                  height: "200px",
+                  width: "500px",
                   margin: "5px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}
@@ -296,8 +303,8 @@ export default function CreateSet() {
                   border: "1px solid",
                   padding: "2px",
                   textAlign: "center",
-                  height: "100px",
-                  width: "300px",
+                  height: "200px",
+                  width: "500px",
                   margin: "5px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}

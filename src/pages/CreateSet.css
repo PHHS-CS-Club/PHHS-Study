@@ -16,11 +16,14 @@ input:focus {
   resize: none;
 }
 
-.katex-display > .katex {
+.katex-display {
   position: relative;
+  font-size: 2em;
+  white-space: pre-line; 
 }
 
 .front-side {
+  white-space: pre-line; 
   border-width: 0px;
   padding: 0;
   position: relative;
@@ -30,6 +33,7 @@ input:focus {
   resize: none;
 }
 .back-side {
+  white-space: pre-line; 
   border-width: 0px;
   padding: 0;
   position: relative;
@@ -40,8 +44,8 @@ input:focus {
 }
 .delete-button {
   position: relative;
-  right: -625px;
-  top: -42px;
+  right: -1025px;
+  top: -92px;
   color: rgb(241, 241, 241);
   border-radius: 32px;
   fill: rgb(207, 0, 0);
