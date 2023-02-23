@@ -7,6 +7,7 @@ import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
+import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
 import * as Classes from "../constants/classes";
 
@@ -251,10 +252,17 @@ export default function CreateSet() {
             setName(event.target.value);
           }}
         />
+        <br />
         {cards.map((card, i) => {
           return (
             <div
-              style={{ display: "flex", width: "fit-content" }}
+              style={{
+                display: "flex",
+                width: "630px",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
               key={card.id}
             >
               {" "}
@@ -267,8 +275,6 @@ export default function CreateSet() {
                   textAlign: "center",
                   height: "100px",
                   width: "300px",
-                  marginTop: "10px",
-                  marginRight: "30px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}
               >
@@ -283,19 +289,16 @@ export default function CreateSet() {
                   textAlign: "center",
                   height: "100px",
                   width: "300px",
-                  marginTop: "10px",
-                  marginRight: "30px",
                   boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
                 }}
               >
                 {genCardBox(card, "back", i)}
               </div>
-              <button
+              <TiDelete
+                size="20"
                 className="delete-button"
                 onClick={() => deleteCard(card.id)}
-              >
-                Delete
-              </button>
+              ></TiDelete>
             </div>
           );
         })}
