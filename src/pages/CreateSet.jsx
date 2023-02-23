@@ -4,6 +4,10 @@ import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
+import { InlineMath } from "react-katex";
+import "katex/dist/katex.min.css";
+import * as mke from "mathkeyboardengine";
+import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
 import * as Classes from "../constants/classes";
 
@@ -12,6 +16,11 @@ export default function CreateSet() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
+  //remove after using these
+  /* eslint-disable */
+  let latexConfiguration = new mke.LatexConfiguration();
+  let keyboardMemory = new mke.KeyboardMemory();
+  /* eslint-enable */
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -21,7 +30,7 @@ export default function CreateSet() {
     setCards(list);
   };
 
-  const handleChange = (event) => {
+  const handleClassChange = (event) => {
     const target = event.target;
     const value = target.checked;
     const boxss = target.name;
@@ -40,7 +49,7 @@ export default function CreateSet() {
           type="checkbox"
           name={x}
           id={x + "-box"}
-          onChange={handleChange}
+          onChange={handleClassChange}
         ></input>{" "}
         <label style={{ display: "inline", userSelect: "none" }} htmlFor={x}>
           {x}
@@ -88,6 +97,36 @@ export default function CreateSet() {
     });
     setCards(list);
   }
+  function updateFrontMath(id, mathMode) {
+    const list = cards.map((card) => {
+      if (card.id === id) {
+        return {
+          id: card.id,
+          front: card.front,
+          back: card.back,
+          mathModeFront: mathMode,
+          mathModeBack: card.mathModeBack,
+        };
+      }
+      return card;
+    });
+    setCards(list);
+  }
+  function updateBackMath(id, mathMode) {
+    const list = cards.map((card) => {
+      if (card.id === id) {
+        return {
+          id: card.id,
+          front: card.front,
+          back: card.back,
+          mathModeBack: mathMode,
+          mathModeFront: card.mathModeFront,
+        };
+      }
+      return card;
+    });
+    setCards(list);
+  }
 
   function updateBack(text, id) {
     const list = cards.map((card) => {
@@ -101,6 +140,96 @@ export default function CreateSet() {
       return card;
     });
     setCards(list);
+  }
+
+  function mathModeButtons(card, frontBack, id) {
+    return (
+      <>
+        <input
+          id={frontBack + id}
+          style={{
+            position: "absolute",
+            zIndex: "2",
+            left: "230px",
+            bottom: "-2px",
+          }}
+          checked={
+            frontBack === "front" ? card.mathModeFront : card.mathModeBack
+          }
+          type="checkbox"
+          name={frontBack + id}
+          onChange={(event) => {
+            if (frontBack === "front") {
+              console.log("upd " + id + ": to " + event.target.checked);
+              updateFrontMath(card.id, event.target.checked);
+            } else if (frontBack === "back") {
+              updateBackMath(card.id, event.target.checked);
+            }
+          }}
+        />
+        <label
+          style={{
+            position: "absolute",
+            fontSize: "10px",
+            left: "250px",
+            bottom: "0px",
+            zIndex: "2",
+            userSelect: "none",
+          }}
+          htmlFor={frontBack + id}
+        >
+          Math Mode
+        </label>
+        {frontBack === "back" ? (
+          <TiDelete
+            size="20"
+            className="delete-button"
+            onClick={() => deleteCard(card.id)}
+          ></TiDelete>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  }
+
+  function genCardBox(card, frontBack, id) {
+    if (frontBack === "front" && card.mathModeFront === true) {
+      return (
+        <>
+          <InlineMath>{card.front}</InlineMath>
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    } else if (frontBack === "back" && card.mathModeBack === true) {
+      return (
+        <>
+          <InlineMath>{card.back}</InlineMath>
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <textarea
+            type="text"
+            placeholder={frontBack.charAt(0).toUpperCase() + frontBack.slice(1)}
+            className={frontBack + "-side"}
+            id={frontBack}
+            value={frontBack === "front" ? card.front : card.back}
+            onChange={(event) => {
+              if (frontBack === "front") {
+                updateFront(event.target.value, card.id);
+              } else if (frontBack === "back") {
+                updateBack(event.target.value, card.id);
+              }
+            }}
+          />
+
+          {mathModeButtons(card, frontBack, id)}
+        </>
+      );
+    }
   }
 
   const deleteCard = (id) => {
@@ -120,28 +249,49 @@ export default function CreateSet() {
             setName(event.target.value);
           }}
         />
-        {cards.map((card) => {
+        <br />
+        {cards.map((card, i) => {
           return (
-            <div key={card.id}>
+            <div
+              style={{
+                display: "flex",
+                width: "630px",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "10px",
+              }}
+              key={card.id}
+            >
               {" "}
-              <textarea
-                type="text"
-                placeholder="Front"
-                id="front-side"
-                onChange={(event) => updateFront(event.target.value, card.id)}
-              />
-              <textarea
-                type="text"
-                placeholder="Back"
-                id="back-side"
-                onChange={(event) => updateBack(event.target.value, card.id)}
-              />
-              <button
-                className="delete-button"
-                onClick={() => deleteCard(card.id)}
+              <div
+                style={{
+                  display: "inline",
+                  position: "relative",
+                  border: "1px solid",
+                  padding: "2px",
+                  textAlign: "center",
+                  height: "100px",
+                  width: "300px",
+                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
+                }}
               >
-                Delete
-              </button>
+                {genCardBox(card, "front", i)}
+              </div>
+              <div
+                style={{
+                  display: "inline",
+                  position: "relative",
+                  border: "1px solid",
+                  padding: "2px",
+                  textAlign: "center",
+                  height: "100px",
+                  width: "300px",
+                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
+                }}
+              >
+                {genCardBox(card, "back", i)}
+              </div>
             </div>
           );
         })}
@@ -203,11 +353,6 @@ export default function CreateSet() {
           {Classes.COMPSCI.map((x) => checkbox(x))}
         </div>
       </div>
-      <button
-        onClick={() => {
-          console.log(classes);
-        }}
-      ></button>
     </>
   );
 }
