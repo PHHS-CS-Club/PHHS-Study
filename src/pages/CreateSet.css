@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 textarea:focus,
 input:focus {
@@ -15,6 +15,11 @@ input:focus {
   box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
   resize: none;
 }
+
+.katex-display > .katex {
+  position: relative;
+}
+
 .front-side {
   border-width: 0px;
   padding: 0;
@@ -35,8 +40,8 @@ input:focus {
 }
 .delete-button {
   position: relative;
-  right: -140px;
-  top: -105px;
+  right: -625px;
+  top: -42px;
   color: rgb(241, 241, 241);
   border-radius: 32px;
   fill: rgb(207, 0, 0);
