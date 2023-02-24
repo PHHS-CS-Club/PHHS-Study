@@ -36,9 +36,9 @@ export default function Signin() {
       <div className="account-info">
         <div className="user-field">
           <p className="field-text">
-            Username: {getUsername(user.uid)}
+            Username: {getUsername(id)}
           </p>
-          <button className="change-field" onClick={() => changeUsername(user.uid, "normal")}>
+          <button className="change-field" onClick={() => changeUsername(id, "yah yah")}>
             Change username
           </button>
         </div>
