@@ -9,7 +9,6 @@ import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
-import * as Classes from "../constants/classes";
 import ClassesMenu from "../components/ClassesMenu";
 
 export default function CreateSet() {
@@ -149,7 +148,7 @@ export default function CreateSet() {
             position: "absolute",
             fontSize: "10px",
             right: "432px",
-            top: "-16px",
+            top: "-1px",
             zIndex: "2",
             userSelect: "none",
           }}
