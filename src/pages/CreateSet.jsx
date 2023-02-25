@@ -149,7 +149,7 @@ export default function CreateSet() {
             position: "absolute",
             fontSize: "10px",
             right: "432px",
-            top: "-13px",
+            top: "-16px",
             zIndex: "2",
             userSelect: "none",
           }}
