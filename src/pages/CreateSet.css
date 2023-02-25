@@ -11,54 +11,56 @@ input:focus {
 #name-set {
   border: 1px solid rgb(0, 0, 0);
   text-align: center;
-  margin-right: 30px;
   padding: 5px 10px 5px 10px;
   box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
   resize: none;
 }
-#front-side {
-  border: 1px solid rgb(0, 0, 0);
-  padding: 15px 10xp 15px 10px;
+
+.katex-display {
+  position: relative;
+  font-size: 2em;
+  white-space: pre-line; 
+}
+
+.front-side {
+  white-space: pre-line; 
+  border-width: 0px;
+  padding: 0;
+  position: relative;
   text-align: center;
-  height: 100px;
-  width: 300px;
-  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
-  margin-right: 30px;
-  margin-top: 10px;
+  height: 100%;
+  width: 100%;
   resize: none;
 }
-#back-side {
-  border: 1px solid rgb(0, 0, 0);
-  padding: 15px 10xp 15px 10px;
+.back-side {
+  white-space: pre-line; 
+  border-width: 0px;
+  padding: 0;
+  position: relative;
   text-align: center;
-  height: 100px;
-  width: 300px;
-  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
-  margin-right: 30px;
-  margin-top: 10px;
+  height: 100%;
+  width: 100%;
   resize: none;
 }
 .delete-button {
-  position: absolute;
-  margin-top: 85px;
+  position: relative;
+  right: -1025px;
+  top: -92px;
+  opacity: 0.8;
   color: rgb(241, 241, 241);
-  height: 30px;
-  width: 70px;
-  border: 1px solid rgb(207, 0, 0);
-  border-radius: 3px;
-  background-color: rgb(207, 0, 0);
-  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+  border-radius: 32px;
+  fill: rgb(207, 0, 0);
+  z-index: 2;
 }
 .delete-button:hover {
-  opacity: 0.8;
+  transition: 0.15s;
+  opacity: 0.6;
 }
 .add-card-button {
   background-color: rgb(255, 255, 255);
   height: 30px;
   width: 75px;
   margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 50px;
   border: 1px solid black;
   border-radius: 3px;
   box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
@@ -68,15 +70,14 @@ input:focus {
   height: 30px;
   width: 90px;
   margin-top: 10px;
-  margin-left: 30px;
-  margin-right: 57px;
   border: 1px solid black;
   border-radius: 3px;
   box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
 }
 .add-card-button:hover,
 .create-set-button:hover {
-  opacity: 0.8;
+  transition: 0.15s;
+  opacity: 0.7;
 }
 .add-card-message {
   margin-top: 10px;

@@ -11,6 +11,7 @@ import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
 import SearchPage from "./pages/SearchPage";
 import ViewSet from "./pages/ViewSet";
+import CheckSignedIn from "./components/CheckSignedIn";
 
 function App() {
   return (
@@ -37,7 +38,14 @@ function App() {
                 }
               />
               <Route path="Search" element={<SearchPage />} />
-              <Route path="SignIn" element={<Signin />} />
+              <Route
+                path="SignIn"
+                element={
+                  <CheckSignedIn>
+                    <Signin />
+                  </CheckSignedIn>
+                }
+              />
               <Route path="Set/:id" element={<ViewSet />} />
             </Route>
           </Routes>

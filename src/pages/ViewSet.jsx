@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
-import './ViewSet.css';
+import "katex/dist/katex.min.css";
+import "./ViewSet.css";
 
 export default function ViewSet() {
   const [cards, setCards] = useState([]);
@@ -19,6 +20,10 @@ export default function ViewSet() {
   console.log(cards);
   return (
     <div>
+      {/* Make these render new components for flashcard modes */}
+      <button> Flashcard mode </button>
+      <button> Learn mode </button>
+      <button> Flashcard games </button>
       {cards.map((card) => {
         return (
           <div className="card-container">
