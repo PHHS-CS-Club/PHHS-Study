@@ -9,7 +9,7 @@ import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
-import * as Classes from "../constants/classes";
+import ClassesMenu from "../components/ClassesMenu";
 
 export default function CreateSet() {
   const { user } = UserAuth();
@@ -29,35 +29,6 @@ export default function CreateSet() {
     });
     setCards(list);
   };
-
-  const handleClassChange = (event) => {
-    const target = event.target;
-    const value = target.checked;
-    const boxss = target.name;
-    if (value !== undefined) {
-      setClasses({ ...classes, [boxss]: value });
-    }
-    console.log(boxss);
-  };
-
-  function checkbox(x) {
-    return (
-      <div style={{ display: "inline" }}>
-        {" "}
-        <input
-          style={{ display: "inline" }}
-          type="checkbox"
-          name={x}
-          id={x + "-box"}
-          onChange={handleClassChange}
-        ></input>{" "}
-        <label style={{ display: "inline", userSelect: "none" }} htmlFor={x}>
-          {x}
-        </label>
-        <br />
-      </div>
-    );
-  }
 
   function writeSet() {
     if (cards.length !== 0) {
@@ -177,7 +148,7 @@ export default function CreateSet() {
             position: "absolute",
             fontSize: "10px",
             right: "432px",
-            top: "-13px",
+            top: "-1px",
             zIndex: "2",
             userSelect: "none",
           }}
@@ -198,13 +169,12 @@ export default function CreateSet() {
     if (frontBack === "front" && card.mathModeFront === true) {
       return (
         <>
-          <div style={{overflow: "auto", height: "100%"}}>
-            <InlineMath  
-            className="katex-display" 
-            math={card.front} 
-            maxExpand="5"
-            >
-            </InlineMath>
+          <div style={{ overflow: "auto", height: "100%" }}>
+            <InlineMath
+              className="katex-display"
+              math={card.front}
+              maxExpand="5"
+            ></InlineMath>
           </div>
           {mathModeButtons(card, frontBack, id)}
         </>
@@ -251,6 +221,7 @@ export default function CreateSet() {
       <button
         onClick={() => {
           console.log(cards);
+          console.log(classes);
         }}
       >
         log
@@ -330,48 +301,8 @@ export default function CreateSet() {
       <div style={{ textAlign: "center", fontWeight: "600", fontSize: "20px" }}>
         Classes
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div id="science" style={{ display: "inline", margin: "5px" }}>
-          <div>Science</div>
-          <br />
-          {Classes.SCIENCES.map((x) => checkbox(x))}
-        </div>
-        <div id="history" style={{ display: "inline", margin: "5px" }}>
-          <div>History</div>
-          <br />
-          {Classes.HISTORY.map((x) => checkbox(x))}
-        </div>
-        <div id="math" style={{ display: "inline", margin: "5px" }}>
-          <div>Math</div>
-          <br />
-          {Classes.MATH.map((x) => checkbox(x))}
-        </div>
-        <div id="english" style={{ display: "inline", margin: "5px" }}>
-          <div>English</div>
-          <br />
-          {Classes.ENGLISH.map((x) => checkbox(x))}
-        </div>
-        <div id="world_language" style={{ display: "inline", margin: "5px" }}>
-          <div>World Languages</div>
-          <br />
-          {Classes.WORLD_LANGS.map((x) => checkbox(x))}
-        </div>
-        <div id="njrotc" style={{ display: "inline", margin: "5px" }}>
-          <div>NJROTC</div>
-          <br />
-          {Classes.NJROTC.map((x) => checkbox(x))}
-        </div>
-        <div id="compsci" style={{ display: "inline", margin: "5px" }}>
-          <div>Comp Sci</div>
-          <br />
-          {Classes.COMPSCI.map((x) => checkbox(x))}
-        </div>
-      </div>
+
+      <ClassesMenu classSelect={(classes) => setClasses(classes)} />
     </>
   );
 }
