@@ -29,8 +29,12 @@ export default function Signin() {
   const [input, setInput] = useState("");
 
 const changeUsername = () => {
+  let name = input;
+  if (name.length < 1) {
+    name = username;
+  }
   set(ref(database, "users/" + id), {
-    username: input,
+    username: name,
   });
 }
 
