@@ -28,19 +28,19 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [input, setInput] = useState("");
 
-const changeUsername = () => {
-  let name = input;
-  if (name.length < 1) {
-    name = username;
+  const changeUsername = () => {
+    let name = input;
+    if (name.length < 1) {
+      name = username;
+    }
+    set(ref(database, "users/" + id), {
+      username: name,
+    });
   }
-  set(ref(database, "users/" + id), {
-    username: name,
-  });
-}
 
-const changeInput = (event) => {
-  setInput(event.target.value);
-}
+  const changeInput = (event) => {
+    setInput(event.target.value);
+  }
 
   useEffect(() => {
     const userRef = ref(database, "users/" + id + "/username");
