@@ -26,6 +26,17 @@ export default function Signin() {
   }, [id, user]);
 
   const [username, setUsername] = useState("");
+  const [input, setInput] = useState("");
+
+const changeUsername = () => {
+  set(ref(database, "users/" + id), {
+    username: input,
+  });
+}
+
+const changeInput = (event) => {
+  setInput(event.target.value);
+}
 
   useEffect(() => {
     const userRef = ref(database, "users/" + id + "/username");
@@ -47,9 +58,10 @@ export default function Signin() {
           <p className="field-text">
             Username: {username}
           </p>
-          <button className="change-field" onClick={() => changeUsername(id, "huh")}>
+          <button className="change-field" onClick={changeUsername}>
             Change username
           </button>
+          <input name="username_input" onChange={changeInput} value={input} type="text" class="change-name"></input>
         </div>
         <div className="user-field">
           <p className="field-text">
@@ -62,11 +74,4 @@ export default function Signin() {
       </button>
     </>
   );
-}
-
-const changeUsername = (userId, newName) => {
-  console.log(userId);
-  set(ref(database, "users/" + userId), {
-    username: newName,
-  });
 }
