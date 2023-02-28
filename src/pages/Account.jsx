@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { set, ref, onValue } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
@@ -25,6 +25,15 @@ export default function Signin() {
     }
   }, [id, user]);
 
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const userRef = ref(database, "users/" + id + "/username");
+    onValue(userRef, (snapshot) => {
+      setUsername(snapshot.val());
+    })
+  });
+
   return (
     //display any user information from signed in user here
     //also add functionality to edit display name and such
@@ -36,9 +45,9 @@ export default function Signin() {
       <div className="account-info">
         <div className="user-field">
           <p className="field-text">
-            Username: {getUsername(id)}
+            Username: {username}
           </p>
-          <button className="change-field" onClick={() => changeUsername(id, "yah yah")}>
+          <button className="change-field" onClick={() => changeUsername(id, "huh")}>
             Change username
           </button>
         </div>
@@ -56,18 +65,8 @@ export default function Signin() {
 }
 
 const changeUsername = (userId, newName) => {
+  console.log(userId);
   set(ref(database, "users/" + userId), {
     username: newName,
   });
-}
-
-const getUsername = (userId) => {
-  console.log("getting username...")
-  let name; 
-  const userRef = ref(database, "users/" + userId + "/username");
-  onValue(userRef, (snapshot) => {
-    name = snapshot.val();
-  });
-
-  return name;
 }
