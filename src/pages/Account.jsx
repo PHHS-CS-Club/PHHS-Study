@@ -14,7 +14,7 @@ export default function Signin() {
       const dbRef = ref(database, "users/" + id);
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data && id === user.uid && id === user.uid) {
+        if (!data && id === user.uid) {
           set(dbRef, {
             username: user.displayName,
             email: user.email,
