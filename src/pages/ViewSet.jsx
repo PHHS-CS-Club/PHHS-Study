@@ -12,12 +12,10 @@ export default function ViewSet() {
   useEffect(() => {
     onValue(ref(database, id), (snapshot) => {
       const data = snapshot.val();
-      console.log(data.cards);
       setCards(data.cards);
     });
   }, [id]);
 
-  console.log(cards);
   return (
     <div>
       {/* Make these render new components for flashcard modes */}

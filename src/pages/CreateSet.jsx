@@ -42,7 +42,6 @@ export default function CreateSet() {
           trueClasses.push(x);
         }
       });
-      console.log(trueClasses);
       set(ref(database, "flashcard-sets/" + newId), {
         Author: user.uid,
         Name: name,
@@ -136,7 +135,6 @@ export default function CreateSet() {
           name={frontBack + id}
           onChange={(event) => {
             if (frontBack === "front") {
-              console.log("upd " + id + ": to " + event.target.checked);
               updateFrontMath(card.id, event.target.checked);
             } else if (frontBack === "back") {
               updateBackMath(card.id, event.target.checked);
@@ -218,14 +216,7 @@ export default function CreateSet() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          console.log(cards);
-          console.log(classes);
-        }}
-      >
-        log
-      </button>
+      <button onClick={() => {}}>log</button>
       <div className="create-set-container">
         <textarea
           type="text"
