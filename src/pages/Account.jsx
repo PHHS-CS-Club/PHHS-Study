@@ -8,32 +8,35 @@ import "./Account.css";
 export default function Signin() {
   let { id } = useParams();
   const { user, logOut } = UserAuth();
+
   useEffect(() => {
-    //Updates user's data when opening account page
-    if (id !== undefined) {
-      const dbRef = ref(database, "users/" + id);
+    const fixEmptyData = (field, setTo) => {
+      const dbRef = ref(database, "users/" + id + field);
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data && id === user.uid) {
-          set(dbRef, {
-            username: user.displayName,
-            email: user.email,
-            role: "student",
-          });
+        console.log(data);
+        if (data === null && id === user.uid) {
+          set(dbRef, setTo);
         }
       });
+    }
+    //Updates user's data when opening account page
+    if (id !== undefined) {
+      fixEmptyData("/username", user.displayName);
+      fixEmptyData("/role", "student");
+      fixEmptyData("/email", user.email);
     }
   }, [id, user]);
 
   const [username, setUsername] = useState("");
+  // const [role, setRole] = useState("");
+
   const [input, setInput] = useState("");
 
   const changeUsername = () => {
     if (input.length > 0 && input !== username) {
       let newName = input;
-      set(ref(database, "users/" + id), {
-        username: newName,
-      });
+      set(ref(database, "users/" + id + "/username"), newName);
     } else {
       alert("Please enter a valid username");
     }
