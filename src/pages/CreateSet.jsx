@@ -123,12 +123,7 @@ export default function CreateSet() {
       <>
         <input
           id={frontBack + id}
-          style={{
-            position: "absolute",
-            zIndex: "2",
-            right: "485px",
-            top: "-18px",
-          }}
+          className="math-checkbox"
           checked={
             (frontBack === "front" && card?.mathModeFront) ||
             (frontBack === "back" && card?.mathModeBack)
@@ -143,17 +138,7 @@ export default function CreateSet() {
             }
           }}
         />
-        <label
-          style={{
-            position: "absolute",
-            fontSize: "10px",
-            right: "432px",
-            top: "-1px",
-            zIndex: "2",
-            userSelect: "none",
-          }}
-          htmlFor={frontBack + id}
-        >
+        <label className="math-check-label-cs" htmlFor={frontBack + id}>
           Math Mode
         </label>
         {/*frontBack === "back" ? (
@@ -230,48 +215,16 @@ export default function CreateSet() {
         <br />
         {cards.map((card, i) => {
           return (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "stretch",
-                alignItems: "center",
-                margin: "10px",
-              }}
-              key={card.id}
-            >
+            <div className="card-container-cs" key={card.id}>
               <TiDelete
                 size="20"
                 className="delete-button"
                 onClick={() => deleteCard(card.id)}
               ></TiDelete>{" "}
-              <div
-                style={{
-                  display: "inline",
-                  position: "relative",
-                  border: "1px solid",
-                  padding: "2px",
-                  textAlign: "center",
-                  height: "200px",
-                  width: "500px",
-                  margin: "5px",
-                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
-                }}
-              >
+              <div className="input-box-container">
                 {genCardBox(card, "front", i)}
               </div>
-              <div
-                style={{
-                  display: "inline",
-                  position: "relative",
-                  border: "1px solid",
-                  padding: "2px",
-                  textAlign: "center",
-                  height: "200px",
-                  width: "500px",
-                  margin: "5px",
-                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
-                }}
-              >
+              <div className="input-box-container">
                 {genCardBox(card, "back", i)}
               </div>
             </div>

@@ -44,6 +44,7 @@ export default function ClassesMenu(props) {
   function classButton(className) {
     return (
       <button
+        className="class-button"
         onClick={() => {
           setCurrent(className);
         }}
@@ -56,6 +57,7 @@ export default function ClassesMenu(props) {
   function backbutton() {
     return (
       <button
+        className="class-button"
         onClick={() => {
           setCurrent("main");
         }}
