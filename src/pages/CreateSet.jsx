@@ -216,7 +216,6 @@ export default function CreateSet() {
 
   return (
     <>
-      <button onClick={() => {}}>log</button>
       <div className="create-set-container">
         <textarea
           type="text"
