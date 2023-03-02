@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { set, ref, onValue } from "firebase/database";
+import { set, ref, onValue, get } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
@@ -8,35 +8,46 @@ import "./Account.css";
 export default function Signin() {
   let { id } = useParams();
   const { user, logOut } = UserAuth();
-
   useEffect(() => {
-    const fixEmptyData = (field, setTo) => {
-      const dbRef = ref(database, "users/" + id + field);
-      onValue(dbRef, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-        if (data === null && id === user.uid) {
-          set(dbRef, setTo);
-        }
-      });
-    }
     //Updates user's data when opening account page
     if (id !== undefined) {
-      fixEmptyData("/username", user.displayName);
-      fixEmptyData("/role", "student");
-      fixEmptyData("/email", user.email);
+      const dbRef = ref(database, "users/" + id);
+      get(dbRef, (snapshot) => {
+        if (id === user.uid) {
+          if (snapshot.child("username").val() === null) {
+            set(dbRef, {
+              username: user.displayName,
+            });
+          }
+          if (snapshot.child("role").val() === null) {
+            set(dbRef, {
+              role: "student",
+            });
+          }
+          if (snapshot.child("email").val() === null) {
+            set(dbRef, {
+              email: user.email,
+            });
+          }
+        }
+      });
     }
   }, [id, user]);
 
   const [username, setUsername] = useState("");
-  // const [role, setRole] = useState("");
+  const [role, setRole] = useState("");
+  const [email, setEmail] = useState("")
 
   const [input, setInput] = useState("");
 
   const changeUsername = () => {
-    if (input.length > 0 && input !== username) {
+    if (input.length > 0) {
       let newName = input;
-      set(ref(database, "users/" + id + "/username"), newName);
+      set(ref(database, "users/" + id), {
+        username: newName,
+        email: email,
+        role: role,
+      });
     } else {
       alert("Please enter a valid username");
     }
@@ -47,9 +58,11 @@ export default function Signin() {
   }
 
   useEffect(() => {
-    const userRef = ref(database, "users/" + id + "/username");
+    const userRef = ref(database, "users/" + id);
     onValue(userRef, (snapshot) => {
-      setUsername(snapshot.val());
+      setUsername(snapshot.child("username").val());
+      setRole(snapshot.child("role").val());
+      setEmail(snapshot.child("email").val());
     })
   });
 
@@ -76,12 +89,12 @@ export default function Signin() {
           </div>
           <div className="user-field">
             <p className="field-text">
-              Role: Student
+              Role: {role}
             </p>
           </div>
           <div className="user-field">
             <p className="field-text">
-              Email: {user.email}
+              Email: {email}
             </p>
           </div>
         </div>
@@ -90,5 +103,6 @@ export default function Signin() {
         </button>
       </div>
     </>
+
   );
 }
