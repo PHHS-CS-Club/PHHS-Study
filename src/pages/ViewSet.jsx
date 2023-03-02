@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
+import { InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import "./ViewSet.css";
 
@@ -25,8 +26,20 @@ export default function ViewSet() {
       {cards.map((card) => {
         return (
           <div className="card-container">
-            <div className="view-front">{card.front}</div>
-            <div className="view-back">{card.back}</div>
+            {card.mathModeFront ? (
+              <div className="view-front">
+                <InlineMath>{card.front}</InlineMath>
+              </div>
+            ) : (
+              <div className="view-front">{card.front}</div>
+            )}
+            {card.mathModeBack ? (
+              <div className="view-back">
+                <InlineMath>{card.back}</InlineMath>
+              </div>
+            ) : (
+              <div className="view-back">{card.back}</div>
+            )}
           </div>
         );
       })}
