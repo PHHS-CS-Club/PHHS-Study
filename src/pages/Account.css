@@ -1,11 +1,20 @@
-.account-starter {
-  padding-top: 100px;
-}
 .field-text {
-  display: inline-block;
   margin-right: 20px;
 }
-.change-name {
-  display: block;
-  margin-left: 80px;
+.change-username-wrap {
+  background-color: rgb(150,150,150);
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+.outer-border {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: rgb(200,200,200);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
 }
