@@ -26,6 +26,8 @@ export default function CreateSet() {
       id: uuidv4(),
       front: "",
       back: "",
+      mathModeFront: false,
+      mathModeBack: false,
     });
     setCards(list);
   };
@@ -179,10 +181,10 @@ export default function CreateSet() {
       );
     } else if (frontBack === "back" && card.mathModeBack === true) {
       return (
-        <>
+        <div style={{ overflow: "auto", height: "100%" }}>
           <InlineMath style={{ position: "relative" }}>{card.back}</InlineMath>
           {mathModeButtons(card, frontBack, id)}
-        </>
+        </div>
       );
     } else {
       return (
