@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { set, ref, onValue, get } from "firebase/database";
+import { ref, onValue, update, set } from "firebase/database";
 import { database } from "../firebase-config";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
@@ -8,45 +8,37 @@ import "./Account.css";
 export default function Signin() {
   let { id } = useParams();
   const { user, logOut } = UserAuth();
-  useEffect(() => {
-    //Updates user's data when opening account page
-    if (id !== undefined) {
-      const dbRef = ref(database, "users/" + id);
-      get(dbRef, (snapshot) => {
-        if (id === user.uid) {
-          if (snapshot.child("username").val() === null) {
-            set(dbRef, {
-              username: user.displayName,
-            });
-          }
-          if (snapshot.child("role").val() === null) {
-            set(dbRef, {
-              role: "student",
-            });
-          }
-          if (snapshot.child("email").val() === null) {
-            set(dbRef, {
-              email: user.email,
-            });
-          }
-        }
-      });
-    }
-  }, [id, user]);
 
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    //Updates user's data when opening account page
+    if (id !== undefined && id === user.uid) {
+      const dbRef = ref(database, "users/" + id);
+      onValue(dbRef, (snapshot) => {
+        setUsername(snapshot.child("username").val());
+        setRole(snapshot.child("role").val());
+        setEmail(snapshot.child("email").val());
+        if (email === null || username === null || role === null) {
+          set(dbRef, {
+            username: user.displayName,
+            role: "student",
+            email: user.email,
+          })
+        }
+      });
+    }
+  }, [id, user, email, role, username]);
 
   const [input, setInput] = useState("");
 
   const changeUsername = () => {
-    if (input.length > 0) {
+    if (input.length > 0 && input !== username) {
       let newName = input;
-      set(ref(database, "users/" + id), {
+      update(ref(database, "users/" + id), {
         username: newName,
-        email: email,
-        role: role,
       });
     } else {
       alert("Please enter a valid username");
@@ -56,15 +48,6 @@ export default function Signin() {
   const changeInput = (event) => {
     setInput(event.target.value);
   }
-
-  useEffect(() => {
-    const userRef = ref(database, "users/" + id);
-    onValue(userRef, (snapshot) => {
-      setUsername(snapshot.child("username").val());
-      setRole(snapshot.child("role").val());
-      setEmail(snapshot.child("email").val());
-    })
-  });
 
   return (
     //display any user information from signed in user here
@@ -103,6 +86,5 @@ export default function Signin() {
         </button>
       </div>
     </>
-
   );
 }
