@@ -26,6 +26,8 @@ export default function CreateSet() {
       id: uuidv4(),
       front: "",
       back: "",
+      mathModeFront: false,
+      mathModeBack: false,
     });
     setCards(list);
   };
@@ -42,7 +44,6 @@ export default function CreateSet() {
           trueClasses.push(x);
         }
       });
-      console.log(trueClasses);
       set(ref(database, "flashcard-sets/" + newId), {
         Author: user.uid,
         Name: name,
@@ -122,12 +123,7 @@ export default function CreateSet() {
       <>
         <input
           id={frontBack + id}
-          style={{
-            position: "absolute",
-            zIndex: "2",
-            right: "485px",
-            top: "-18px",
-          }}
+          className="math-checkbox"
           checked={
             (frontBack === "front" && card?.mathModeFront) ||
             (frontBack === "back" && card?.mathModeBack)
@@ -136,24 +132,13 @@ export default function CreateSet() {
           name={frontBack + id}
           onChange={(event) => {
             if (frontBack === "front") {
-              console.log("upd " + id + ": to " + event.target.checked);
               updateFrontMath(card.id, event.target.checked);
             } else if (frontBack === "back") {
               updateBackMath(card.id, event.target.checked);
             }
           }}
         />
-        <label
-          style={{
-            position: "absolute",
-            fontSize: "10px",
-            right: "432px",
-            top: "-1px",
-            zIndex: "2",
-            userSelect: "none",
-          }}
-          htmlFor={frontBack + id}
-        >
+        <label className="math-check-label-cs" htmlFor={frontBack + id}>
           Math Mode
         </label>
         {/*frontBack === "back" ? (
@@ -181,10 +166,10 @@ export default function CreateSet() {
       );
     } else if (frontBack === "back" && card.mathModeBack === true) {
       return (
-        <>
+        <div style={{ overflow: "auto", height: "100%" }}>
           <InlineMath style={{ position: "relative" }}>{card.back}</InlineMath>
           {mathModeButtons(card, frontBack, id)}
-        </>
+        </div>
       );
     } else {
       return (
@@ -218,14 +203,6 @@ export default function CreateSet() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          console.log(cards);
-          console.log(classes);
-        }}
-      >
-        log
-      </button>
       <div className="create-set-container">
         <textarea
           type="text"
@@ -238,48 +215,16 @@ export default function CreateSet() {
         <br />
         {cards.map((card, i) => {
           return (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "stretch",
-                alignItems: "center",
-                margin: "10px",
-              }}
-              key={card.id}
-            >
+            <div className="card-container-cs" key={card.id}>
               <TiDelete
                 size="20"
                 className="delete-button"
                 onClick={() => deleteCard(card.id)}
               ></TiDelete>{" "}
-              <div
-                style={{
-                  display: "inline",
-                  position: "relative",
-                  border: "1px solid",
-                  padding: "2px",
-                  textAlign: "center",
-                  height: "200px",
-                  width: "500px",
-                  margin: "5px",
-                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
-                }}
-              >
+              <div className="input-box-container">
                 {genCardBox(card, "front", i)}
               </div>
-              <div
-                style={{
-                  display: "inline",
-                  position: "relative",
-                  border: "1px solid",
-                  padding: "2px",
-                  textAlign: "center",
-                  height: "200px",
-                  width: "500px",
-                  margin: "5px",
-                  boxShadow: "3px 3px 3px 1px rgb(196, 196, 196)",
-                }}
-              >
+              <div className="input-box-container">
                 {genCardBox(card, "back", i)}
               </div>
             </div>
