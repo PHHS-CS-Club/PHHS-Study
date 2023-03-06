@@ -26,7 +26,7 @@ export default function Signin() {
         if (email === null || username === null || role === null) {
           set(dbRef, {
             username: user.displayName,
-            role: "student",
+            role: "Student",
             email: user.email,
           })
         }
