@@ -54,6 +54,7 @@ export default function FlashcardMode(props) {
 
     setCards(arr);
     setCurrentBucket(pickBucket(false));
+    getNewCard();
     setFlipped(!flipped);
     ref.current.setFlipped(!flipped);
   };
@@ -119,13 +120,13 @@ export default function FlashcardMode(props) {
       <div className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}>
         <AiFillCloseCircle
           className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
-          onClick={handleCorrect}
+          onClick={handleIncorrect}
         >
           Correct
         </AiFillCloseCircle>
         <AiFillCheckCircle
           className={"card-correct" + (flipped ? " flipped" : " unflipped")}
-          onClick={handleIncorrect}
+          onClick={handleCorrect}
         >
           Incorrect
         </AiFillCheckCircle>
