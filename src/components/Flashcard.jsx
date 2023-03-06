@@ -23,7 +23,6 @@ const Flashcard = forwardRef((flashcard, ref) => {
     async setFlipped(to) {
       setTransitioning(true);
       setFlip(to);
-      console.log("upd flip to:" + to);
       await timeout(300);
       setTransitioning(false);
     },
@@ -52,7 +51,6 @@ const Flashcard = forwardRef((flashcard, ref) => {
         style={{ height: height }}
         onClick={() => {
           setFlip(!flip);
-          console.log("upd flip");
           flashcard.flip();
         }}
       >
@@ -76,13 +74,6 @@ const Flashcard = forwardRef((flashcard, ref) => {
           </div>
         )}
       </div>
-      <button
-        onClick={() => {
-          console.log(flip);
-        }}
-      >
-        log
-      </button>
     </>
   );
 });

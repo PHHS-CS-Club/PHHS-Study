@@ -55,7 +55,6 @@ export default function FlashcardMode(props) {
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     setFlipped(!flipped);
-    console.log("upd flip");
     ref.current.setFlipped(flipped);
   };
 
@@ -72,7 +71,6 @@ export default function FlashcardMode(props) {
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
-    console.log("upd flip");
     ref.current.setFlipped(!flipped);
   };
 
@@ -108,7 +106,6 @@ export default function FlashcardMode(props) {
 
   return (
     <div className="card-container-fsm">
-      <button onClick={() => console.log(flipped)}>log</button>
       <Flashcard
         question={currentCard?.front}
         answer={currentCard?.back}
@@ -116,7 +113,6 @@ export default function FlashcardMode(props) {
         mBack={currentCard?.mathModeBack}
         flip={() => {
           setFlipped(!flipped);
-          console.log("upd flip");
         }}
         ref={ref}
       />
