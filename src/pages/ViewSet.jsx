@@ -19,40 +19,55 @@ export default function ViewSet() {
     });
   }, [id]);
 
-  if(mode === 'view') {
-    return (<div>
-    {/* Make these render new components for flashcard modes */}
-    <button onClick={() => {setMode('Flashcard')}}> Flashcard mode </button>
-    <button> Learn mode </button>
-    <button> Flashcard games </button>
-    {cards.map((card) => {
-      return (
-        <div className="card-container">
-          {card.mathModeFront ? (
-            <div className="view-front">
-              <InlineMath>{card.front}</InlineMath>
+  if (mode === "view") {
+    return (
+      <div>
+        {/* Make these render new components for flashcard modes */}
+        <button
+          onClick={() => {
+            setMode("Flashcard");
+          }}
+        >
+          {" "}
+          Flashcard mode{" "}
+        </button>
+        <button> Learn mode </button>
+        <button> Flashcard games </button>
+        {cards.map((card) => {
+          return (
+            <div key={card.id} className="card-container">
+              {card.mathModeFront ? (
+                <div className="view-front">
+                  <InlineMath>{card.front}</InlineMath>
+                </div>
+              ) : (
+                <div className="view-front">{card.front}</div>
+              )}
+              {card.mathModeBack ? (
+                <div className="view-back">
+                  <InlineMath>{card.back}</InlineMath>
+                </div>
+              ) : (
+                <div className="view-back">{card.back}</div>
+              )}
             </div>
-          ) : (
-            <div className="view-front">{card.front}</div>
-          )}
-          {card.mathModeBack ? (
-            <div className="view-back">
-              <InlineMath>{card.back}</InlineMath>
-            </div>
-          ) : (
-            <div className="view-back">{card.back}</div>
-          )}
-        </div>
-      );
-    })}
-  </div> );
-  } else if (mode === 'Flashcard') {
+          );
+        })}
+      </div>
+    );
+  } else if (mode === "Flashcard") {
     return (
       <>
-        <button onClick={() => {setMode('view')}}> Flashcard mode </button>
-        <FlashcardMode cards={cards}/>
+        <button
+          onClick={() => {
+            setMode("view");
+          }}
+        >
+          {" "}
+          Exit{" "}
+        </button>
+        <FlashcardMode cards={cards} />
       </>
     );
   }
-
 }
