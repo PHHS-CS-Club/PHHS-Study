@@ -55,7 +55,7 @@ export default function FlashcardMode(props) {
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     setFlipped(!flipped);
-    ref.current.setFlip(flipped);
+    ref.current.setFlipped(flipped);
   };
 
   const handleIncorrect = () => {
@@ -71,7 +71,7 @@ export default function FlashcardMode(props) {
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
-    ref.current.setFlip(flipped);
+    ref.current.setFlipped(!flipped);
   };
 
   function pickBucket(notSame) {
@@ -111,7 +111,9 @@ export default function FlashcardMode(props) {
         answer={currentCard?.back}
         mFront={currentCard?.mathModeFront}
         mBack={currentCard?.mathModeBack}
-        flip={() => setFlipped(!flipped)}
+        flip={() => {
+          setFlipped(!flipped);
+        }}
         ref={ref}
       />
       <div className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}>

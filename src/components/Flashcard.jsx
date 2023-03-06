@@ -20,7 +20,7 @@ const Flashcard = forwardRef((flashcard, ref) => {
   const backEl = useRef();
 
   useImperativeHandle(ref, () => ({
-    async setFlip(to) {
+    async setFlipped(to) {
       setTransitioning(true);
       setFlip(to);
       await timeout(300);
@@ -41,36 +41,40 @@ const Flashcard = forwardRef((flashcard, ref) => {
   useEffect(setMaxHeight, [flashcard.question, flashcard.ans]);
 
   return (
-    <div
-      className={
-        "card" + (flip ? " flip" : "") + (transitioning ? " trans" : " notrans")
-      }
-      style={{ height: height }}
-      onClick={() => {
-        setFlip(!flip);
-        flashcard.flip();
-      }}
-    >
-      {flashcard.mFront ? (
-        <div className="front" ref={frontEl}>
-          <InlineMath>{flashcard.question}</InlineMath>
-        </div>
-      ) : (
-        <div className="front" ref={frontEl}>
-          {flashcard.question}
-        </div>
-      )}
+    <>
+      <div
+        className={
+          "card" +
+          (flip ? " flip" : "") +
+          (transitioning ? " trans" : " notrans")
+        }
+        style={{ height: height }}
+        onClick={() => {
+          setFlip(!flip);
+          flashcard.flip();
+        }}
+      >
+        {flashcard.mFront ? (
+          <div className="front" ref={frontEl}>
+            <InlineMath>{flashcard.question}</InlineMath>
+          </div>
+        ) : (
+          <div className="front" ref={frontEl}>
+            {flashcard.question}
+          </div>
+        )}
 
-      {flashcard.mBack ? (
-        <div className="back" ref={backEl}>
-          <InlineMath>{flashcard.answer}</InlineMath>
-        </div>
-      ) : (
-        <div className="back" ref={backEl}>
-          {flashcard.answer}
-        </div>
-      )}
-    </div>
+        {flashcard.mBack ? (
+          <div className="back" ref={backEl}>
+            <InlineMath>{flashcard.answer}</InlineMath>
+          </div>
+        ) : (
+          <div className="back" ref={backEl}>
+            {flashcard.answer}
+          </div>
+        )}
+      </div>
+    </>
   );
 });
 
