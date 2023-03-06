@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Flashcard from "./Flashcard";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import "./FlashcardMode.css";
