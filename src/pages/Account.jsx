@@ -13,6 +13,8 @@ export default function Signin() {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
 
+  const [input, setInput] = useState("");
+
   useEffect(() => {
     //Updates user's data when opening account page
     if (id !== undefined && id === user.uid) {
@@ -32,10 +34,12 @@ export default function Signin() {
     }
   }, [id, user, email, role, username]);
 
-  const [input, setInput] = useState("");
+  const changeInput = (event) => {
+    setInput(event.target.value);
+  }
 
   const changeUsername = () => {
-    if (input.length > 0 && input !== username) {
+    if (input.length > 0 && input.length <= 18 && input !== username) {
       let newName = input;
       update(ref(database, "users/" + id), {
         username: newName,
@@ -43,10 +47,6 @@ export default function Signin() {
     } else {
       alert("Please enter a valid username");
     }
-  }
-
-  const changeInput = (event) => {
-    setInput(event.target.value);
   }
 
   return (
@@ -57,12 +57,14 @@ export default function Signin() {
     //all of which are accessed through user/ with their user id
     <>
       <div className="outer-border">
-        <div>My Account</div>
+        <div className="title">
+          My Account
+        </div>
         <div className="account-info">
           <div className="user-field">
-            <p className="field-text">
+            <div className="field-text">
               Username: {username}
-            </p>
+            </div>
             <div className="change-username-wrap">
               <input onChange={changeInput} value={input} placeholder="New username" type="text" className="change-name"></input>
               <button className="change-field" onClick={changeUsername}>
@@ -71,14 +73,14 @@ export default function Signin() {
             </div>
           </div>
           <div className="user-field">
-            <p className="field-text">
+            <div className="field-text">
               Role: {role}
-            </p>
+            </div>
           </div>
           <div className="user-field">
-            <p className="field-text">
+            <div className="field-text">
               Email: {email}
-            </p>
+            </div>
           </div>
         </div>
         <button className="account-logout" onClick={logOut}>
