@@ -20,7 +20,7 @@ export default function SearchPage() {
   return (
     <>
       {Object.keys(flashcardMeta).map((key, index) => (
-        <div>
+        <div key={key}>
           {flashcardMeta[key].Name.length !== 0 ? (
             <Link to={"/Set/" + key}>{flashcardMeta[key].Name}</Link>
           ) : (
