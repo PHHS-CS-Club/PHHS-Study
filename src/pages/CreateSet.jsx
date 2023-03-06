@@ -33,7 +33,7 @@ export default function CreateSet() {
   };
 
   function writeSet() {
-    if (cards.length >= 1) {
+    if (cards.length > 1) {
       let newId = uuidv4();
       set(ref(database, newId), {
         cards,
