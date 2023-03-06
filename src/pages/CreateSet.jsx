@@ -33,7 +33,7 @@ export default function CreateSet() {
   };
 
   function writeSet() {
-    if (cards.length !== 0) {
+    if (cards.length >= 1) {
       let newId = uuidv4();
       set(ref(database, newId), {
         cards,
@@ -52,7 +52,7 @@ export default function CreateSet() {
       setCards([]);
       setName("");
     } else {
-      alert("You must add a card");
+      alert("You must have at least 2 cards");
     }
   }
 
