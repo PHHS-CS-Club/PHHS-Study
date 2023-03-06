@@ -1,29 +1,50 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import "./Flashcard.css";
 
 //https://www.youtube.com/watch?v=hEtZ040fsD8&t=193s
 
-export default function Flashcard(flashcard) {
-  const [flip, setFlip] = useState(flashcard.current);
+const Flashcard = forwardRef((flashcard, ref) => {
+  const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
+  const [transitioning, setTransitioning] = useState(false);
 
   const frontEl = useRef();
   const backEl = useRef();
 
+  useImperativeHandle(ref, () => ({
+    async setFlip(to) {
+      setTransitioning(true);
+      setFlip(to);
+      await timeout(300);
+      setTransitioning(false);
+    },
+  }));
+
+  function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+
   function setMaxHeight() {
     const frontHeight = frontEl.current.getBoundingClientRect().height;
     const backHeight = backEl.current.getBoundingClientRect().height;
-    setHeight(Math.max(frontHeight, backHeight, 100));
-    console.log(height);
+    setHeight(Math.max(frontHeight, backHeight, 400));
   }
 
   useEffect(setMaxHeight, [flashcard.question, flashcard.ans]);
 
   return (
     <div
-      className={"card" + (flip ? " flip" : "")}
+      className={
+        "card" + (flip ? " flip" : "") + (transitioning ? " trans" : " notrans")
+      }
       style={{ height: height }}
       onClick={() => {
         setFlip(!flip);
@@ -51,4 +72,6 @@ export default function Flashcard(flashcard) {
       )}
     </div>
   );
-}
+});
+
+export default Flashcard;

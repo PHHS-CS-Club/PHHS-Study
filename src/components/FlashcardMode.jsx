@@ -1,6 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import Flashcard from "./Flashcard";
+import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import "./FlashcardMode.css";
 
 export default function FlashcardMode(props) {
   //eslint-disable-next-line
@@ -8,6 +10,8 @@ export default function FlashcardMode(props) {
   const [currentCard, setCurrentCard] = useState({});
   const [currentBucket, setCurrentBucket] = useState(1);
   const [flipped, setFlipped] = useState(false);
+
+  const ref = useRef();
 
   useState(() => {
     initial();
@@ -25,18 +29,12 @@ export default function FlashcardMode(props) {
 
   function getNewCard() {
     let arr = cards.filter((x) => {
-      console.log(x);
       return x.id !== currentCard.id && x.bucket === currentBucket;
     });
     let i = 0;
     while (arr.length < 1 && i < 100) {
-      console.log("in loop");
       let newBucket = pickBucket(false);
-      console.log(newBucket);
       arr = cards.filter((x) => {
-        console.log(x);
-        console.log(x.id !== currentCard.id);
-        console.log(x.bucket === newBucket);
         return x.id !== currentCard.id && x.bucket === newBucket;
       });
       i++;
@@ -56,7 +54,8 @@ export default function FlashcardMode(props) {
 
     setCards(arr);
     setCurrentBucket(pickBucket(false));
-    getNewCard();
+    setFlipped(!flipped);
+    ref.current.setFlip(flipped);
   };
 
   const handleIncorrect = () => {
@@ -71,6 +70,8 @@ export default function FlashcardMode(props) {
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     getNewCard();
+    setFlipped(!flipped);
+    ref.current.setFlip(flipped);
   };
 
   function pickBucket(notSame) {
@@ -90,7 +91,6 @@ export default function FlashcardMode(props) {
       buckets[4] > 0 ? 6.25 : 0,
     ];
     if (notSame) weights[currentBucket - 1] = 0;
-    console.log(weights);
     let sum = 0;
     for (let i = 0; i < weights.length; i++) {
       sum += weights[i];
@@ -112,16 +112,22 @@ export default function FlashcardMode(props) {
         mFront={currentCard?.mathModeFront}
         mBack={currentCard?.mathModeBack}
         flip={() => setFlipped(!flipped)}
-        current={false}
+        ref={ref}
       />
-      {flipped ? (
-        <>
-          <button onClick={handleCorrect}>Correct</button>
-          <button onClick={handleIncorrect}>Incorrect</button>
-        </>
-      ) : (
-        <></>
-      )}
+      <div className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}>
+        <AiFillCloseCircle
+          className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
+          onClick={handleCorrect}
+        >
+          Correct
+        </AiFillCloseCircle>
+        <AiFillCheckCircle
+          className={"card-correct" + (flipped ? " flipped" : " unflipped")}
+          onClick={handleIncorrect}
+        >
+          Incorrect
+        </AiFillCheckCircle>
+      </div>
     </div>
   );
 }

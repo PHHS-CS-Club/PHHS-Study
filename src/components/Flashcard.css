@@ -2,22 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   border-radius: 0.25rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
   background-color: white;
   transform-style: preserve-3d;
-  width: 150px;
+  width: 800px;
   transition: 250ms;
   cursor: pointer;
   transform: perspective(1000px) rotateY(var(--rotate-y, 0))
     translateY(var(--translate-y, 0));
   overflow: wrap;
+  font-size: 1.5em;
 }
 
 .card:hover {
-  --translate-y: -2px;
+  --translate-y: -4px;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.trans {
+  transition: 0s;
+  color: white;
+}
+
+.notrans {
+  color: black;
+}
+
+.katex {
+  font-size: 1.5em;
 }
 
 .card.flip {
