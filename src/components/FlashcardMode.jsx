@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Flashcard from "./Flashcard";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import "./FlashcardMode.css";
@@ -55,7 +55,8 @@ export default function FlashcardMode(props) {
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     setFlipped(!flipped);
-    ref.current.setFlip(flipped);
+    console.log("upd flip");
+    ref.current.setFlipped(flipped);
   };
 
   const handleIncorrect = () => {
@@ -71,7 +72,8 @@ export default function FlashcardMode(props) {
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
-    ref.current.setFlip(flipped);
+    console.log("upd flip");
+    ref.current.setFlipped(!flipped);
   };
 
   function pickBucket(notSame) {
@@ -106,12 +108,16 @@ export default function FlashcardMode(props) {
 
   return (
     <div className="card-container-fsm">
+      <button onClick={() => console.log(flipped)}>log</button>
       <Flashcard
         question={currentCard?.front}
         answer={currentCard?.back}
         mFront={currentCard?.mathModeFront}
         mBack={currentCard?.mathModeBack}
-        flip={() => setFlipped(!flipped)}
+        flip={() => {
+          setFlipped(!flipped);
+          console.log("upd flip");
+        }}
         ref={ref}
       />
       <div className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}>
