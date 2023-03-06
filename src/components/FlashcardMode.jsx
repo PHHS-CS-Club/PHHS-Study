@@ -55,7 +55,7 @@ export default function FlashcardMode(props) {
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     setFlipped(!flipped);
-    ref.current.setFlipped(flipped);
+    ref.current.setFlipped(!flipped);
   };
 
   const handleIncorrect = () => {
