@@ -10,17 +10,20 @@ import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
 import ClassesMenu from "../components/ClassesMenu";
+import TeachersMenu from "../components/TeachersMenu";
 
 export default function CreateSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
+  const [teachers, setTeachers] = useState({});
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
   /* eslint-enable */
+
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -44,10 +47,18 @@ export default function CreateSet() {
           trueClasses.push(x);
         }
       });
+      let trueTeachers = [];
+      Object.keys(teachers).forEach((x) => {
+        if (teachers[x] === true) {
+          trueTeachers.push(x);
+        }
+      });
       set(ref(database, "flashcard-sets/" + newId), {
-        Author: user.uid,
+        AuthorID: user.uid,
+        Author: user.displayName,
         Name: name,
         Classes: trueClasses,
+        Teachers: trueTeachers,
       });
       setCards([]);
       setName("");
@@ -152,12 +163,16 @@ export default function CreateSet() {
 
   function genCardBox(card, frontBack, id) {
     if (frontBack === "front" && card.mathModeFront === true) {
+      console.log(card.front.replace(/([\\])/g, "\\allowbreak\\"));
       return (
         <>
           <div style={{ overflow: "auto", height: "100%" }}>
             <InlineMath
               className="katex-display"
-              math={card.front}
+              math={
+                card.front
+                //.replace(/([\\])/g, "\\allowbreak\\")
+              }
               maxExpand="5"
             ></InlineMath>
           </div>
@@ -175,6 +190,7 @@ export default function CreateSet() {
       return (
         <>
           <textarea
+            maxLength="360"
             type="text"
             placeholder={frontBack.charAt(0).toUpperCase() + frontBack.slice(1)}
             className={frontBack + "-side"}
@@ -205,6 +221,7 @@ export default function CreateSet() {
     <>
       <div className="create-set-container">
         <textarea
+          maxLength="72"
           type="text"
           placeholder="Name set"
           id="name-set"
@@ -242,12 +259,16 @@ export default function CreateSet() {
           <div className="add-card-message">Please add a card</div>
         )}
       </div>
-      <br />
-      <div style={{ textAlign: "center", fontWeight: "600", fontSize: "20px" }}>
-        Classes
-      </div>
-
       <ClassesMenu classSelect={(classes) => setClasses(classes)} />
+      <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+      <button
+        onClick={() => {
+          console.log(teachers);
+          console.log(classes);
+        }}
+      >
+        Log
+      </button>
     </>
   );
 }

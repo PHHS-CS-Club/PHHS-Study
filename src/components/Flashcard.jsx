@@ -1,6 +1,5 @@
 import React, {
   useState,
-  useEffect,
   useRef,
   useImperativeHandle,
   forwardRef,
@@ -13,7 +12,6 @@ import "./Flashcard.css";
 
 const Flashcard = forwardRef((flashcard, ref) => {
   const [flip, setFlip] = useState(false);
-  const [height, setHeight] = useState("initial");
   const [transitioning, setTransitioning] = useState(false);
 
   const frontEl = useRef();
@@ -32,14 +30,6 @@ const Flashcard = forwardRef((flashcard, ref) => {
     return new Promise((res) => setTimeout(res, delay));
   }
 
-  function setMaxHeight() {
-    const frontHeight = frontEl.current.getBoundingClientRect().height;
-    const backHeight = backEl.current.getBoundingClientRect().height;
-    setHeight(Math.max(frontHeight, backHeight, 400));
-  }
-
-  useEffect(setMaxHeight, [flashcard.question, flashcard.ans]);
-
   return (
     <>
       <div
@@ -48,23 +38,23 @@ const Flashcard = forwardRef((flashcard, ref) => {
           (flip ? " flip" : "") +
           (transitioning ? " trans" : " notrans")
         }
-        style={{ height: height }}
+        //style={{ height: height }}
         onClick={() => {
           setFlip(!flip);
           flashcard.flip();
         }}
       >
-        {flashcard.mFront ? (
-          <div className="front" ref={frontEl}>
-            <InlineMath>{flashcard.question}</InlineMath>
-          </div>
-        ) : (
-          <div className="front" ref={frontEl}>
-            {flashcard.question}
-          </div>
-        )}
-
-        {flashcard.mBack ? (
+        {!flip ? (
+          flashcard.mFront ? (
+            <div className="front" ref={frontEl}>
+              <InlineMath>{flashcard.question}</InlineMath>
+            </div>
+          ) : (
+            <div className="front" ref={frontEl}>
+              {flashcard.question}
+            </div>
+          )
+        ) : flashcard.mBack ? (
           <div className="back" ref={backEl}>
             <InlineMath>{flashcard.answer}</InlineMath>
           </div>
