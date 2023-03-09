@@ -13,7 +13,8 @@ export default function Signin() {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
 
-  const [input, setInput] = useState("");
+  const [usernameInput, setUsernameInput] = useState("");
+  const [roleInput, setRoleInput] = useState("");
 
   useEffect(() => {
     //Updates user's data when opening account page
@@ -34,18 +35,31 @@ export default function Signin() {
     }
   }, [id, user, email, role, username]);
 
-  const changeInput = (event) => {
-    setInput(event.target.value);
+  const changeUsernameInput = (event) => {
+    setUsernameInput(event.target.value);
+  }
+
+  const changeRoleInput = (event) => {
+    setRoleInput(event.target.value);
   }
 
   const changeUsername = () => {
-    if (input.length > 0 && input.length <= 18 && input !== username) {
-      let newName = input;
+    if (usernameInput.length > 0 && usernameInput.length <= 18 && usernameInput !== username) {
       update(ref(database, "users/" + id), {
-        username: newName,
+        username: usernameInput,
       });
     } else {
       alert("Please enter a valid username");
+    }
+  }
+
+  const changeRole = () => {
+    if (roleInput !== role && roleInput !== "") { 
+      update(ref(database, "users/" + id), {
+        role: roleInput,
+      });
+    } else {
+      alert("Please select a different role");
     }
   }
 
@@ -65,8 +79,9 @@ export default function Signin() {
             <div className="field-text">
               Username: {username}
             </div>
-            <div className="change-username-wrap">
-              <input onChange={changeInput} value={input} placeholder="New username" type="text" className="change-name"></input>
+            <label htmlFor="change-username">Enter new username (max 18 characters):</label>
+            <div className="change-field-wrap">
+              <input id="change-username" onChange={changeUsernameInput} value={usernameInput} placeholder="New username" type="text" className="change-username-input"></input>
               <button className="change-field" onClick={changeUsername}>
                 Change username
               </button>
@@ -75,6 +90,17 @@ export default function Signin() {
           <div className="user-field">
             <div className="field-text">
               Role: {role}
+            </div>
+            <label htmlFor="role-select">Select new role:</label>
+            <div className="change-field-wrap">
+              <select id="role-select" className="change-role-select" onChange={changeRoleInput}>
+                <option value="" disabled selected>New role</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+              </select>
+              <button className="change-field" onClick={changeRole}>
+                Change role
+              </button>
             </div>
           </div>
           <div className="user-field">
