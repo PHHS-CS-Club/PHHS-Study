@@ -54,30 +54,19 @@ export default function ClassesMenu(props) {
     );
   }
 
-  function backbutton() {
-    return (
-      <button
-        className="class-button"
-        onClick={() => {
-          setCurrent("main");
-        }}
-      >
-        Back
-      </button>
-    );
-  }
-
   function classSelect() {
     return (
       <>
-        <div>Pick Classes</div>
-        {classButton("math")}
-        {classButton("science")}
-        {classButton("english")}
-        {classButton("history")}
-        {classButton("lang")}
-        {classButton("njrotc")}
-        {classButton("compsci")}
+        <div className="class-select-title">Pick Classes</div>
+        <div className="cs-class-buttons">
+          {classButton("math")}
+          {classButton("science")}
+          {classButton("english")}
+          {classButton("history")}
+          {classButton("lang")}
+          {classButton("njrotc")}
+          {classButton("compsci")}
+        </div>
       </>
     );
   }
@@ -86,44 +75,31 @@ export default function ClassesMenu(props) {
     if (current === "science") {
       return (
         <>
-          <div id="science" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.SCIENCES.map((x) => checkbox(x))}
-          </div>
+          <div id="science">{Classes.SCIENCES.map((x) => checkbox(x))}</div>
         </>
       );
     } else if (current === "math") {
       return (
         <>
-          <div id="math" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.MATH.map((x) => checkbox(x))}
-          </div>
+          <div id="math">{Classes.MATH.map((x) => checkbox(x))}</div>
         </>
       );
     } else if (current === "history") {
       return (
         <>
-          <div id="history" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.HISTORY.map((x) => checkbox(x))}
-          </div>
+          <div id="history">{Classes.HISTORY.map((x) => checkbox(x))}</div>
         </>
       );
     } else if (current === "english") {
       return (
         <>
-          <div id="english" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.ENGLISH.map((x) => checkbox(x))}
-          </div>
+          <div id="english">{Classes.ENGLISH.map((x) => checkbox(x))}</div>
         </>
       );
     } else if (current === "lang") {
       return (
         <>
-          <div id="world_language" style={{ display: "inline", margin: "5px" }}>
-            <br />
+          <div id="world_language">
             {Classes.WORLD_LANGS.map((x) => checkbox(x))}
           </div>
         </>
@@ -131,19 +107,13 @@ export default function ClassesMenu(props) {
     } else if (current === "njrotc") {
       return (
         <>
-          <div id="njrotc" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.NJROTC.map((x) => checkbox(x))}
-          </div>
+          <div id="njrotc">{Classes.NJROTC.map((x) => checkbox(x))}</div>
         </>
       );
     } else if (current === "compsci") {
       return (
         <>
-          <div id="compsci" style={{ display: "inline", margin: "5px" }}>
-            <br />
-            {Classes.COMPSCI.map((x) => checkbox(x))}
-          </div>
+          <div id="compsci">{Classes.COMPSCI.map((x) => checkbox(x))}</div>
         </>
       );
     }
@@ -152,7 +122,6 @@ export default function ClassesMenu(props) {
   return (
     <div className="class-container">
       {classSelect()}
-      {backbutton()}
       {showBoxes()}
     </div>
   );

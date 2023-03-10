@@ -1,0 +1,32 @@
+.search-set-container {
+  transition: 0.15s;
+  border: 1px solid black;
+  background-color: rgb(238, 238, 238);
+  width: fit-content;
+  min-height: 100px;
+  min-width: 300px;
+  border-radius: 25px;
+  margin: 10px;
+  padding: 10px;
+  height: fit-content;
+  box-shadow: 2px 3px 2px 1px rgb(196, 196, 196);
+  transform: perspective(1000px) translateY(var(--translate-y, 0));
+  text-decoration: none;
+  z-index: 2;
+}
+
+.search-set-name,
+.search-set-author,
+.search-set-classes,
+.search-set-teachers {
+  text-decoration: none;
+  z-index: 3;
+}
+
+.search-set-name {
+  font-weight: 600;
+}
+
+.search-set-container:hover {
+  --translate-y: -4px;
+}

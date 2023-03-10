@@ -10,17 +10,20 @@ import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
 import "./CreateSet.css";
 import ClassesMenu from "../components/ClassesMenu";
+import TeachersMenu from "../components/TeachersMenu";
 
 export default function CreateSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
+  const [teachers, setTeachers] = useState({});
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
   /* eslint-enable */
+
   const createCard = () => {
     const list = cards.concat({
       id: uuidv4(),
@@ -32,8 +35,26 @@ export default function CreateSet() {
     setCards(list);
   };
 
+  function checkValid() {
+    let str = "Please fix your set:\n";
+    str += cards.length > 1 ? "" : "Must have at least 2 cards\n";
+    str += Object.values(classes).includes(true)
+      ? ""
+      : "Must have at least one class selected\n";
+    str += Object.values(teachers).includes(true)
+      ? ""
+      : "Must have at least one teacher selected\n";
+    alert(str);
+    console.log(str);
+    return (
+      cards.length > 1 &&
+      Object.values(classes).includes(true) &&
+      Object.values(teachers).includes(true)
+    );
+  }
+
   function writeSet() {
-    if (cards.length > 1) {
+    if (checkValid()) {
       let newId = uuidv4();
       set(ref(database, newId), {
         cards,
@@ -44,15 +65,21 @@ export default function CreateSet() {
           trueClasses.push(x);
         }
       });
+      let trueTeachers = [];
+      Object.keys(teachers).forEach((x) => {
+        if (teachers[x] === true) {
+          trueTeachers.push(x);
+        }
+      });
       set(ref(database, "flashcard-sets/" + newId), {
-        Author: user.uid,
+        AuthorID: user.uid,
+        Author: user.displayName,
         Name: name,
         Classes: trueClasses,
+        Teachers: trueTeachers,
       });
       setCards([]);
       setName("");
-    } else {
-      alert("You must have at least 2 cards");
     }
   }
 
@@ -175,6 +202,7 @@ export default function CreateSet() {
       return (
         <>
           <textarea
+            maxLength="360"
             type="text"
             placeholder={frontBack.charAt(0).toUpperCase() + frontBack.slice(1)}
             className={frontBack + "-side"}
@@ -205,6 +233,7 @@ export default function CreateSet() {
     <>
       <div className="create-set-container">
         <textarea
+          maxLength="72"
           type="text"
           placeholder="Name set"
           id="name-set"
@@ -241,13 +270,20 @@ export default function CreateSet() {
         ) : (
           <div className="add-card-message">Please add a card</div>
         )}
-      </div>
-      <br />
-      <div style={{ textAlign: "center", fontWeight: "600", fontSize: "20px" }}>
-        Classes
+        <div className="create-set-extras">
+          <ClassesMenu classSelect={(classes) => setClasses(classes)} />
+          <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+        </div>
       </div>
 
-      <ClassesMenu classSelect={(classes) => setClasses(classes)} />
+      <button
+        onClick={() => {
+          console.log(teachers);
+          console.log(classes);
+        }}
+      >
+        Log
+      </button>
     </>
   );
 }
