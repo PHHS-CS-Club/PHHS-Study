@@ -15,12 +15,48 @@
   z-index: 2;
 }
 
+.search-set-classes {
+  display: flex;
+  align-items: center;
+}
+
+.tooltip-container {
+  display: flex;
+  justify-content: left;
+}
+
+.classes-info {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+  border-radius: 2px;
+  margin-left: 25px;
+  background-color: gray;
+  transition: 0.15s;
+}
+
+.class-text {
+  display: inline;
+  margin: 5px;
+}
+
+.classes-hover {
+  opacity: 1;
+}
+
 .search-set-name,
 .search-set-author,
 .search-set-classes,
 .search-set-teachers {
   text-decoration: none;
   z-index: 3;
+  width: fit-content;
+}
+
+.tooltip-icon {
+  margin-left: 5px;
 }
 
 .search-set-name {

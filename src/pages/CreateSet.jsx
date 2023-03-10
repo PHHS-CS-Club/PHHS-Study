@@ -44,7 +44,7 @@ export default function CreateSet() {
     str += Object.values(teachers).includes(true)
       ? ""
       : "Must have at least one teacher selected\n";
-    alert(str);
+    if(str.length > 22) alert(str);
     console.log(str);
     return (
       cards.length > 1 &&
