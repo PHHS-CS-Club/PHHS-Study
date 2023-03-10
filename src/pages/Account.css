@@ -1,11 +1,12 @@
 .title {
   margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .field-text {
-  margin-right: 20px;
   margin-bottom: 15px;
 }
-.change-username-wrap {
+.change-field-wrap {
   background-color: rgb(150,150,150);
   padding: 10px;
   border-style: solid;
@@ -22,4 +23,17 @@
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
+}
+.change-username-input {
+  width: 200px;
+}
+.change-role-select {
+  width: 208px;
+  height: 22px;
+}
+.change-field {
+  width: 125px;
+}
+.field-text {
+  font-weight: bold;
 }
