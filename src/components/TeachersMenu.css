@@ -1,0 +1,49 @@
+.teacher-container {
+  background-color: lightgray;
+  width: 300px;
+  height: 200px;
+  padding: 0px;
+  border: 2px solid black;
+  border-radius: 5px 5px 0px 0px;
+  margin: 5px;
+  transition: 0.05s;
+  z-index: 2;
+  font-size: 20px;
+}
+
+.teacher-search-bar-container {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  min-width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.teacher-search-bar {
+  height: 25.33px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(243, 243, 243);
+  margin: 0px;
+  border: 0px;
+  padding: 5px;
+
+  border-radius: 5px 5px 0px 0px;
+  font-size: 20px;
+}
+
+.teacher-box-container {
+  position: relative;
+  overflow-y: scroll;
+  z-index: 1;
+  height: 84.5%;
+  padding: 3px;
+  font-size: 20px;
+}
+
+.teachers-cs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

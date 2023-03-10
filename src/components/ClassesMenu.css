@@ -1,12 +1,13 @@
 .class-container {
   background-color: lightgray;
   width: fit-content;
-  max-height: 500px;
-  padding: 2px;
   border: 2px solid black;
-  border-radius: 5px;
+  min-height: 200px;
+  max-height: 200px;
+  border-radius: 5px 5px 0 0;
   margin: 5px;
   transition: 0.05s;
+  font-size: 20px;
 }
 
 .class-checkbox {
@@ -14,7 +15,7 @@
 }
 
 .class-button {
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .main {
@@ -23,31 +24,50 @@
   align-items: center;
 }
 
-.compsci,
-.njrotc,
-.science,
-.math,
-.history,
-.lang,
-.english {
-  background-color: lightgray;
-  width: fit-content;
-  max-height: 500px;
-  padding: 2px;
-  border: 2px solid black;
-  border-radius: 5px;
-  margin: 5px;
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.class-select-title {
+  text-align: center;
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px 5px 0px 0px;
 }
 
-.dive {
-  position: absolute;
-  display: inline;
-  overflow: hidden;
-  width: 500px;
+.class-button {
+  background-color: rgb(205, 225, 231);
+  border-width: 0px;
+  box-sizing: border-box;
+  width: 100%;
+  transition: 0.15s;
+}
+
+.class-button:hover {
+  background-color: rgb(221, 246, 253);
+  opacity: 0.8;
+  transition: 0.15s;
+  cursor: pointer;
+}
+
+.border {
+  background-color: black;
+}
+
+.cs-class-buttons {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#compsci,
+#njrotc,
+#science,
+#math,
+#history,
+#world_language,
+#english {
+  width: 100%;
+  border-radius: 5px;
+  height: 74.5%;
+  overflow-y: scroll;
+  background-color: rgb(125, 164, 236);
 }
 
 .main-enter {
@@ -67,32 +87,4 @@
 .main-exit-active {
   transform: translateX(-110%);
   transition: all 0.2s ease;
-}
-
-.math {
-  height: 365px;
-}
-
-.science {
-  height: 301px;
-}
-
-.english {
-  height: 301px;
-}
-
-.history {
-  height: 280px;
-}
-
-.lang {
-  height: 408px;
-}
-
-.njrotc {
-  height: 173px;
-}
-
-.compsci {
-  height: 152px;
 }

@@ -128,3 +128,9 @@ textarea {
   margin-top: 10px;
   margin-left: 20px;
 }
+
+.create-set-extras {
+  display: flex;
+  justify-content: space-evenly;
+  width: 1000px;
+}

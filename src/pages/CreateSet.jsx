@@ -35,8 +35,26 @@ export default function CreateSet() {
     setCards(list);
   };
 
+  function checkValid() {
+    let str = "Please fix your set:\n";
+    str += cards.length > 1 ? "" : "Must have at least 2 cards\n";
+    str += Object.values(classes).includes(true)
+      ? ""
+      : "Must have at least one class selected\n";
+    str += Object.values(teachers).includes(true)
+      ? ""
+      : "Must have at least one teacher selected\n";
+    alert(str);
+    console.log(str);
+    return (
+      cards.length > 1 &&
+      Object.values(classes).includes(true) &&
+      Object.values(teachers).includes(true)
+    );
+  }
+
   function writeSet() {
-    if (cards.length > 1) {
+    if (checkValid()) {
       let newId = uuidv4();
       set(ref(database, newId), {
         cards,
@@ -62,8 +80,6 @@ export default function CreateSet() {
       });
       setCards([]);
       setName("");
-    } else {
-      alert("You must have at least 2 cards");
     }
   }
 
@@ -163,16 +179,12 @@ export default function CreateSet() {
 
   function genCardBox(card, frontBack, id) {
     if (frontBack === "front" && card.mathModeFront === true) {
-      console.log(card.front.replace(/([\\])/g, "\\allowbreak\\"));
       return (
         <>
           <div style={{ overflow: "auto", height: "100%" }}>
             <InlineMath
               className="katex-display"
-              math={
-                card.front
-                //.replace(/([\\])/g, "\\allowbreak\\")
-              }
+              math={card.front}
               maxExpand="5"
             ></InlineMath>
           </div>
@@ -258,9 +270,12 @@ export default function CreateSet() {
         ) : (
           <div className="add-card-message">Please add a card</div>
         )}
+        <div className="create-set-extras">
+          <ClassesMenu classSelect={(classes) => setClasses(classes)} />
+          <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+        </div>
       </div>
-      <ClassesMenu classSelect={(classes) => setClasses(classes)} />
-      <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+
       <button
         onClick={() => {
           console.log(teachers);

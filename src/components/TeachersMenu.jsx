@@ -1,5 +1,6 @@
 import * as Teachers from "../constants/teachers";
 import { useState } from "react";
+import "./TeachersMenu.css";
 
 export default function TeachersMenu(props) {
   const [teachers, setTeachers] = useState([]);
@@ -43,10 +44,11 @@ export default function TeachersMenu(props) {
 
   function searchBar() {
     return (
-      <div>
+      <div className="teacher-search-bar-container">
         <input
           type="text"
-          placeHolder="Search last name"
+          placeHolder="Search teachers by last name"
+          className="teacher-search-bar"
           onChange={(e) => setSearchLastInput(e.target.value)}
         />
       </div>
@@ -55,8 +57,7 @@ export default function TeachersMenu(props) {
 
   function showBoxes() {
     return (
-      <div id="teachers" style={{ display: "inline", margin: "5px" }}>
-        <br />
+      <div className="teachers-cs" id="teachers">
         {Teachers.TEACHERS.map((x) => {
           let last = x.split(", ")[0];
           if (
@@ -75,15 +76,7 @@ export default function TeachersMenu(props) {
   return (
     <div className="teacher-container">
       {searchBar()}
-      {showBoxes()}
-      <button
-        onClick={() => {
-          console.log(teachers);
-          console.log(searchLastInput);
-        }}
-      >
-        Log
-      </button>
+      <div className="teacher-box-container">{showBoxes()}</div>
     </div>
   );
 }
