@@ -23,7 +23,6 @@ const SetBoxView = (id) => {
         onlyOnce: true,
       }
     );
-    console.log(classesList());
     //eslint-disable-next-line
   }, []);
 

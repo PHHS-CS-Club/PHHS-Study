@@ -13,7 +13,6 @@ export default function ClassesMenu(props) {
       setClasses({ ...classes, [boxss]: value });
       props.classSelect({ ...classes, [boxss]: value });
     }
-    console.log(boxss);
   };
 
   function checkbox(x) {
