@@ -10,28 +10,27 @@ export default function SearchPage() {
   const [flashcardMeta, setFlashcardMeta] = useState({});
   useEffect(() => {
     onValue(ref(database, "flashcard-sets/"), (snapshot) => {
-      console.log("test");
       const data = snapshot.val();
       setFlashcardMeta(data);
-      console.log(data);
     });
-    console.log(flashcardMeta);
     // eslint-disable-next-line
   }, []);
 
-  return (
-    <>
-      {Object.keys(flashcardMeta).map((key, index) => (
-        <div key={key} className="search-container">
-          {flashcardMeta[key].Name.length !== 0 ? (
-            <Link to={"/Set/" + key}>
-              <SetBoxView id={key} />
-            </Link>
-          ) : (
-            <Link to={"/Set/" + key}>{"No Title"}</Link>
-          )}
-        </div>
-      ))}
-    </>
-  );
+  if (flashcardMeta !== undefined && flashcardMeta !== null) {
+    return (
+      <>
+        {Object.keys(flashcardMeta).map((key, index) => (
+          <div key={key} className="search-container">
+            {flashcardMeta[key].Name.length !== 0 ? (
+              <Link to={"/Set/" + key}>
+                <SetBoxView id={key} />
+              </Link>
+            ) : (
+              <Link to={"/Set/" + key}>{"No Title"}</Link>
+            )}
+          </div>
+        ))}
+      </>
+    );
+  }
 }
