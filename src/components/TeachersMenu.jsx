@@ -17,7 +17,7 @@ export default function TeachersMenu(props) {
     console.log(boxss);
   };
 
-  function checkbox(x) {
+  function checkbox(x, i) {
     return (
       <div className="teacher-checkbox" style={{ display: "inline" }}>
         {" "}
@@ -27,6 +27,7 @@ export default function TeachersMenu(props) {
           type="checkbox"
           name={x}
           id={x + "-box"}
+          key={x}
           onChange={handleTeacherChange}
           checked={teachers[x] !== undefined && teachers[x] === true}
         ></input>{" "}
@@ -46,8 +47,9 @@ export default function TeachersMenu(props) {
     return (
       <div className="teacher-search-bar-container">
         <input
+          key="search"
           type="text"
-          placeHolder="Search teachers by last name"
+          placeholder="Search teachers by last name"
           className="teacher-search-bar"
           onChange={(e) => setSearchLastInput(e.target.value)}
         />
@@ -58,15 +60,15 @@ export default function TeachersMenu(props) {
   function showBoxes() {
     return (
       <div className="teachers-cs" id="teachers">
-        {Teachers.TEACHERS.map((x) => {
+        {Teachers.TEACHERS.map((x, i) => {
           let last = x.split(", ")[0];
           if (
             last.toLowerCase().includes(searchLastInput.toLowerCase()) &&
             searchLastInput !== ""
           ) {
-            return checkbox(x);
+            return checkbox(x, i);
           } else {
-            return <></>;
+            return <div key={x}></div>;
           }
         })}
       </div>

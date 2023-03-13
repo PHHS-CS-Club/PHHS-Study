@@ -15,12 +15,15 @@
   z-index: 2;
 }
 
-.search-set-classes {
+.search-set-classes,
+.search-set-teachers {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .tooltip-container {
+  margin-left: 5px;
   display: flex;
   justify-content: left;
 }
@@ -28,6 +31,9 @@
 .classes-info {
   position: absolute;
   opacity: 0;
+  min-width: 200px;
+  max-width: 200px;
+  right: 28%;
   display: flex;
   flex-direction: row;
   padding: 2px;
@@ -53,10 +59,6 @@
   text-decoration: none;
   z-index: 3;
   width: fit-content;
-}
-
-.tooltip-icon {
-  margin-left: 5px;
 }
 
 .search-set-name {
