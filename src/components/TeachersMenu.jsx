@@ -14,7 +14,6 @@ export default function TeachersMenu(props) {
       setTeachers({ ...teachers, [boxss]: value });
       props.teacherSelect({ ...teachers, [boxss]: value });
     }
-    console.log(boxss);
   };
 
   function checkbox(x, i) {

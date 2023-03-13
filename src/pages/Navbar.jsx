@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import "./Navbar.css";
@@ -8,34 +8,44 @@ export default function Navbar() {
   const { user } = UserAuth();
   const [accpath, setAccpath] = useState("");
   useEffect(() => {
-    if(user?.displayName) {
+    if (user?.displayName) {
       setAccpath("/Account/" + user.uid);
     }
   }, [user]);
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/Home">Home</Link>
+      <nav className="navbar-container">
+        <ul className="navbar-bar">
+          <li className="navbar-link">
+            <Link className="navbar-link-real" to="/Home">
+              Home
+            </Link>
           </li>
-          <li>
+          <li className="navbar-link">
             {user?.displayName ? (
-              <Link to="/CreateSet">Create Set</Link>
+              <Link className="navbar-link-real" to="/CreateSet">
+                Create Set
+              </Link>
             ) : (
               <></>
             )}
           </li>
-          <li>
+          <li className="navbar-link">
             {user?.displayName ? (
-              <Link to={accpath}>Account</Link>
+              <Link className="navbar-link-real" to={accpath}>
+                Account
+              </Link>
             ) : (
-              <Link to="SignIn">Sign In</Link>
+              <Link className="navbar-link-real" to="SignIn">
+                Sign In
+              </Link>
             )}
           </li>
-          <li>
-            <Link to="/Search">Search</Link>
+          <li className="navbar-link">
+            <Link className="navbar-link-real" to="/Search">
+              Search
+            </Link>
           </li>
         </ul>
       </nav>
