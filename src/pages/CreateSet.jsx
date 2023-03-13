@@ -44,8 +44,7 @@ export default function CreateSet() {
     str += Object.values(teachers).includes(true)
       ? ""
       : "Must have at least one teacher selected\n";
-    if(str.length > 22) alert(str);
-    console.log(str);
+    if (str.length > 22) alert(str);
     return (
       cards.length > 1 &&
       Object.values(classes).includes(true) &&
@@ -275,15 +274,6 @@ export default function CreateSet() {
           <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
         </div>
       </div>
-
-      <button
-        onClick={() => {
-          console.log(teachers);
-          console.log(classes);
-        }}
-      >
-        Log
-      </button>
     </>
   );
 }
