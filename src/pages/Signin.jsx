@@ -10,16 +10,17 @@ export default function Signin() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
     <>
       <div className="signin-total">
         <div className="signin-text">Sign In Below</div>
-        <GoogleButton className="sign-google-link" onClick={handleGoogleSignIn} />
+        <GoogleButton
+          className="sign-google-link"
+          onClick={handleGoogleSignIn}
+        />
       </div>
     </>
   );
