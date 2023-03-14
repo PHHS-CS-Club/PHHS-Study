@@ -94,7 +94,6 @@ export default function Signin() {
             <label htmlFor="role-select">Select new role:</label>
             <div className="change-field-wrap">
               <select id="role-select" className="change-role-select" onChange={changeRoleInput}>
-                <option value="" disabled selected>New role</option>
                 <option value="Student">Student</option>
                 <option value="Teacher">Teacher</option>
               </select>
