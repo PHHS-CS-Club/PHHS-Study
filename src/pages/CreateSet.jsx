@@ -1,7 +1,7 @@
 import { uuidv4 } from "@firebase/util";
 import React from "react";
 import { useState, useEffect } from "react";
-import { ref, set, onValue, update } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
