@@ -1,7 +1,7 @@
 import { uuidv4 } from "@firebase/util";
 import React from "react";
-import { useState } from "react";
-import { ref, set } from "firebase/database";
+import { useState, useEffect } from "react";
+import { ref, set, onValue, update } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
@@ -18,11 +18,27 @@ export default function CreateSet() {
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
   const [teachers, setTeachers] = useState({});
+  const [userData, setUserData] = useState([]);
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
   /* eslint-enable */
+  const dbRef = ref(database, "/users/" + user.uid);
+
+  useEffect(() => {
+    onValue(
+      dbRef,
+      (snapshot) => {
+        const data = snapshot.val();
+        setUserData(data);
+      },
+      {
+        onlyOnce: true,
+      }
+    );
+    //eslint-disable-next-line
+  }, []);
 
   const createCard = () => {
     const list = cards.concat({
@@ -77,6 +93,22 @@ export default function CreateSet() {
         Classes: trueClasses,
         Teachers: trueTeachers,
       });
+      console.log(userData);
+      console.log(newId);
+      if (userData.madeSets?.length > 0) {
+        console.log("upd");
+        set(ref(database, "users/" + user.uid), {
+          ...userData,
+          madeSets: [...userData.madeSets, newId],
+        });
+      } else {
+        console.log("set");
+        set(ref(database, "users/" + user.uid), {
+          ...userData,
+          madeSets: [newId],
+        });
+      }
+
       setCards([]);
       setName("");
     }
