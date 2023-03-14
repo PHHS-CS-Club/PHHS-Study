@@ -23,7 +23,7 @@ export default function SearchPage() {
           <div key={key} className="search-container">
             {flashcardMeta[key].Name.length !== 0 ? (
               <Link to={"/Set/" + key}>
-                <SetBoxView id={key} />
+                <SetBoxView id={key} key={key} />
               </Link>
             ) : (
               <Link to={"/Set/" + key}>{"No Title"}</Link>

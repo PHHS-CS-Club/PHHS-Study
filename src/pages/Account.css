@@ -1,3 +1,7 @@
+.account-page {
+  display: flex;
+}
+
 .title {
   margin-bottom: 15px;
   font-size: 20px;
@@ -7,7 +11,7 @@
   margin-bottom: 15px;
 }
 .change-field-wrap {
-  background-color: rgb(150,150,150);
+  background-color: rgb(150, 150, 150);
   padding: 10px;
   border-style: solid;
   border-width: 1px;
@@ -18,8 +22,8 @@
   display: inline-block;
   margin-left: 20px;
   padding: 10px;
-  margin-top: 20px;
-  background-color: rgb(200,200,200);
+
+  background-color: rgb(200, 200, 200);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -36,4 +40,20 @@
 }
 .field-text {
   font-weight: bold;
+}
+
+.owned-sets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.owned-sets-header {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.owned-sets-boxes {
+  display: flex;
 }

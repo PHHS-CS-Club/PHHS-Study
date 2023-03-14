@@ -22,15 +22,17 @@ export default function Navbar() {
               Home
             </Link>
           </li>
-          <li className="navbar-link">
-            {user?.displayName ? (
+
+          {user?.displayName ? (
+            <li className="navbar-link">
               <Link className="navbar-link-real" to="/CreateSet">
                 Create Set
               </Link>
-            ) : (
-              <></>
-            )}
-          </li>
+            </li>
+          ) : (
+            <></>
+          )}
+
           <li className="navbar-link">
             {user?.displayName ? (
               <Link className="navbar-link-real" to={accpath}>
