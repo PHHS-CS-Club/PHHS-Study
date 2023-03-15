@@ -104,7 +104,7 @@ export default function Signin() {
           </div>
           <div className="user-field">
             <div className="field-text">
-              Email: {email}
+              Email: {role}
             </div>
           </div>
         </div>
