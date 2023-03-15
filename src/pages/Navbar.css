@@ -33,3 +33,15 @@ ul {
   background-color: rgb(185, 231, 247);
   transition: 0.15s;
 }
+
+nav {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+}
+
+li {
+  margin: 0;
+}

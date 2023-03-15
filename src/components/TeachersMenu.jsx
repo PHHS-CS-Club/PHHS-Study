@@ -1,3 +1,4 @@
+import React from "react";
 import * as Teachers from "../constants/teachers";
 import { useState } from "react";
 import "./TeachersMenu.css";
@@ -16,7 +17,7 @@ export default function TeachersMenu(props) {
     }
   };
 
-  function checkbox(x, i) {
+  function checkbox(x) {
     return (
       <div className="teacher-checkbox" style={{ display: "inline" }}>
         {" "}
@@ -59,15 +60,18 @@ export default function TeachersMenu(props) {
   function showBoxes() {
     return (
       <div className="teachers-cs" id="teachers">
-        {Teachers.TEACHERS.map((x, i) => {
+        {Teachers.TEACHERS.map((x) => {
           let last = x.split(", ")[0];
           if (
             last.toLowerCase().includes(searchLastInput.toLowerCase()) &&
             searchLastInput !== ""
           ) {
-            return checkbox(x, i);
+            return checkbox(x);
           } else {
-            return <div key={x}></div>;
+            if (Object.values(teachers).includes(true)) {
+              if (teachers[x]) return checkbox(x);
+            }
+            return <React.Fragment key={x}></React.Fragment>;
           }
         })}
       </div>
