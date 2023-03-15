@@ -77,6 +77,37 @@ export default function Signin() {
     }
   };
 
+  function madeSetsDisplay() {
+    if (madeSets !== null && madeSets !== undefined) {
+      return (
+        <div className="owned-sets">
+          <div className="owned-sets-header"> My Sets </div>
+          <div className="owned-sets-boxes">
+            {madeSets.map((key, index) => (
+              <div key={key} className="search-container">
+                {madeSets[index].length !== 0 ? (
+                  <Link to={"/Set/" + key}>
+                    <SetBoxView id={key} key={key} />
+                  </Link>
+                ) : (
+                  <Link to={"/Set/" + key}>{"No Title"}</Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="owned-sets">
+          <div className="owned-sets-header">
+            Create a set and it will show up here!
+          </div>
+        </div>
+      );
+    }
+  }
+
   return (
     //display any user information from signed in user here
     //also add functionality to edit display name and such
@@ -134,22 +165,7 @@ export default function Signin() {
           Log Out
         </button>
       </div>
-      <div className="owned-sets">
-        <div className="owned-sets-header"> My Sets </div>
-        <div className="owned-sets-boxes">
-          {madeSets.map((key, index) => (
-            <div key={key} className="search-container">
-              {madeSets[index].length !== 0 ? (
-                <Link to={"/Set/" + key}>
-                  <SetBoxView id={key} key={key} />
-                </Link>
-              ) : (
-                <Link to={"/Set/" + key}>{"No Title"}</Link>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      {madeSetsDisplay()}
     </div>
   );
 }

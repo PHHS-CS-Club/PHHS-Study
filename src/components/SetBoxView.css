@@ -9,7 +9,7 @@
   margin: 10px;
   padding: 10px;
   height: fit-content;
-  box-shadow: 2px 3px 2px 1px rgb(196, 196, 196);
+  box-shadow: 2px 3px 2px 1px rgb(116, 116, 116);
   transform: perspective(1000px) translateY(var(--translate-y, 0));
   text-decoration: none;
   z-index: 2;
