@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as Classes from "../constants/classes";
 import "./ClassesMenu.css";
 
 export default function ClassesMenu(props) {
   const [classes, setClasses] = useState({});
   const [current, setCurrent] = useState("main");
+
+  useEffect(() => {
+    if (props.classes) {
+      setClasses(props.classes);
+    }
+  }, [props.classes]);
+
   const handleClassChange = (event) => {
     const target = event.target;
     const value = target.checked;

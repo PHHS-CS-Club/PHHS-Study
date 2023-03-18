@@ -6,7 +6,8 @@ import Navbar from "./pages/Navbar";
 import Signin from "./pages/Signin";
 import Protected from "./components/Protected";
 import CreateSet from "./pages/CreateSet";
-
+import EditSet from "./pages/EditSet";
+import { useRef } from "react";
 import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
 import SearchPage from "./pages/SearchPage";
@@ -14,8 +15,10 @@ import ViewSet from "./pages/ViewSet";
 import CheckSignedIn from "./components/CheckSignedIn";
 
 function App() {
+  const ref = useRef();
+
   return (
-    <div className="App">
+    <div className="App" ref={ref}>
       <AuthContextProvider>
         <BrowserRouter>
           <Routes>
@@ -37,7 +40,22 @@ function App() {
                   </Protected>
                 }
               />
-              <Route path="Search" element={<SearchPage />} />
+              <Route
+                path="Search"
+                element={
+                  <div
+                    style={{
+                      position: "relative",
+                      width:
+                        ref.current !== undefined && ref.current !== null
+                          ? ref.current.offsetWidth
+                          : "100%",
+                    }}
+                  >
+                    <SearchPage />
+                  </div>
+                }
+              />
               <Route
                 path="SignIn"
                 element={
@@ -46,7 +64,8 @@ function App() {
                   </CheckSignedIn>
                 }
               />
-              <Route path="Set/:id" element={<ViewSet />} />
+              <Route path="Set/:id" element={<ViewSet />}></Route>
+              <Route path="Edit/:id" element={<EditSet />} />
             </Route>
           </Routes>
         </BrowserRouter>

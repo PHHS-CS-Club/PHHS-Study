@@ -1,5 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
@@ -9,13 +10,19 @@ import "./ViewSet.css";
 import FlashcardMode from "../components/FlashcardMode";
 
 export default function ViewSet() {
+  const { user } = UserAuth();
   const [cards, setCards] = useState([]);
   const [mode, setMode] = useState("view");
+  const [metadata, setMetadata] = useState({});
   const { id } = useParams();
   useEffect(() => {
     onValue(ref(database, id), (snapshot) => {
       const data = snapshot.val();
       setCards(data.cards);
+    });
+    onValue(ref(database, "flashcard-sets/" + id), (snapshot) => {
+      const metaData = snapshot.val();
+      setMetadata(metaData);
     });
   }, [id]);
 
@@ -33,6 +40,13 @@ export default function ViewSet() {
         </button>
         <button> Learn mode </button>
         <button> Flashcard games </button>
+        {user?.uid === metadata?.AuthorID ? (
+          <Link to={"/Edit/" + id}>
+            <button>Edit Sets</button>
+          </Link>
+        ) : (
+          <></>
+        )}
         {cards.map((card) => {
           return (
             <div key={card.id} className="card-container">

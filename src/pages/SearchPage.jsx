@@ -18,7 +18,7 @@ export default function SearchPage() {
 
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
-      <>
+      <div className="search-page">
         {Object.keys(flashcardMeta).map((key, index) => (
           <div key={key} className="search-container">
             {flashcardMeta[key].Name.length !== 0 ? (
@@ -30,7 +30,7 @@ export default function SearchPage() {
             )}
           </div>
         ))}
-      </>
+      </div>
     );
   }
 }
