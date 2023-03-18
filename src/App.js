@@ -46,7 +46,10 @@ function App() {
                   <div
                     style={{
                       position: "relative",
-                      width: ref.current.offsetWidth,
+                      width:
+                        ref.current !== undefined && ref.current !== null
+                          ? ref.current.offsetWidth
+                          : "100%",
                     }}
                   >
                     <SearchPage />
