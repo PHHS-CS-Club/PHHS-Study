@@ -6,6 +6,7 @@ import Navbar from "./pages/Navbar";
 import Signin from "./pages/Signin";
 import Protected from "./components/Protected";
 import CreateSet from "./pages/CreateSet";
+import EditSet from "./pages/EditSet";
 
 import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
@@ -46,7 +47,8 @@ function App() {
                   </CheckSignedIn>
                 }
               />
-              <Route path="Set/:id" element={<ViewSet />} />
+              <Route path="Set/:id" element={<ViewSet />}></Route>
+              <Route path="Edit/:id" element={<EditSet />} />
             </Route>
           </Routes>
         </BrowserRouter>
