@@ -17,28 +17,16 @@ export default function EditSet() {
   const { user } = UserAuth();
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
-  const [classes, setClasses] = useState([]);
-  const [teachers, setTeachers] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [classes, setClasses] = useState({});
+  const [teachers, setTeachers] = useState({});
   const { id } = useParams();
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
   /* eslint-enable */
-  const dbRef = ref(database, "/users/" + user.uid);
 
   useEffect(() => {
-    onValue(
-      dbRef,
-      (snapshot) => {
-        const data = snapshot.val();
-        setUserData(data);
-      },
-      {
-        onlyOnce: true,
-      }
-    );
     onValue(
       ref(database, id),
       (snapshot) => {
@@ -52,9 +40,11 @@ export default function EditSet() {
       ref(database, "flashcard-sets/" + id),
       (snapshot) => {
         console.log(snapshot.val());
-        setClasses(snapshot.val().Classes);
-        setTeachers(snapshot.val().Teachers);
+        setClasses(arrToObject(snapshot.val().Classes));
+        setTeachers(arrToObject(snapshot.val().Teachers));
         setName(snapshot.val().Name);
+        console.log(teachers);
+        console.log(classes);
       },
       {
         onlyOnce: true,
@@ -62,6 +52,14 @@ export default function EditSet() {
     );
     //eslint-disable-next-line
   }, []);
+
+  function arrToObject(arr) {
+    let newEl = {};
+    arr.forEach((teacher) => {
+      newEl = { ...newEl, [teacher]: true };
+    });
+    return newEl;
+  }
 
   const createCard = () => {
     const list = cards.concat({
@@ -93,8 +91,7 @@ export default function EditSet() {
 
   function writeSet() {
     if (checkValid()) {
-      let newId = uuidv4();
-      set(ref(database, newId), {
+      set(ref(database, id), {
         cards,
       });
       let trueClasses = [];
@@ -109,56 +106,15 @@ export default function EditSet() {
           trueTeachers.push(x);
         }
       });
-      set(ref(database, "flashcard-sets/" + newId), {
+      set(ref(database, "flashcard-sets/" + id), {
         AuthorID: user.uid,
         Author: user.displayName,
         Name: name,
         Classes: trueClasses,
         Teachers: trueTeachers,
       });
-      console.log(userData);
-      console.log(newId);
-      if (userData.madeSets?.length > 0) {
-        console.log("upd");
-        set(ref(database, "users/" + user.uid), {
-          ...userData,
-          madeSets: [...userData.madeSets, newId],
-        });
-      } else {
-        console.log("set");
-        set(ref(database, "users/" + user.uid), {
-          ...userData,
-          madeSets: [newId],
-        });
-      }
-
-      setCards([]);
-      setName("");
+      alert("Set Updated!");
     }
-  }
-
-  function classesToObject() {
-    let anew = {};
-    if (classes !== undefined && classes !== null) {
-      classes?.forEach((element) => {
-        console.log(element);
-        anew = { ...anew, [element]: true };
-      });
-    }
-    console.log(anew);
-    return anew;
-  }
-
-  function teachersToObject() {
-    let anew = {};
-    if (teachers !== undefined && teachers !== null) {
-      teachers?.forEach((element) => {
-        console.log(element);
-        anew = { ...anew, [element]: true };
-      });
-    }
-    console.log(anew);
-    return anew;
   }
 
   function updateFront(text, id) {
@@ -351,11 +307,11 @@ export default function EditSet() {
         )}
         <div className="create-set-extras">
           <ClassesMenu
-            classes={classesToObject()}
+            classes={classes}
             classSelect={(classes) => setClasses(classes)}
           />
           <TeachersMenu
-            teachers={teachersToObject()}
+            teachers={teachers}
             teacherSelect={(teachers) => setTeachers(teachers)}
           />
         </div>

@@ -41,7 +41,9 @@ export default function ViewSet() {
         <button> Learn mode </button>
         <button> Flashcard games </button>
         {user?.uid === metadata?.AuthorID ? (
-          <Link to={"/Edit/" + id}>Edits Set</Link>
+          <Link to={"/Edit/" + id}>
+            <button>Edit Sets</button>
+          </Link>
         ) : (
           <></>
         )}
