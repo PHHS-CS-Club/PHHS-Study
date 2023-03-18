@@ -1,11 +1,17 @@
 import React from "react";
 import * as Teachers from "../constants/teachers";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./TeachersMenu.css";
 
 export default function TeachersMenu(props) {
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState({});
   const [searchLastInput, setSearchLastInput] = useState("");
+
+  useEffect(() => {
+    if (props.teachers) {
+      setTeachers(props.teachers);
+    }
+  }, [props.teachers]);
 
   const handleTeacherChange = (event) => {
     const target = event.target;
