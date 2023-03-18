@@ -1,0 +1,18 @@
+.change-field-wrap {
+  background-color: rgb(150, 150, 150);
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+.change-username-input {
+  width: 200px;
+}
+.change-role-select {
+  width: 208px;
+  height: 22px;
+}
+.change-field {
+  width: 125px;
+}
