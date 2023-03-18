@@ -24,6 +24,7 @@ export default function TeachersMenu(props) {
   };
 
   function checkbox(x) {
+    console.log(x);
     return (
       <div className="teacher-checkbox" style={{ display: "inline" }}>
         {" "}
