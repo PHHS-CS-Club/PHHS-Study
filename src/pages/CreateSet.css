@@ -1,0 +1,136 @@
+.create-set-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+
+textarea {
+  font-size: 20px;
+  text-align: center;
+}
+
+#name-set {
+  border: 1px solid rgb(0, 0, 0);
+  text-align: center;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+  resize: none;
+  width: 400px;
+  height: 50px;
+}
+
+.math-checkbox {
+  position: absolute;
+  z-index: 2;
+  right: 485px;
+  top: -18px;
+}
+
+.math-check-label-cs {
+  position: absolute;
+  font-size: 10px;
+  right: 432px;
+  top: -14px;
+  z-index: 2;
+  user-select: none;
+}
+
+.card-container-cs {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin: 10px;
+}
+
+.input-box-container {
+  display: inline;
+  position: relative;
+  border: 1px solid;
+  padding: 2px;
+  text-align: center;
+  width: 500px;
+  height: 200px;
+  margin: 5px;
+  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+}
+
+.katex-display {
+  position: relative;
+  font-size: 2em;
+  white-space: pre-line;
+}
+
+.front-side {
+  white-space: pre-line;
+  border-width: 0px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  resize: none;
+}
+.back-side {
+  white-space: pre-line;
+  border-width: 0px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  resize: none;
+}
+.delete-button {
+  position: relative;
+  right: -1025px;
+  top: 5px;
+  opacity: 0.8;
+  color: rgb(241, 241, 241);
+  border-radius: 32px;
+  fill: rgb(207, 0, 0);
+  z-index: 2;
+}
+.delete-button:hover {
+  transition: 0.15s;
+  opacity: 0.6;
+}
+.add-card-button {
+  font-size: 15px;
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  width: 75px;
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+}
+.create-set-button {
+  font-size: 15px;
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  width: 90px;
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px 1px rgb(196, 196, 196);
+}
+.add-card-button:hover,
+.create-set-button:hover {
+  transition: 0.15s;
+  opacity: 0.7;
+}
+.add-card-message {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.create-set-extras {
+  display: flex;
+  justify-content: space-evenly;
+  width: 1000px;
+}

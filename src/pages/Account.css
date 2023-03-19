@@ -1,0 +1,63 @@
+.account-page {
+  display: flex;
+  justify-content: space-around;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.field-text {
+  margin-bottom: 15px;
+}
+.change-field-wrap {
+  background-color: rgb(150, 150, 150);
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+.outer-border {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+
+  background-color: rgb(200, 200, 200);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+.change-username-input {
+  width: 200px;
+}
+.change-role-select {
+  width: 208px;
+  height: 22px;
+}
+.change-field {
+  width: 125px;
+}
+.field-text {
+  font-weight: bold;
+}
+
+.owned-sets {
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px 20px 20px;
+  border: 1px solid black;
+}
+
+.owned-sets-header {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.owned-sets-boxes {
+  display: flex;
+}

@@ -1,6 +1,19 @@
 {
   "rules": {
-    ".read": "now < 1673510400000",  // 2023-1-12
-    ".write": "now < 1673510400000",  // 2023-1-12
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "flashcard-sets": {
+      "$flashcard": {
+        ".write": "data.child('AuthorID').val() === auth.uid"
+      }
+    },
+    "$setid": {
+      ".write": "root.child('flashcard-sets/' + $setid).child('AuthorID').val() === auth.uid"
+    },
+    ".read": true,
+    ".write": "auth.uid !== null"
   }
 }
