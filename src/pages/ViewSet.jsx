@@ -30,16 +30,20 @@ export default function ViewSet() {
     return (
       <div>
         {/* Make these render new components for flashcard modes */}
-        <button
-          onClick={() => {
-            setMode("Flashcard");
-          }}
-        >
-          {" "}
-          Flashcard mode{" "}
-        </button>
-        <button> Learn mode </button>
-        <button> Flashcard games </button>
+        <div className="viewset-button-wrapper">
+          <button
+            className="viewset-buttons"
+            onClick={() => {
+              setMode("Flashcard");
+            }}
+          >
+            {" "}
+            Flashcard mode{" "}
+          </button>
+          <button className="viewset-buttons"> Learn mode </button>
+          <button className="viewset-buttons"> Flashcard games </button>
+        </div>
+
         {user?.uid === metadata?.AuthorID ? (
           <Link to={"/Edit/" + id}>
             <button>Edit Sets</button>

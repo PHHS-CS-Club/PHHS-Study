@@ -3,6 +3,14 @@ ul {
   padding: 0px;
 }
 
+.navbar-container {
+  height: fit-content;
+}
+
+.nav {
+  all: unset;
+}
+
 .navbar-bar {
   background-color: lightblue;
   display: flex;
@@ -10,7 +18,6 @@ ul {
   align-items: center;
   margin: 0px;
   height: 70px;
-  margin-bottom: 100px;
 }
 
 .navbar-link {
