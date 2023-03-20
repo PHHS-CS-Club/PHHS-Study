@@ -8,6 +8,7 @@ import SetBoxView from "../components/SetBoxView";
 import ChangeUsername from "../components/ChangeUsername";
 import ChangeRole from "../components/ChangeRole";
 import "./Account.css";
+import EditButton from "../icons/pencil-edit-button.svg";
 
 export default function Signin() {
   let { id } = useParams();
@@ -58,7 +59,7 @@ export default function Signin() {
     if (madeSets !== null && madeSets !== undefined) {
       return (
         <div className="owned-sets">
-          <div className="owned-sets-header"> My Sets </div>
+          <div className="owned-sets-header">My Sets</div>
           <div className="owned-sets-boxes">
             {madeSets.map((key, index) => (
               <div key={key} className="search-container">
@@ -127,12 +128,16 @@ export default function Signin() {
         <div className="account-info">
           <div className="user-field">
             <div className="field-text">Username: {username}</div>
-            <button onClick={changeUsernameSwitch}>Change username</button>
+            <button onClick={changeUsernameSwitch} className="change-field-button">
+              <img src={EditButton} className="edit-pencil" alt="Change username" width="15" height="15"/>
+            </button>
             {changeUsernameDisplay()}
           </div>
           <div className="user-field">
             <div className="field-text">Role: {role}</div>
-            <button onClick={changeRoleSwitch}>Change role</button>
+            <button onClick={changeRoleSwitch} className="change-field-button">
+              <img src={EditButton} className="edit-pencil" alt="Change role" width="15" height="15"/>
+            </button>
             {changeRoleDisplay()}
           </div>
           <div className="user-field">

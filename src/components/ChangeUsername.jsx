@@ -8,7 +8,6 @@ export default function ChangeUsername() {
   let { id } = useParams();
 
     const dbRef = ref(database, "users/" + id);
-    const flashcardRef = ref (database, "flashcard-sets/");
 
     const [usernameInput, setUsernameInput] = useState("");
     const [madeSets, setMadeSets] = useState([]);
@@ -38,7 +37,7 @@ export default function ChangeUsername() {
             username: usernameInput,
           });
           for (let i = 0; i < madeSets.length; i++) {
-            update(flashcardRef, {
+            update(ref(database, "flashcard-sets/" + madeSets[i]), {
               Author: usernameInput,
             });
           }
