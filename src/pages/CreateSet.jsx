@@ -19,6 +19,7 @@ export default function CreateSet() {
   const [classes, setClasses] = useState({});
   const [teachers, setTeachers] = useState({});
   const [userData, setUserData] = useState([]);
+  const [authorName, setAuthorName] = useState("");
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
@@ -32,6 +33,7 @@ export default function CreateSet() {
       (snapshot) => {
         const data = snapshot.val();
         setUserData(data);
+        setAuthorName(snapshot.child("username").val());
       },
       {
         onlyOnce: true,
@@ -88,7 +90,7 @@ export default function CreateSet() {
       });
       set(ref(database, "flashcard-sets/" + newId), {
         AuthorID: user.uid,
-        Author: user.displayName,
+        Author: authorName,
         Name: name,
         Classes: trueClasses,
         Teachers: trueTeachers,
