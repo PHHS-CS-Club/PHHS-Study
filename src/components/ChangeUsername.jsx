@@ -48,7 +48,7 @@ export default function ChangeUsername() {
 
     return (
       <div>
-        <label htmlFor="change-username">
+        <label htmlFor="change-username" className="user-field-change-label">
           Enter new username (max 18 characters):
         </label>
         <div className="change-field-wrap">

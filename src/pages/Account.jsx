@@ -9,6 +9,7 @@ import ChangeUsername from "../components/ChangeUsername";
 import ChangeRole from "../components/ChangeRole";
 import "./Account.css";
 import EditButton from "../icons/pencil-edit-button.svg";
+import XButton from "../icons/x-symbol.svg";
 
 export default function Signin() {
   let { id } = useParams();
@@ -30,23 +31,19 @@ export default function Signin() {
       onValue(
         dbRef,
         (snapshot) => {
-          if (
-            username !== snapshot.child("username").val() ||
-            role !== snapshot.child("role").val() ||
-            email !== snapshot.child("email").val() ||
-            madeSets !== snapshot.child("madeSets").val()
-          ) {
-            setUsername(snapshot.child("username").val());
-            setRole(snapshot.child("role").val());
-            setEmail(snapshot.child("email").val());
-            setMadeSets(snapshot.child("madeSets").val());
-          }
-          if (email === null || username === null || role === null) {
+          setUsername(snapshot.child("username").val());
+          setRole(snapshot.child("role").val());
+          setEmail(snapshot.child("email").val());
+          setMadeSets(snapshot.child("madeSets").val());
+          if (snapshot.child("username").val() === null && 
+          snapshot.child("role").val() === null &&
+          snapshot.child("email").val() === null &&
+          snapshot.child("madeSets").val() === null) {
             set(dbRef, {
               username: user.displayName,
-              role: "Student",
               email: user.email,
-              madeSets: madeSets,
+              role: "Student",
+              madeSets: [],
             });
           }
         }
@@ -116,6 +113,13 @@ export default function Signin() {
     );
   }
 
+  const changeFieldDisplayIcon = (changingField, changeField) => {
+    if (!changingField) {
+      return (<img src={EditButton} className="edit-pencil" alt={changeField} width="12" height="12"/>)
+    }
+    return (<img src={XButton} className="x-button" alt="Close" width="12" height="12"/>)
+  }
+
   return (
     //display any user information from signed in user here
     //also add functionality to edit display name and such
@@ -129,14 +133,14 @@ export default function Signin() {
           <div className="user-field">
             <div className="field-text">Username: {username}</div>
             <button onClick={changeUsernameSwitch} className="change-field-button">
-              <img src={EditButton} className="edit-pencil" alt="Change username" width="15" height="15"/>
+              {changeFieldDisplayIcon(changingUsername, "Change username")}
             </button>
             {changeUsernameDisplay()}
           </div>
           <div className="user-field">
             <div className="field-text">Role: {role}</div>
             <button onClick={changeRoleSwitch} className="change-field-button">
-              <img src={EditButton} className="edit-pencil" alt="Change role" width="15" height="15"/>
+              {changeFieldDisplayIcon(changingRole, "Change role")}
             </button>
             {changeRoleDisplay()}
           </div>
