@@ -25,7 +25,7 @@ export default function ChangeRole() {
 
   return (
     <div>
-    	<label htmlFor="role-select">
+    	<label htmlFor="role-select" className="user-field-change-label">
 				Select new role:
 			</label>
       <div className="change-field-wrap">

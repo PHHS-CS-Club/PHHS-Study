@@ -1,18 +1,43 @@
 .change-field-wrap {
-  background-color: rgb(150, 150, 150);
-  padding: 10px;
   border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
+  border-width: 10px;
+  border-color:rgb(125, 164, 236);
+  border-radius: 20px;
+  margin-top: 5px;
   margin-bottom: 15px;
 }
 .change-username-input {
-  width: 200px;
+  width: 53.5%;
+  height: 20px;
+  border: none;
+  background-color: rgb(243, 243, 243);
+  border-top-left-radius: 11px;
+  border-bottom-left-radius: 11px;
+  padding-left: 1.5%;
+  padding-right: 0px;
 }
 .change-role-select {
-  width: 208px;
+  width: 55%;
+  border: none;
   height: 22px;
+  border-top-left-radius: 11px;
+  border-bottom-left-radius: 11px;
+  background-color: rgb(243, 243, 243);
 }
 .change-field {
-  width: 125px;
+  width: 45%;
+  border: none;
+  height: 22px;
+  border-top-right-radius: 11px;
+  border-bottom-right-radius: 11px;
+  background-color: rgb(205, 225, 231);
+  padding: 0px;
+  transition: background-color 0.25s;
+}
+.change-field:hover {
+  background-color: rgb(205, 205, 255);
+  cursor: pointer;
+}
+.change-field:active {
+  background-color: rgb(236, 210, 125);
 }
