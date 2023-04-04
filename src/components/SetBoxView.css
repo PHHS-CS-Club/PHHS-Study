@@ -15,6 +15,12 @@
   z-index: 2;
 }
 
+.edit-icon-setbox {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+
 .search-set-classes,
 .search-set-teachers {
   display: flex;
