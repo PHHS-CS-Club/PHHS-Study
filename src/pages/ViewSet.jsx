@@ -18,7 +18,9 @@ export default function ViewSet() {
   useEffect(() => {
     onValue(ref(database, id), (snapshot) => {
       const data = snapshot.val();
-      setCards(data.cards);
+      if (data !== null) {
+        setCards(data.cards);
+      }
     });
     onValue(ref(database, "flashcard-sets/" + id), (snapshot) => {
       const metaData = snapshot.val();
@@ -51,7 +53,7 @@ export default function ViewSet() {
         ) : (
           <></>
         )}
-        {cards.map((card) => {
+        {cards?.map((card) => {
           return (
             <div key={card.id} className="card-container">
               {card.mathModeFront ? (

@@ -21,6 +21,7 @@ export default function SearchPage() {
       <div className="search-page">
         {Object.keys(flashcardMeta).map((key, index) => (
           <div key={key} className="search-container">
+            {console.log(key)}
             {flashcardMeta[key].Name.length !== 0 ? (
               <Link to={"/Set/" + key}>
                 <SetBoxView id={key} key={key} />
