@@ -125,6 +125,7 @@
 
 .bucket-holder {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .bucket-title {
