@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 export default function FlashcardMode(props) {
   //eslint-disable-next-line
   const [cards, setCards] = useState(() => props.cards.map((item) => item));
-  const [currentCard, setCurrentCard] = useState({});
+  const [currentCard, setCurrentCard] = useState();
   const [currentBucket, setCurrentBucket] = useState(1);
   const [flipped, setFlipped] = useState(false);
   const { user } = UserAuth();
@@ -22,30 +22,28 @@ export default function FlashcardMode(props) {
 
   useEffect(() => {
     initial();
-    let keys = Object.keys(cards);
-    setCurrentCard(cards[keys[Math.floor(Math.random() * keys.length)]]);
     //eslint-disable-next-line
   }, []);
 
   function initial() {
-    console.log("inits");
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
-          console.log("its");
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
-            console.log("snapconf");
-
             setCards(snapshot.val());
-            console.log(snapshot.val());
+            let keys = Object.keys(snapshot.val());
+            setCurrentCard(
+              snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
+            );
           } else {
-            console.log("setting cards");
             var arr = props.cards;
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
             setCards(arr);
+            let keys = Object.keys(arr);
+            setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
           }
         },
         {
@@ -53,12 +51,13 @@ export default function FlashcardMode(props) {
         }
       );
     } else {
-      console.log("setting cards");
       var arr = props.cards;
       arr.forEach((c, i) => {
         arr[i] = { ...c, bucket: 1, index: i };
       });
       setCards(arr);
+      let keys = Object.keys(arr);
+      setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
     }
   }
 
@@ -172,7 +171,7 @@ export default function FlashcardMode(props) {
   return (
     <div className="flashcard-mode-body">
       <div className="cl-container">
-        <div className="current-level">Card level: {currentCard.bucket}</div>
+        <div className="current-level">Card level: {currentCard?.bucket}</div>
         <button className="reset-prog-button" onClick={resetProgress}>
           Reset Progress
         </button>
@@ -212,7 +211,9 @@ export default function FlashcardMode(props) {
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 1 ? (
-                <div key={card.id + "1"}>{bucketItem()}</div>
+                <div className="dot-holder" key={card.id + "1"}>
+                  {bucketItem()}
+                </div>
               ) : (
                 <Fragment key={card.id + "1"} />
               );
@@ -224,7 +225,9 @@ export default function FlashcardMode(props) {
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 2 ? (
-                <div key={card.id + "2"}>{bucketItem()}</div>
+                <div className="dot-holder" key={card.id + "2"}>
+                  {bucketItem()}
+                </div>
               ) : (
                 <Fragment key={card.id + "2"} />
               );
@@ -236,7 +239,9 @@ export default function FlashcardMode(props) {
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 3 ? (
-                <div key={card.id + "3"}>{bucketItem()}</div>
+                <div className="dot-holder" key={card.id + "3"}>
+                  {bucketItem()}
+                </div>
               ) : (
                 <Fragment key={card.id + "3"} />
               );
@@ -248,7 +253,9 @@ export default function FlashcardMode(props) {
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 4 ? (
-                <div key={card.id + "4"}>{bucketItem()}</div>
+                <div className="dot-holder" key={card.id + "4"}>
+                  {bucketItem()}
+                </div>
               ) : (
                 <Fragment key={card.id + "4"} />
               );
@@ -260,7 +267,9 @@ export default function FlashcardMode(props) {
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 5 ? (
-                <div key={card.id + "5"}>{bucketItem()}</div>
+                <div className="dot-holder" key={card.id + "5"}>
+                  {bucketItem()}
+                </div>
               ) : (
                 <Fragment key={card.id + "5"} />
               );
