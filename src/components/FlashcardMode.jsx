@@ -28,14 +28,12 @@ export default function FlashcardMode(props) {
   }, []);
 
   function initial() {
-    console.log("initializing");
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
             setCards(snapshot.val());
-            console.log(snapshot.val());
           }
         },
         {
@@ -87,7 +85,6 @@ export default function FlashcardMode(props) {
       cards !== undefined &&
       cards !== null
     ) {
-      console.log("setting info");
       set(ref(database, "users/" + user.uid + "/" + id), cards);
     }
   };
@@ -112,7 +109,6 @@ export default function FlashcardMode(props) {
       cards !== undefined &&
       cards !== null
     ) {
-      console.log("setting info");
       set(ref(database, "users/" + user.uid + "/" + id), cards);
     }
   };

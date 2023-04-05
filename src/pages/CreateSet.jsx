@@ -55,9 +55,7 @@ export default function CreateSet() {
 
   function checkValid() {
     let str = "Please fix your set:\n";
-    str += name.length > 0
-      ? ""
-      : "Must have a name\n";
+    str += name.length > 0 ? "" : "Must have a name\n";
     str += cards.length > 1 ? "" : "Must have at least 2 cards\n";
     str += Object.values(classes).includes(true)
       ? ""
@@ -99,15 +97,11 @@ export default function CreateSet() {
         Classes: trueClasses,
         Teachers: trueTeachers,
       });
-      console.log(userData);
-      console.log(newId);
       if (userData.madeSets?.length > 0) {
-        console.log("upd");
         update(ref(database, "users/" + user.uid), {
           madeSets: [...userData.madeSets, newId],
         });
       } else {
-        console.log("set");
         set(ref(database, "users/" + user.uid), {
           ...userData,
           madeSets: [newId],
