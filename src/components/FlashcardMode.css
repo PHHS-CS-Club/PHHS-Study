@@ -1,10 +1,51 @@
 .card-container-fsm {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   background-color: rgb(111, 111, 111);
   padding-left: 150px;
+  flex: 1;
+}
+
+.cl-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(111, 111, 111);
+}
+
+.current-level {
+  background-color: rgb(225, 225, 225);
+  padding: 5px 10px 5px 10px;
+  width: 70%;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 20px;
+  margin: 20px;
+  max-width: 500px;
+}
+
+.reset-prog-button {
+  background-color: rgb(223, 89, 89);
+  font-weight: 600;
+  padding: 7px 10px 7px 10px;
+  font-size: 15px;
+  width: 70%;
+  text-align: center;
+  border-radius: 20px;
+  margin: 20px;
+  border: 1px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
+  transition: 250ms;
+  transform: translateY(var(--translate-y, 0));
+  max-width: 500px;
+}
+
+.reset-prog-button:hover {
+  --translate-y: -3px;
+  cursor: pointer;
 }
 
 .card-correct,
@@ -61,4 +102,27 @@
   flex-direction: column;
   align-items: stretch;
   margin-left: 30px;
+}
+
+.status-container {
+  background-color: rgb(111, 111, 111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bucket {
+  margin: 20px;
+  background-color: rgb(143, 181, 227);
+  padding: 5px 5px 20px 5px;
+  border-radius: 10px;
+}
+
+.bucket-holder {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.green-dot {
+  color: green;
 }

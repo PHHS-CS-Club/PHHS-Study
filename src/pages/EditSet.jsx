@@ -40,12 +40,9 @@ export default function EditSet() {
     onValue(
       ref(database, "flashcard-sets/" + id),
       (snapshot) => {
-        console.log(snapshot.val());
         setClasses(arrToObject(snapshot.val().Classes));
         setTeachers(arrToObject(snapshot.val().Teachers));
         setName(snapshot.val().Name);
-        console.log(teachers);
-        console.log(classes);
       },
       {
         onlyOnce: true,
@@ -74,7 +71,6 @@ export default function EditSet() {
   };
 
   const deleteSet = () => {
-    console.log(user.uid);
     onValue(
       ref(database, "users/" + user.uid),
       (snapshot) => {

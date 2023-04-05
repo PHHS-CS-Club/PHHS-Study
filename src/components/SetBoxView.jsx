@@ -48,8 +48,7 @@ const SetBoxView = (id) => {
   return (
     <>
       <div className="search-set-container">
-        {console.log(user.uid + flashcardMeta.AuthorID)}
-        {flashcardMeta.AuthorID === user.uid ? (
+        {flashcardMeta?.AuthorID === user?.uid ? (
           <Link to={"/Edit/" + id.id} className="edit-icon-setbox">
             <BsPencilSquare />
           </Link>
