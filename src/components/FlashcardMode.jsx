@@ -28,12 +28,24 @@ export default function FlashcardMode(props) {
   }, []);
 
   function initial() {
+    console.log("inits");
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
+          console.log("its");
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
+            console.log("snapconf");
+
             setCards(snapshot.val());
+            console.log(snapshot.val());
+          } else {
+            console.log("setting cards");
+            var arr = props.cards;
+            arr.forEach((c, i) => {
+              arr[i] = { ...c, bucket: 1, index: i };
+            });
+            setCards(arr);
           }
         },
         {
@@ -41,6 +53,7 @@ export default function FlashcardMode(props) {
         }
       );
     } else {
+      console.log("setting cards");
       var arr = props.cards;
       arr.forEach((c, i) => {
         arr[i] = { ...c, bucket: 1, index: i };
@@ -149,7 +162,7 @@ export default function FlashcardMode(props) {
       arr[i] = { ...c, bucket: 1, index: i };
     });
     setCards(arr);
-    set(ref(database, "users/" + user.uid + "/" + id), cards);
+    set(ref(database, "users/" + user.uid + "/" + id), arr);
   };
 
   function bucketItem(cardid) {
@@ -195,7 +208,7 @@ export default function FlashcardMode(props) {
       </div>
       <div className="status-container">
         <div className="bucket-1 bucket">
-          Bucket 1
+          <div className="bucket-title">Bucket 1</div>
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 1 ? (
@@ -207,7 +220,7 @@ export default function FlashcardMode(props) {
           </div>
         </div>
         <div className="bucket-2 bucket">
-          Bucket 2
+          <div className="bucket-title">Bucket 2</div>
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 2 ? (
@@ -219,7 +232,7 @@ export default function FlashcardMode(props) {
           </div>
         </div>
         <div className="bucket-3 bucket">
-          Bucket 3
+          <div className="bucket-title">Bucket 3</div>
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 3 ? (
@@ -231,7 +244,7 @@ export default function FlashcardMode(props) {
           </div>
         </div>
         <div className="bucket-4 bucket">
-          Bucket 4
+          <div className="bucket-title">Bucket 4</div>
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 4 ? (
@@ -243,7 +256,7 @@ export default function FlashcardMode(props) {
           </div>
         </div>
         <div className="bucket-5 bucket">
-          Bucket 5
+          <div className="bucket-title">Bucket 5</div>
           <div className="bucket-holder">
             {cards.map((card, i) => {
               return card.bucket === 5 ? (

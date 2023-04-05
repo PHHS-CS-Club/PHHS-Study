@@ -5,6 +5,7 @@ import { ref, set, onValue, update } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
+import { useNavigate } from "react-router-dom";
 import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
@@ -20,6 +21,7 @@ export default function CreateSet() {
   const [teachers, setTeachers] = useState({});
   const [userData, setUserData] = useState([]);
   const [authorName, setAuthorName] = useState("");
+  const navigate = useNavigate();
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
@@ -110,6 +112,8 @@ export default function CreateSet() {
 
       setCards([]);
       setName("");
+      console.log("navigating to home");
+      navigate("/Set/" + newId);
     }
   }
 

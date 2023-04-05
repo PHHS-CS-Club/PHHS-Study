@@ -107,20 +107,32 @@
 .status-container {
   background-color: rgb(111, 111, 111);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .bucket {
-  margin: 20px;
   background-color: rgb(143, 181, 227);
   padding: 5px 5px 20px 5px;
   border-radius: 10px;
+  transition: 250ms;
+  width: 100px;
+  height: fit-content;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
+  margin: 0px 5px 5px 5px;
 }
 
 .bucket-holder {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.bucket-title {
+  text-align: center;
+  background-color: rgb(92, 153, 227);
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
 }
 
 .green-dot {

@@ -1,8 +1,58 @@
+.flashcard-metadata {
+  padding-left: 20px;
+  font-size: 20px;
+}
+
+.viewset-title {
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.viewset-author,
+.viewset-card-title {
+  font-size: 30px;
+  font-weight: 500;
+  padding: 3px;
+  padding-left: 0px;
+}
+
+.viewset-card-title {
+  text-align: center;
+}
+
+.viewset-infopart {
+  margin: 5px;
+  margin-left: 0px;
+  padding: 3px;
+  padding-left: 0px;
+}
+
+.viewset-classes,
+.viewset-teachers {
+  display: flex;
+}
+
+.item-viewset {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 3px;
+  background-color: rgb(143, 169, 255);
+  box-shadow: 0px 0px 4px 0.5px rgba(0, 0, 0, 0.1);
+  transform: translateY(var(--translate-y, 0));
+  transition: 150ms;
+}
+
+.item-viewset:hover {
+  --translate-y: -1px;
+}
+
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgray;
+  border: 1px solid rgb(85, 85, 85);
   margin: 10px;
   min-height: 100px;
 }
@@ -19,7 +69,7 @@
 }
 
 .view-front {
-  border-right: 1px solid lightgray;
+  border-right: 1px solid rgb(85, 85, 85);
 }
 
 .viewset-button-wrapper {
@@ -36,20 +86,36 @@
 .viewset-buttons {
   flex: 1;
   color: black;
-  border: 2px solid lightblue;
-  border-radius: 0px;
+  border: 1px solid rgb(223, 236, 241);
   padding: 18px 36px;
   display: inline-block;
   font-size: 20px;
   font-weight: bold;
-  background-color: white;
+  background-color: rgb(101, 151, 225);
   cursor: pointer;
-  box-shadow: inset 0 0 0 0 lightblue;
+  box-shadow: inset 0 0 0 0 rgb(223, 236, 241);
   transition: ease 0.3s;
 }
 
 .viewset-buttons:hover {
-  box-shadow: inset 0 0 0 50px lightblue;
+  box-shadow: inset 0 0 0 50px rgb(223, 236, 241);
+}
+
+.vsedit-button {
+  border: 2px solid blue;
+  background-color: white;
+  box-shadow: inset 0 0 0 0 blue;
+  font-size: 20px;
+  color: blue;
+  padding: 10px;
+  transition: ease 0.3s;
+  margin-left: 20px;
+}
+
+.vsedit-button:hover {
+  cursor: pointer;
+  color: lightcyan;
+  box-shadow: inset 0 0 0 50px blue;
 }
 
 .exit-fsmode-button {
