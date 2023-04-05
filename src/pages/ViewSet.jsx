@@ -53,38 +53,40 @@ export default function ViewSet() {
         ) : (
           <></>
         )}
-        {cards?.map((card) => {
-          return (
-            <div key={card.id} className="card-container">
-              {card.mathModeFront ? (
-                <div className="view-front">
-                  <InlineMath>{card.front}</InlineMath>
-                </div>
-              ) : (
-                <div className="view-front">{card.front}</div>
-              )}
-              {card.mathModeBack ? (
-                <div className="view-back">
-                  <InlineMath>{card.back}</InlineMath>
-                </div>
-              ) : (
-                <div className="view-back">{card.back}</div>
-              )}
-            </div>
-          );
-        })}
+        <div className="cards-viewer">
+          {cards?.map((card) => {
+            return (
+              <div key={card.id} className="card-container">
+                {card.mathModeFront ? (
+                  <div className="view-front">
+                    <InlineMath>{card.front}</InlineMath>
+                  </div>
+                ) : (
+                  <div className="view-front">{card.front}</div>
+                )}
+                {card.mathModeBack ? (
+                  <div className="view-back">
+                    <InlineMath>{card.back}</InlineMath>
+                  </div>
+                ) : (
+                  <div className="view-back">{card.back}</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   } else if (mode === "Flashcard") {
     return (
       <>
         <button
+          className="exit-fsmode-button"
           onClick={() => {
             setMode("view");
           }}
         >
-          {" "}
-          Exit{" "}
+          Exit
         </button>
         <FlashcardMode cards={cards} />
       </>
