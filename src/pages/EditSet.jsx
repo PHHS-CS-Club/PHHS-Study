@@ -2,7 +2,7 @@ import React from "react";
 import "./EditSet.css";
 import { uuidv4 } from "@firebase/util";
 import { useState, useEffect } from "react";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue, remove, update } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
@@ -11,7 +11,7 @@ import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
 import ClassesMenu from "../components/ClassesMenu";
 import TeachersMenu from "../components/TeachersMenu";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditSet() {
   const { user } = UserAuth();
@@ -20,6 +20,7 @@ export default function EditSet() {
   const [classes, setClasses] = useState({});
   const [teachers, setTeachers] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
@@ -39,12 +40,9 @@ export default function EditSet() {
     onValue(
       ref(database, "flashcard-sets/" + id),
       (snapshot) => {
-        console.log(snapshot.val());
         setClasses(arrToObject(snapshot.val().Classes));
         setTeachers(arrToObject(snapshot.val().Teachers));
         setName(snapshot.val().Name);
-        console.log(teachers);
-        console.log(classes);
       },
       {
         onlyOnce: true,
@@ -72,8 +70,29 @@ export default function EditSet() {
     setCards(list);
   };
 
+  const deleteSet = () => {
+    onValue(
+      ref(database, "users/" + user.uid),
+      (snapshot) => {
+        update(ref(database, "users/" + user.uid), {
+          madeSets: snapshot
+            .child("madeSets")
+            .val()
+            .filter((item) => item !== id),
+        });
+      },
+      {
+        onlyOnce: true,
+      }
+    );
+    remove(ref(database, "flashcard-sets/" + id));
+    remove(ref(database, id));
+    navigate("/Home");
+  };
+
   function checkValid() {
     let str = "Please fix your set:\n";
+    str += name.length > 0 ? "" : "Must have a name\n";
     str += cards.length > 1 ? "" : "Must have at least 2 cards\n";
     str += Object.values(classes).includes(true)
       ? ""
@@ -85,7 +104,8 @@ export default function EditSet() {
     return (
       cards.length > 1 &&
       Object.values(classes).includes(true) &&
-      Object.values(teachers).includes(true)
+      Object.values(teachers).includes(true) &&
+      name.length > 0
     );
   }
 
@@ -266,6 +286,9 @@ export default function EditSet() {
   return (
     <>
       <div className="create-set-container">
+        <button className="deleteset-button" onClick={deleteSet}>
+          Delete Set
+        </button>
         <textarea
           maxLength="72"
           type="text"
@@ -277,7 +300,7 @@ export default function EditSet() {
           }}
         />
         <br />
-        {cards.map((card, i) => {
+        {cards?.map((card, i) => {
           return (
             <div className="card-container-cs" key={card.id}>
               <TiDelete
@@ -303,7 +326,9 @@ export default function EditSet() {
             Update Set
           </button>
         ) : (
-          <div className="add-card-message">Please add a card</div>
+          <div className="add-card-message create-set-button">
+            Please add a card
+          </div>
         )}
         <div className="create-set-extras">
           <ClassesMenu

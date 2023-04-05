@@ -1,10 +1,11 @@
 import { uuidv4 } from "@firebase/util";
 import React from "react";
 import { useState, useEffect } from "react";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue, update } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { database } from "../firebase-config";
 import { InlineMath } from "react-katex";
+import { useNavigate } from "react-router-dom";
 import "katex/dist/katex.min.css";
 import * as mke from "mathkeyboardengine";
 import { TiDelete } from "react-icons/ti";
@@ -19,6 +20,8 @@ export default function CreateSet() {
   const [classes, setClasses] = useState({});
   const [teachers, setTeachers] = useState({});
   const [userData, setUserData] = useState([]);
+  const [authorName, setAuthorName] = useState("");
+  const navigate = useNavigate();
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
@@ -32,6 +35,7 @@ export default function CreateSet() {
       (snapshot) => {
         const data = snapshot.val();
         setUserData(data);
+        setAuthorName(snapshot.child("username").val());
       },
       {
         onlyOnce: true,
@@ -53,6 +57,7 @@ export default function CreateSet() {
 
   function checkValid() {
     let str = "Please fix your set:\n";
+    str += name.length > 0 ? "" : "Must have a name\n";
     str += cards.length > 1 ? "" : "Must have at least 2 cards\n";
     str += Object.values(classes).includes(true)
       ? ""
@@ -64,7 +69,8 @@ export default function CreateSet() {
     return (
       cards.length > 1 &&
       Object.values(classes).includes(true) &&
-      Object.values(teachers).includes(true)
+      Object.values(teachers).includes(true) &&
+      name.length > 0
     );
   }
 
@@ -88,21 +94,16 @@ export default function CreateSet() {
       });
       set(ref(database, "flashcard-sets/" + newId), {
         AuthorID: user.uid,
-        Author: user.displayName,
+        Author: authorName,
         Name: name,
         Classes: trueClasses,
         Teachers: trueTeachers,
       });
-      console.log(userData);
-      console.log(newId);
       if (userData.madeSets?.length > 0) {
-        console.log("upd");
-        set(ref(database, "users/" + user.uid), {
-          ...userData,
+        update(ref(database, "users/" + user.uid), {
           madeSets: [...userData.madeSets, newId],
         });
       } else {
-        console.log("set");
         set(ref(database, "users/" + user.uid), {
           ...userData,
           madeSets: [newId],
@@ -111,6 +112,8 @@ export default function CreateSet() {
 
       setCards([]);
       setName("");
+      console.log("navigating to home");
+      navigate("/Set/" + newId);
     }
   }
 

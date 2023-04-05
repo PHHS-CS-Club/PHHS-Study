@@ -1,30 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import Flashcard from "./Flashcard";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { GoPrimitiveDot } from "react-icons/go";
 import "./FlashcardMode.css";
+import { Fragment } from "react";
+import { database } from "../firebase-config";
+import { ref, onValue, set } from "firebase/database";
+import { UserAuth } from "../context/AuthContext";
+import { useParams } from "react-router-dom";
 
 export default function FlashcardMode(props) {
   //eslint-disable-next-line
   const [cards, setCards] = useState(() => props.cards.map((item) => item));
-  const [currentCard, setCurrentCard] = useState({});
+  const [currentCard, setCurrentCard] = useState();
   const [currentBucket, setCurrentBucket] = useState(1);
   const [flipped, setFlipped] = useState(false);
+  const { user } = UserAuth();
+  const { id } = useParams();
+  const cardRef = useRef();
 
-  const ref = useRef();
-
-  useState(() => {
+  useEffect(() => {
     initial();
-    let keys = Object.keys(cards);
-    setCurrentCard(cards[keys[Math.floor(Math.random() * keys.length)]]);
-  }, [cards]);
+    //eslint-disable-next-line
+  }, []);
 
   function initial() {
-    var arr = props.cards;
-    arr.forEach((c, i) => {
-      arr[i] = { ...c, bucket: 1, index: i };
-    });
-    setCards(arr);
+    if (user !== null && user !== undefined) {
+      onValue(
+        ref(database, "users/" + user.uid + "/" + id),
+        (snapshot) => {
+          if (snapshot.val() !== null && snapshot.val() !== undefined) {
+            setCards(snapshot.val());
+            let keys = Object.keys(snapshot.val());
+            setCurrentCard(
+              snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
+            );
+          } else {
+            var arr = props.cards;
+            arr.forEach((c, i) => {
+              arr[i] = { ...c, bucket: 1, index: i };
+            });
+            setCards(arr);
+            let keys = Object.keys(arr);
+            setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+          }
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } else {
+      var arr = props.cards;
+      arr.forEach((c, i) => {
+        arr[i] = { ...c, bucket: 1, index: i };
+      });
+      setCards(arr);
+      let keys = Object.keys(arr);
+      setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+    }
   }
 
   function getNewCard() {
@@ -56,7 +90,15 @@ export default function FlashcardMode(props) {
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
-    ref.current.setFlipped(!flipped);
+    cardRef.current.setFlipped(!flipped);
+    if (
+      user !== null &&
+      user !== undefined &&
+      cards !== undefined &&
+      cards !== null
+    ) {
+      set(ref(database, "users/" + user.uid + "/" + id), cards);
+    }
   };
 
   const handleIncorrect = () => {
@@ -72,7 +114,15 @@ export default function FlashcardMode(props) {
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
-    ref.current.setFlipped(!flipped);
+    cardRef.current.setFlipped(!flipped);
+    if (
+      user !== null &&
+      user !== undefined &&
+      cards !== undefined &&
+      cards !== null
+    ) {
+      set(ref(database, "users/" + user.uid + "/" + id), cards);
+    }
   };
 
   function pickBucket(notSame) {
@@ -85,7 +135,7 @@ export default function FlashcardMode(props) {
       }
     });
     let weights = [
-      buckets[0] > 0 ? 100 : 0,
+      buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
       buckets[2] > 0 ? 25 : 0,
       buckets[3] > 0 ? 12.5 : 0,
@@ -105,31 +155,127 @@ export default function FlashcardMode(props) {
     }
   }
 
+  const resetProgress = () => {
+    var arr = props.cards;
+    arr.forEach((c, i) => {
+      arr[i] = { ...c, bucket: 1, index: i };
+    });
+    setCards(arr);
+    set(ref(database, "users/" + user.uid + "/" + id), arr);
+  };
+
+  function bucketItem(cardid) {
+    return <GoPrimitiveDot key={cardid} className="green-dot" />;
+  }
+
   return (
-    <div className="card-container-fsm">
-      <Flashcard
-        question={currentCard?.front}
-        answer={currentCard?.back}
-        mFront={currentCard?.mathModeFront}
-        mBack={currentCard?.mathModeBack}
-        flip={() => {
-          setFlipped(!flipped);
-        }}
-        ref={ref}
-      />
-      <div className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}>
-        <AiFillCloseCircle
-          className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
-          onClick={handleIncorrect}
+    <div className="flashcard-mode-body">
+      <div className="cl-container">
+        <div className="current-level">Card level: {currentCard?.bucket}</div>
+        <button className="reset-prog-button" onClick={resetProgress}>
+          Reset Progress
+        </button>
+      </div>
+
+      <div className="card-container-fsm">
+        <Flashcard
+          question={currentCard?.front}
+          answer={currentCard?.back}
+          mFront={currentCard?.mathModeFront}
+          mBack={currentCard?.mathModeBack}
+          flip={() => {
+            setFlipped(!flipped);
+          }}
+          ref={cardRef}
+        />
+        <div
+          className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}
         >
-          Correct
-        </AiFillCloseCircle>
-        <AiFillCheckCircle
-          className={"card-correct" + (flipped ? " flipped" : " unflipped")}
-          onClick={handleCorrect}
-        >
-          Incorrect
-        </AiFillCheckCircle>
+          <AiFillCloseCircle
+            className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
+            onClick={handleIncorrect}
+          >
+            Correct
+          </AiFillCloseCircle>
+          <AiFillCheckCircle
+            className={"card-correct" + (flipped ? " flipped" : " unflipped")}
+            onClick={handleCorrect}
+          >
+            Incorrect
+          </AiFillCheckCircle>
+        </div>
+      </div>
+      <div className="status-container">
+        <div className="bucket-1 bucket">
+          <div className="bucket-title">Bucket 1</div>
+          <div className="bucket-holder">
+            {cards.map((card, i) => {
+              return card.bucket === 1 ? (
+                <div className="dot-holder" key={card.id + "1"}>
+                  {bucketItem()}
+                </div>
+              ) : (
+                <Fragment key={card.id + "1"} />
+              );
+            })}
+          </div>
+        </div>
+        <div className="bucket-2 bucket">
+          <div className="bucket-title">Bucket 2</div>
+          <div className="bucket-holder">
+            {cards.map((card, i) => {
+              return card.bucket === 2 ? (
+                <div className="dot-holder" key={card.id + "2"}>
+                  {bucketItem()}
+                </div>
+              ) : (
+                <Fragment key={card.id + "2"} />
+              );
+            })}
+          </div>
+        </div>
+        <div className="bucket-3 bucket">
+          <div className="bucket-title">Bucket 3</div>
+          <div className="bucket-holder">
+            {cards.map((card, i) => {
+              return card.bucket === 3 ? (
+                <div className="dot-holder" key={card.id + "3"}>
+                  {bucketItem()}
+                </div>
+              ) : (
+                <Fragment key={card.id + "3"} />
+              );
+            })}
+          </div>
+        </div>
+        <div className="bucket-4 bucket">
+          <div className="bucket-title">Bucket 4</div>
+          <div className="bucket-holder">
+            {cards.map((card, i) => {
+              return card.bucket === 4 ? (
+                <div className="dot-holder" key={card.id + "4"}>
+                  {bucketItem()}
+                </div>
+              ) : (
+                <Fragment key={card.id + "4"} />
+              );
+            })}
+          </div>
+        </div>
+        <div className="bucket-5 bucket">
+          <div className="bucket-title">Bucket 5</div>
+          <div className="bucket-holder">
+            {cards.map((card, i) => {
+              return card.bucket === 5 ? (
+                <div className="dot-holder" key={card.id + "5"}>
+                  {bucketItem()}
+                </div>
+              ) : (
+                <Fragment key={card.id + "5"} />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

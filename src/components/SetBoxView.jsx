@@ -3,13 +3,16 @@ import { onValue, ref } from "firebase/database";
 import { useState, useEffect } from "react";
 import { database } from "../firebase-config";
 import { Tooltip } from "react-tooltip";
+import { Link } from "react-router-dom";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { BsPencilSquare } from "react-icons/bs";
 import "./SetBoxView.css";
 import "react-tooltip/dist/react-tooltip.css";
+import { UserAuth } from "../context/AuthContext";
 
 const SetBoxView = (id) => {
   const [flashcardMeta, setFlashcardMeta] = useState({});
-
+  const { user } = UserAuth();
   const dbRef = ref(database, "/flashcard-sets/" + id.id);
 
   useEffect(() => {
@@ -45,6 +48,13 @@ const SetBoxView = (id) => {
   return (
     <>
       <div className="search-set-container">
+        {flashcardMeta?.AuthorID === user?.uid ? (
+          <Link to={"/Edit/" + id.id} className="edit-icon-setbox">
+            <BsPencilSquare />
+          </Link>
+        ) : (
+          <></>
+        )}
         <div className="search-set-name">{flashcardMeta.Name}</div>
         <div className="search-set-author">{"By: " + flashcardMeta.Author}</div>
         <div className="search-set-classes" id="classes-view">

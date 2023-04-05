@@ -16,15 +16,18 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar-container">
+        <ul className="logo-container">
+          <div className="navbar-logo">PHHS-Study</div>
+        </ul>
         <ul className="navbar-bar">
-          <li className="navbar-link">
+          <li className="navbar-link home-link">
             <Link className="navbar-link-real" to="/Home">
               Home
             </Link>
           </li>
 
           {user?.displayName ? (
-            <li className="navbar-link">
+            <li className="navbar-link create-link">
               <Link className="navbar-link-real" to="/CreateSet">
                 Create Set
               </Link>
@@ -33,7 +36,13 @@ export default function Navbar() {
             <></>
           )}
 
-          <li className="navbar-link">
+          <li className="navbar-link search-link">
+            <Link className="navbar-link-real" to="/Search">
+              Search
+            </Link>
+          </li>
+
+          <li className="navbar-link accsign-link">
             {user?.displayName ? (
               <Link className="navbar-link-real" to={accpath}>
                 Account
@@ -43,11 +52,6 @@ export default function Navbar() {
                 Sign In
               </Link>
             )}
-          </li>
-          <li className="navbar-link">
-            <Link className="navbar-link-real" to="/Search">
-              Search
-            </Link>
           </li>
         </ul>
       </nav>
