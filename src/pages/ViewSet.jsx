@@ -31,6 +31,32 @@ export default function ViewSet() {
   if (mode === "view") {
     return (
       <div>
+        <div className="flashcard-metadata">
+          <div className="viewset-title">
+            {metadata.Name}
+            {user?.uid === metadata?.AuthorID ? (
+              <Link to={"/Edit/" + id}>
+                <button className="vsedit-button">Edit Set</button>
+              </Link>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="viewset-author">Created By {metadata.Author}</div>
+          <div className="viewset-classes">
+            <div className="viewset-infopart">Classes: </div>
+            {metadata.Classes?.map((clas, i) => {
+              return <div className="item-viewset">{clas}</div>;
+            })}
+          </div>
+          <div className="viewset-teachers">
+            <div className="viewset-infopart">Teachers: </div>
+            {metadata.Teachers?.map((clas, i) => {
+              return <div className="item-viewset">{clas}</div>;
+            })}
+          </div>
+        </div>
+
         {/* Make these render new components for flashcard modes */}
         <div className="viewset-button-wrapper">
           <button
@@ -46,13 +72,7 @@ export default function ViewSet() {
           <button className="viewset-buttons"> Flashcard games </button>
         </div>
 
-        {user?.uid === metadata?.AuthorID ? (
-          <Link to={"/Edit/" + id}>
-            <button>Edit Sets</button>
-          </Link>
-        ) : (
-          <></>
-        )}
+        <div className="viewset-card-title">Cards</div>
         <div className="cards-viewer">
           {cards?.map((card) => {
             return (
