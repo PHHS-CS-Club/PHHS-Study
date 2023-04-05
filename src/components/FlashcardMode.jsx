@@ -28,12 +28,24 @@ export default function FlashcardMode(props) {
   }, []);
 
   function initial() {
+    console.log("inits");
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
+          console.log("its");
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
+            console.log("snapconf");
+
             setCards(snapshot.val());
+            console.log(snapshot.val());
+          } else {
+            console.log("setting cards");
+            var arr = props.cards;
+            arr.forEach((c, i) => {
+              arr[i] = { ...c, bucket: 1, index: i };
+            });
+            setCards(arr);
           }
         },
         {
@@ -41,6 +53,7 @@ export default function FlashcardMode(props) {
         }
       );
     } else {
+      console.log("setting cards");
       var arr = props.cards;
       arr.forEach((c, i) => {
         arr[i] = { ...c, bucket: 1, index: i };
