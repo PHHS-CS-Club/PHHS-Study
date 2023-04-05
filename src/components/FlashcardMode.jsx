@@ -137,9 +137,9 @@ export default function FlashcardMode(props) {
     let weights = [
       buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
-      buckets[2] > 0 ? 25 : 0,
-      buckets[3] > 0 ? 12.5 : 0,
-      buckets[4] > 0 ? 6.25 : 0,
+      buckets[2] > 0 ? 12.5 : 0,
+      buckets[3] > 0 ? 3.125 : 0,
+      buckets[4] > 0 ? 0.78125 : 0,
     ];
     if (notSame) weights[currentBucket - 1] = 0;
     let sum = 0;
