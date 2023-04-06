@@ -31,13 +31,18 @@ export default function FlashcardMode(props) {
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
-            setCards(snapshot.val());
+            var arr = snapshot.val();
+            arr.forEach((c, i) => {
+              arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
+            });
+            setCards(arr);
+            console.log(arr);
             let keys = Object.keys(snapshot.val());
             setCurrentCard(
               snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
             );
           } else {
-            var arr = props.cards;
+            arr = props.cards;
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
