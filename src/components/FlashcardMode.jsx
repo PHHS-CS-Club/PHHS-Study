@@ -31,13 +31,18 @@ export default function FlashcardMode(props) {
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
-            setCards(snapshot.val());
+            var arr = snapshot.val();
+            arr.forEach((c, i) => {
+              arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
+            });
+            setCards(arr);
+            console.log(arr);
             let keys = Object.keys(snapshot.val());
             setCurrentCard(
               snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
             );
           } else {
-            var arr = props.cards;
+            arr = props.cards;
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
@@ -137,9 +142,9 @@ export default function FlashcardMode(props) {
     let weights = [
       buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
-      buckets[2] > 0 ? 25 : 0,
-      buckets[3] > 0 ? 12.5 : 0,
-      buckets[4] > 0 ? 6.25 : 0,
+      buckets[2] > 0 ? 12.5 : 0,
+      buckets[3] > 0 ? 3.125 : 0,
+      buckets[4] > 0 ? 0.78125 : 0,
     ];
     if (notSame) weights[currentBucket - 1] = 0;
     let sum = 0;
