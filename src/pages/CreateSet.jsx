@@ -65,11 +65,19 @@ export default function CreateSet() {
     str += Object.values(teachers).includes(true)
       ? ""
       : "Must have at least one teacher selected\n";
+    str += Object.values(teachers).filter((item) => item).length > 5
+      ? "Cannot have more than 5 teachers selected\n"
+      : "";
+    str += Object.values(classes).filter((item) => item).length > 5
+      ? "Cannot have more than 5 classes selected\n"
+      : "";
     if (str.length > 22) alert(str);
     return (
       cards.length > 1 &&
       Object.values(classes).includes(true) &&
       Object.values(teachers).includes(true) &&
+      (Object.values(classes).filter((item) => item).length >! 5) && 
+      (Object.values(teachers).filter((item) => item).length >! 5) &&
       name.length > 0
     );
   }
