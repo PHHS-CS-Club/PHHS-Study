@@ -71,6 +71,9 @@ export default function CreateSet() {
     str += Object.values(classes).filter((item) => item).length > 5
       ? "Cannot have more than 5 classes selected\n"
       : "";
+    str += cards.filter((card) => card.front === "" || card.back === "").length === 0 
+      ? ""
+      : "Please fill out every card";
     if (str.length > 22) alert(str);
     return (
       cards.length > 1 &&
@@ -78,6 +81,7 @@ export default function CreateSet() {
       Object.values(teachers).includes(true) &&
       (Object.values(classes).filter((item) => item).length >! 5) && 
       (Object.values(teachers).filter((item) => item).length >! 5) &&
+      cards.filter((card) => card.front === "" || card.back === "").length === 0 &&
       name.length > 0
     );
   }
