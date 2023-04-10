@@ -6,7 +6,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 import "./FlashcardMode.css";
 import { Fragment } from "react";
 import { database } from "../firebase-config";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue, set, remove } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 
@@ -161,12 +161,8 @@ export default function FlashcardMode(props) {
   }
 
   const resetProgress = () => {
-    var arr = props.cards;
-    arr.forEach((c, i) => {
-      arr[i] = { ...c, bucket: 1, index: i };
-    });
-    setCards(arr);
-    set(ref(database, "users/" + user.uid + "/" + id), arr);
+    remove(ref(database, "users/" + user.uid + "/" + id));
+    initial();
   };
 
   function bucketItem(cardid) {
