@@ -78,9 +78,6 @@ export default function FlashcardMode(props) {
         return x.id !== currentCard.id && x.bucket === newBucket;
       });
       i++;
-      console.log("getting new card");
-      console.log(newBucket);
-      console.log(tempBucket);
       tempBucket = pickBucket(false, newBucket);
     }
     setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
@@ -103,12 +100,10 @@ export default function FlashcardMode(props) {
       buckets[4] > 0 ? 1 : 0,
     ];
     if (notSame) weights[notBucket - 1] = 0;
-    console.log(weights);
     let sum = 0;
     for (let i = 0; i < weights.length; i++) {
       sum += weights[i];
     }
-    console.log(sum);
     let random = Math.floor(Math.random() * sum);
     for (let i = 0; i < weights.length; i++) {
       if (random < weights[i]) {
@@ -184,8 +179,6 @@ export default function FlashcardMode(props) {
           Reset Progress
         </button>
       </div>
-
-      <button onClick={() => console.log(currentBucket)}>Log bucket</button>
 
       <div className="card-container-fsm">
         <Flashcard
