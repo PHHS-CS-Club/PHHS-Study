@@ -6,7 +6,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 import "./FlashcardMode.css";
 import { Fragment } from "react";
 import { database } from "../firebase-config";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue, set, remove } from "firebase/database";
 import { UserAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 
@@ -36,7 +36,6 @@ export default function FlashcardMode(props) {
               arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
             });
             setCards(arr);
-            console.log(arr);
             let keys = Object.keys(snapshot.val());
             setCurrentCard(
               snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
@@ -71,14 +70,47 @@ export default function FlashcardMode(props) {
       return x.id !== currentCard.id && x.bucket === currentBucket;
     });
     let i = 0;
+    let tempBucket;
     while (arr.length < 1 && i < 100) {
-      let newBucket = pickBucket(false);
+      let newBucket = pickBucket(false, tempBucket);
+      if (tempBucket !== newBucket) newBucket = tempBucket;
       arr = cards.filter((x) => {
         return x.id !== currentCard.id && x.bucket === newBucket;
       });
       i++;
+      tempBucket = pickBucket(false, newBucket);
     }
     setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
+  }
+
+  function pickBucket(notSame, notBucket) {
+    let buckets = [0, 0, 0, 0, 0];
+    cards.forEach((x) => {
+      for (let i = 0; i < buckets.length; i++) {
+        if (x.bucket === i + 1) {
+          buckets[i] += 1;
+        }
+      }
+    });
+    let weights = [
+      buckets[0] > 0 ? 400 : 0,
+      buckets[1] > 0 ? 50 : 0,
+      buckets[2] > 0 ? 12.5 : 0,
+      buckets[3] > 0 ? 3.125 : 0,
+      buckets[4] > 0 ? 1 : 0,
+    ];
+    if (notSame) weights[notBucket - 1] = 0;
+    let sum = 0;
+    for (let i = 0; i < weights.length; i++) {
+      sum += weights[i];
+    }
+    let random = Math.floor(Math.random() * sum);
+    for (let i = 0; i < weights.length; i++) {
+      if (random < weights[i]) {
+        return i + 1;
+      }
+      random -= weights[i];
+    }
   }
 
   const handleCorrect = () => {
@@ -130,43 +162,9 @@ export default function FlashcardMode(props) {
     }
   };
 
-  function pickBucket(notSame) {
-    let buckets = [0, 0, 0, 0, 0];
-    cards.forEach((x) => {
-      for (let i = 0; i < buckets.length; i++) {
-        if (x.bucket === i + 1) {
-          buckets[i] += 1;
-        }
-      }
-    });
-    let weights = [
-      buckets[0] > 0 ? 400 : 0,
-      buckets[1] > 0 ? 50 : 0,
-      buckets[2] > 0 ? 12.5 : 0,
-      buckets[3] > 0 ? 3.125 : 0,
-      buckets[4] > 0 ? 0.78125 : 0,
-    ];
-    if (notSame) weights[currentBucket - 1] = 0;
-    let sum = 0;
-    for (let i = 0; i < weights.length; i++) {
-      sum += weights[i];
-    }
-    let random = Math.floor(Math.random() * sum);
-    for (let i = 0; i < weights.length; i++) {
-      if (random < weights[i]) {
-        return i + 1;
-      }
-      random -= weights[i];
-    }
-  }
-
   const resetProgress = () => {
-    var arr = props.cards;
-    arr.forEach((c, i) => {
-      arr[i] = { ...c, bucket: 1, index: i };
-    });
-    setCards(arr);
-    set(ref(database, "users/" + user.uid + "/" + id), arr);
+    remove(ref(database, "users/" + user.uid + "/" + id));
+    initial();
   };
 
   function bucketItem(cardid) {

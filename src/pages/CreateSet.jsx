@@ -22,6 +22,10 @@ export default function CreateSet() {
   const [userData, setUserData] = useState([]);
   const [authorName, setAuthorName] = useState("");
   const navigate = useNavigate();
+  var Filter = require('bad-words'),
+  filter = new Filter();
+  filter.removeWords("balls", "ball")
+
   //remove after using these
   /* eslint-disable */
   let latexConfiguration = new mke.LatexConfiguration();
@@ -55,6 +59,13 @@ export default function CreateSet() {
     setCards(list);
   };
 
+  function arraystring(array) {
+    console.log(array)
+    let str = ""
+    array.forEach((item) => {str += (filter.isProfane(item.front) ? (item.front) : ("")) + ", " + (filter.isProfane(item.back) ? (item.back) : ("")) + "\n"})
+    return str;
+  }
+
   function checkValid() {
     let str = "Please fix your set:\n";
     str += name.length > 0 ? "" : "Must have a name\n";
@@ -65,12 +76,27 @@ export default function CreateSet() {
     str += Object.values(teachers).includes(true)
       ? ""
       : "Must have at least one teacher selected\n";
+    str += Object.values(teachers).filter((item) => item).length > 5
+      ? "Cannot have more than 5 teachers selected\n"
+      : "";
+    str += Object.values(classes).filter((item) => item).length > 5
+      ? "Cannot have more than 5 classes selected\n"
+      : "";
+    str += cards.filter((card) => card.front === "" || card.back === "").length === 0 
+      ? ""
+      : "Please fill out every card\n"
+    str += !(cards.filter((card) => filter.isProfane(card.front) || filter.isProfane(card.back)).length !== 0) && !filter.isProfane(name)
+      ? ""
+      : "no bad words allowed\ncards containing bad words:" + arraystring(cards.filter((card) => filter.isProfane(card.front) || filter.isProfane(card.back)))
     if (str.length > 22) alert(str);
     return (
       cards.length > 1 &&
       Object.values(classes).includes(true) &&
       Object.values(teachers).includes(true) &&
-      name.length > 0
+      (Object.values(classes).filter((item) => item).length >! 5) && 
+      (Object.values(teachers).filter((item) => item).length >! 5) &&
+      cards.filter((card) => card.front === "" || card.back === "").length === 0 &&
+      name.length > 0 && !(cards.filter((card) => filter.isProfane(card.front) || filter.isProfane(card.back)).length !== 0) && !filter.isProfane(name)
     );
   }
 
