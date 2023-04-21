@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Account from "./pages/Account";
 import Navbar from "./pages/Navbar";
 import Signin from "./pages/Signin";
-import Protected from "./components/Protected";
+import Protected, { AdminLevelProtected } from "./components/Protected";
 import CreateSet from "./pages/CreateSet";
 import EditSet from "./pages/EditSet";
 import { useRef } from "react";
@@ -13,6 +13,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import SearchPage from "./pages/SearchPage";
 import ViewSet from "./pages/ViewSet";
 import CheckSignedIn from "./components/CheckSignedIn";
+import Admin from "./pages/Admin";
 
 function App() {
   const ref = useRef();
@@ -66,6 +67,16 @@ function App() {
               />
               <Route path="Set/:id" element={<ViewSet />}></Route>
               <Route path="Edit/:id" element={<EditSet />} />
+              <Route
+                path="Admin"
+                element={
+                  <Protected>
+                    <AdminLevelProtected>
+                      <Admin />
+                    </AdminLevelProtected>
+                  </Protected>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
