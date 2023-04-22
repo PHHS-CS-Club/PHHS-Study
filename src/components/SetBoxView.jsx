@@ -11,6 +11,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { UserAuth } from "../context/AuthContext";
 
 //Creates a box for each flashcard set containing the metaData relevant to the users.
+//Props: id - id of the set as a string
 const SetBoxView = (id) => {
   const [flashcardMeta, setFlashcardMeta] = useState({});
   const { user } = UserAuth();
