@@ -78,28 +78,26 @@ export default function TeachersMenu(props) {
       <div className="teachers-cs" id="teachers">
         {/**Maps through teachers*/}
         {Teachers.TEACHERS.map((x) => {
-          {
-            /**Gets last name*/
-          }
+          /**Gets last name*/
           let last = x.split(", ")[0];
-          {
+          
             /**Checks if last name includes search, if yes returns checkbox*/
-          }
+          
           if (
             last.toLowerCase().includes(searchLastInput.toLowerCase()) &&
             searchLastInput !== ""
           ) {
             return checkbox(x);
           } else {
-            {
+            
               /**Checks if teacher is selected if search doesn't match, if yes returns*/
-            }
+            
             if (Object.values(teachers).includes(true)) {
               if (teachers[x]) return checkbox(x);
             }
-            {
+            
               /**Returns empty fragment if nothing*/
-            }
+            
             return <React.Fragment key={x}></React.Fragment>;
           }
         })}
