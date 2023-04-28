@@ -51,6 +51,8 @@ export default function ChangeUsername() {
     }
   };
 
+  // Text input element
+  // Button that changes the user's username if the text box isn't empty
   return (
     <div>
       <label htmlFor="change-username" className="user-field-change-label">
