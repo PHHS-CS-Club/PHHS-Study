@@ -131,6 +131,7 @@ export default function Signin() {
     return (<img src={XButton} className="x-button" alt="Close" width="12" height="12"/>)
   }
 
+  //Shows user's name, role, and email with the option to change name and role through an expandable ui
   return (
     <div className="account-page">
       <div className="outer-border">

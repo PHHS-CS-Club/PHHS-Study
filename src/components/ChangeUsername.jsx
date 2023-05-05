@@ -12,7 +12,7 @@ export default function ChangeUsername() {
   const [usernameInput, setUsernameInput] = useState("");
   const [madeSets, setMadeSets] = useState([]);
 
-  // Gets the flashcard sets that the user has made
+  //Gets the flashcard sets that the user has made
   useEffect(() => {
     onValue(
       dbRef,
@@ -25,14 +25,14 @@ export default function ChangeUsername() {
     //eslint-disable-next-line
   }, []);
 
-  // Changes usernameInput to the value of the text box that the user types their new username in
+  //Changes usernameInput to the value of the text box that the user types their new username in
   const changeUsernameInput = (event) => {
     setUsernameInput(event.target.value);
   };
 
-  // Changes the user's username to the text that is in the textbox if it is longer than 0 characters and less than 18 characters
-  // Also changes the author name in each of the user's made sets to the new username
-  // Otherwise alerts
+  //Changes the user's username to the text that is in the textbox if it is longer than 0 characters and less than 18 characters
+  //Also changes the author name in each of the user's made sets to the new username
+  //Otherwise alerts
   const changeUsername = () => {
     if (
       usernameInput.length > 0 &&
@@ -51,8 +51,8 @@ export default function ChangeUsername() {
     }
   };
 
-  // Text input element
-  // Button that changes the user's username if the text box isn't empty
+  //Text input element
+  //Button that changes the user's username if the text box isn't empty
   return (
     <div>
       <label htmlFor="change-username" className="user-field-change-label">
