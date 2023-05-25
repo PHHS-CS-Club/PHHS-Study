@@ -21,7 +21,7 @@ export default function SearchPage() {
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
       <div className="search-page">
-        {/**Input object onChange pudates the search informatoin in the useState */}
+        {/**Input object onChange updates the search information in the useState */}
         {/**Before map filter the array using .filter().map where in the filter put some booleans to check if it matches*/}
         {Object.keys(flashcardMeta).map((key, index) => (
           <div key={key} className="search-container">
