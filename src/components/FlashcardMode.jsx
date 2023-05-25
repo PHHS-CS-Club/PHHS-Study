@@ -19,6 +19,8 @@ export default function FlashcardMode(props) {
   const { user } = UserAuth();
   const { id } = useParams();
   const cardRef = useRef();
+  const [singleBucketMode, setSingleBucketMode] = useState(true);
+  const [singleBucket, setSingleBucket] = useState(1);
 
   useEffect(() => {
     initial();
@@ -245,76 +247,32 @@ export default function FlashcardMode(props) {
         </div>
       </div>
       <div className="status-container">
-        <div className="bucket-1 bucket">
-          <div className="bucket-title">Bucket 1</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 1 ? (
-                <div className="dot-holder" key={card.id + "1"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "1"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-2 bucket">
-          <div className="bucket-title">Bucket 2</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 2 ? (
-                <div className="dot-holder" key={card.id + "2"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "2"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-3 bucket">
-          <div className="bucket-title">Bucket 3</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 3 ? (
-                <div className="dot-holder" key={card.id + "3"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "3"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-4 bucket">
-          <div className="bucket-title">Bucket 4</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 4 ? (
-                <div className="dot-holder" key={card.id + "4"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "4"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-5 bucket">
-          <div className="bucket-title">Bucket 5</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 5 ? (
-                <div className="dot-holder" key={card.id + "5"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "5"} />
-              );
-            })}
-          </div>
-        </div>
+        {/* creates an empty array to loop 5 times for each bucket */}
+        {Array.apply(null, {length: 5}).map((el, index) => {
+          return (
+            <div 
+              className={(singleBucketMode && singleBucket === (index+1) ? ("single ") : ("")) + "bucket-" + (index+1) + " bucket "} 
+              onClick={() => {
+                setSingleBucketMode(singleBucket === (index+1) ? (!singleBucketMode) : (true)); 
+                setSingleBucket((index+1))
+              }}
+            >
+              <div className="bucket-title">Bucket {(index+1)}</div>
+              <div className="bucket-holder">
+                {cards.map((card, i) => {
+                  return card.bucket === (index+1) ? (
+                    <div className="dot-holder" key={card.id + (index+1)}>
+                      {bucketItem()}
+                    </div>
+                  ) : (
+                    <Fragment key={card.id + (index+1)} />
+                  );
+                })}
+              </div>
+            </div>
+          )
+        })}
+        
       </div>
     </div>
   );
