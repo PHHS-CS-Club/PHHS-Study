@@ -3,6 +3,9 @@ import * as Teachers from "../constants/teachers";
 import { useState, useEffect } from "react";
 import "./TeachersMenu.css";
 
+//Teacher select menu
+//Props: teacherSelect - function that updates teacher data in parent
+//teachers - default teacher information passed in as an object
 export default function TeachersMenu(props) {
   const [teachers, setTeachers] = useState({});
   const [searchLastInput, setSearchLastInput] = useState("");
