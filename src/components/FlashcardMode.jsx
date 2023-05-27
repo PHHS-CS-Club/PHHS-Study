@@ -36,9 +36,9 @@ export default function FlashcardMode(props) {
   }, []);
 
   useEffect(() => {
-    if (singleBucketMode) {
-      getNewCard();
-    }
+    getNewCard();
+    cardRef.current?.setFlipped(false);
+    setFlipped(false);
     //eslint-disable-next-line
   }, [singleBucketMode, singleBucket]);
 
@@ -59,13 +59,10 @@ export default function FlashcardMode(props) {
             });
             //Sets cards
             setCards(arr);
-            let keys = Object.keys(snapshot.val());
             //Sets current to a random card
-            setCurrentCard(
-              snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
-            );
+            getNewCard();
           } else {
-            //Sets cards
+            //Gets cards
             arr = props.cards;
             //Sets buckets and index
             arr.forEach((c, i) => {
@@ -73,9 +70,8 @@ export default function FlashcardMode(props) {
             });
             //Sets cards
             setCards(arr);
-            let keys = Object.keys(arr);
             //Sets current to a random card
-            setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+            getNewCard();
           }
         },
         {
@@ -90,9 +86,8 @@ export default function FlashcardMode(props) {
       });
       //Sets cards
       setCards(arr);
-      let keys = Object.keys(arr);
       //Sets current to a random card
-      setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+      getNewCard();
     }
   }
 
@@ -116,7 +111,7 @@ export default function FlashcardMode(props) {
     } else {
       //Filters out the current card and bucket
       let arr = cards.filter((x) => {
-        return x.id !== currentCard.id && x.bucket === currentBucket;
+        return x?.id !== currentCard?.id && x?.bucket === currentBucket;
       });
       let i = 0;
       //Runs until there is options for the array to pick from or 100 iterations
@@ -125,7 +120,7 @@ export default function FlashcardMode(props) {
         let newBucket = pickBucket(false);
         //Filters cards
         arr = cards.filter((x) => {
-          return x.id !== currentCard.id && x.bucket === newBucket;
+          return x.id !== currentCard?.id && x.bucket === newBucket;
         });
         i++;
       }
@@ -294,7 +289,7 @@ export default function FlashcardMode(props) {
                 (index + 1) +
                 " bucket "
               }
-              onClick={async () => {
+              onClick={() => {
                 setSingleBucketMode(
                   singleBucket === index + 1 ? !singleBucketMode : true
                 );

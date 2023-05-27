@@ -128,7 +128,7 @@
   background-color: rgb(143, 181, 227);
   padding: 5px 5px 20px 5px;
   border-radius: 10px;
-  transition: 250ms;
+  transition: 50ms;
   flex: 1;
   max-width: 250px;
   height: fit-content;

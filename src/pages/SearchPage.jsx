@@ -8,8 +8,8 @@ import "./SearchPage.css";
 
 export default function SearchPage() {
   const [flashcardMeta, setFlashcardMeta] = useState({});
- //useState to store search information
- //useState object to store picked classes/teachers
+  //useState to store search information
+  //useState object to store picked classes/teachers
   useEffect(() => {
     onValue(ref(database, "flashcard-sets/"), (snapshot) => {
       const data = snapshot.val();
