@@ -59,13 +59,10 @@ export default function FlashcardMode(props) {
             });
             //Sets cards
             setCards(arr);
-            let keys = Object.keys(snapshot.val());
             //Sets current to a random card
-            setCurrentCard(
-              snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
-            );
+            getNewCard();
           } else {
-            //Sets cards
+            //Gets cards
             arr = props.cards;
             //Sets buckets and index
             arr.forEach((c, i) => {
@@ -73,9 +70,8 @@ export default function FlashcardMode(props) {
             });
             //Sets cards
             setCards(arr);
-            let keys = Object.keys(arr);
             //Sets current to a random card
-            setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+            getNewCard();
           }
         },
         {
@@ -90,9 +86,8 @@ export default function FlashcardMode(props) {
       });
       //Sets cards
       setCards(arr);
-      let keys = Object.keys(arr);
       //Sets current to a random card
-      setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+      getNewCard();
     }
   }
 
