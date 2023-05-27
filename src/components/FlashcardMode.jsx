@@ -37,6 +37,8 @@ export default function FlashcardMode(props) {
 
   useEffect(() => {
     getNewCard();
+    cardRef.current?.setFlipped(false);
+    setFlipped(false);
     //eslint-disable-next-line
   }, [singleBucketMode, singleBucket]);
 
