@@ -14,26 +14,35 @@ export default function ViewSet() {
   const [cards, setCards] = useState([]);
   const [mode, setMode] = useState("view");
   const [metadata, setMetadata] = useState({});
+  //Gets the id from the set
   const { id } = useParams();
+  //Gets the flashcard data to display
   useEffect(() => {
+    //gets the cards
     onValue(ref(database, id), (snapshot) => {
       const data = snapshot.val();
       if (data !== null) {
         setCards(data.cards);
       }
     });
+
+    //Gets the metaData
     onValue(ref(database, "flashcard-sets/" + id), (snapshot) => {
       const metaData = snapshot.val();
       setMetadata(metaData);
     });
   }, [id]);
 
+  //Based on the current mode, it will display different modes located in the components
+  //View mode is the default mode set when opening the page
   if (mode === "view") {
     return (
       <div>
         <div className="flashcard-metadata">
           <div className="viewset-title">
+            {/**Title */}
             {metadata.Name}
+            {/**If user owns the set creates an edit button */}
             {user?.uid === metadata?.AuthorID ? (
               <Link to={"/Edit/" + id}>
                 <button className="vsedit-button">Edit Set</button>
@@ -42,13 +51,16 @@ export default function ViewSet() {
               <></>
             )}
           </div>
+          {/**Author */}
           <div className="viewset-author">Created By {metadata.Author}</div>
+          {/**Classes */}
           <div className="viewset-classes">
             <div className="viewset-infopart">Classes: </div>
             {metadata.Classes?.map((clas, i) => {
               return <div className="item-viewset">{clas}</div>;
             })}
           </div>
+          {/**Teachers */}
           <div className="viewset-teachers">
             <div className="viewset-infopart">Teachers: </div>
             {metadata.Teachers?.map((clas, i) => {
@@ -57,21 +69,22 @@ export default function ViewSet() {
           </div>
         </div>
 
-        {/* Make these render new components for flashcard modes */}
         <div className="viewset-button-wrapper">
+          {/**Sets mode to flashcard */}
           <button
             className="viewset-buttons"
             onClick={() => {
               setMode("Flashcard");
             }}
           >
-            {" "}
-            Flashcard mode{" "}
+            Flashcard mode
           </button>
+          {/* Make these change mode for new components for flashcard modes */}
           <button className="viewset-buttons"> Learn mode </button>
           <button className="viewset-buttons"> Flashcard games </button>
         </div>
 
+        {/**Displays all the cards */}
         <div className="viewset-card-title">Cards</div>
         <div className="cards-viewer">
           {cards?.map((card) => {
@@ -97,6 +110,7 @@ export default function ViewSet() {
         </div>
       </div>
     );
+    //If mode is set to Flashcard, renders the FlashcardMode component on the page
   } else if (mode === "Flashcard") {
     return (
       <>

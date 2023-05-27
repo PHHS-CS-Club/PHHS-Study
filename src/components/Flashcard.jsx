@@ -8,6 +8,7 @@ import { InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import "./Flashcard.css";
 
+//Watch this video to see how I made the flashcard
 //https://www.youtube.com/watch?v=hEtZ040fsD8&t=193s
 
 const Flashcard = forwardRef((flashcard, ref) => {
