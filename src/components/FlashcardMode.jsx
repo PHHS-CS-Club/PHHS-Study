@@ -36,9 +36,7 @@ export default function FlashcardMode(props) {
   }, []);
 
   useEffect(() => {
-    if (singleBucketMode) {
-      getNewCard();
-    }
+    getNewCard();
     //eslint-disable-next-line
   }, [singleBucketMode, singleBucket]);
 
@@ -116,7 +114,7 @@ export default function FlashcardMode(props) {
     } else {
       //Filters out the current card and bucket
       let arr = cards.filter((x) => {
-        return x.id !== currentCard.id && x.bucket === currentBucket;
+        return x?.id !== currentCard?.id && x?.bucket === currentBucket;
       });
       let i = 0;
       //Runs until there is options for the array to pick from or 100 iterations
@@ -125,7 +123,7 @@ export default function FlashcardMode(props) {
         let newBucket = pickBucket(false);
         //Filters cards
         arr = cards.filter((x) => {
-          return x.id !== currentCard.id && x.bucket === newBucket;
+          return x.id !== currentCard?.id && x.bucket === newBucket;
         });
         i++;
       }
@@ -294,7 +292,7 @@ export default function FlashcardMode(props) {
                 (index + 1) +
                 " bucket "
               }
-              onClick={async () => {
+              onClick={() => {
                 setSingleBucketMode(
                   singleBucket === index + 1 ? !singleBucketMode : true
                 );
