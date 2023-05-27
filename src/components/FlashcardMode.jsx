@@ -19,13 +19,28 @@ export default function FlashcardMode(props) {
   const { user } = UserAuth();
   const { id } = useParams();
   const cardRef = useRef();
-  const [singleBucketMode, setSingleBucketMode] = useState(true);
+  const [singleBucketMode, setSingleBucketMode] = useState(false);
   const [singleBucket, setSingleBucket] = useState(1);
+
+  const nullCard = {
+    back: "No Cards Available",
+    front: "No Cards Available",
+    id: null,
+    mathModeBack: false,
+    mathModeFront: false,
+  };
 
   useEffect(() => {
     initial();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (singleBucketMode) {
+      getNewCard();
+    }
+    //eslint-disable-next-line
+  }, [singleBucketMode, singleBucket]);
 
   //Initializes the cards
   function initial() {
@@ -83,27 +98,44 @@ export default function FlashcardMode(props) {
 
   //Sets current
   function getNewCard() {
-    //Filters out the current card and bucket
-    let arr = cards.filter((x) => {
-      return x.id !== currentCard.id && x.bucket === currentBucket;
-    });
-    let i = 0;
-    //Runs until there is options for the array to pick from or 100 iterations
-    while (arr.length < 1 && i < 100) {
-      //Gets a new bucket
-      let newBucket = pickBucket(false);
-      //Filters cards
-      arr = cards.filter((x) => {
-        return x.id !== currentCard.id && x.bucket === newBucket;
+    //If a bucket is picked gets one from that bucket
+    if (singleBucketMode) {
+      let filtered = cards.filter((x) => {
+        return x.bucket === singleBucket;
       });
-      i++;
+      if (filtered.length === 0) {
+        setCurrentCard(nullCard);
+      } else if (filtered.length === 1) {
+        setCurrentCard(filtered[0]);
+      } else {
+        filtered = filtered.filter((x) => {
+          return x.id !== currentCard.id;
+        });
+        setCurrentCard(filtered[Math.floor(Math.random() * filtered.length)]);
+      }
+    } else {
+      //Filters out the current card and bucket
+      let arr = cards.filter((x) => {
+        return x.id !== currentCard.id && x.bucket === currentBucket;
+      });
+      let i = 0;
+      //Runs until there is options for the array to pick from or 100 iterations
+      while (arr.length < 1 && i < 100) {
+        //Gets a new bucket
+        let newBucket = pickBucket(false);
+        //Filters cards
+        arr = cards.filter((x) => {
+          return x.id !== currentCard.id && x.bucket === newBucket;
+        });
+        i++;
+      }
+      //Sets current card to a random from the available cards
+      setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
     }
-    //Sets current card to a random from the available cards
-    setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
   }
 
   //picks a new bucket
-  //Parameters: 
+  //Parameters:
   //notSame (boolean): if true it will not pick the same bucket as the notBucket int
   //notBucket (int): must be inputted if notSame is true
   function pickBucket(notSame, notBucket) {
@@ -199,7 +231,7 @@ export default function FlashcardMode(props) {
 
   //Deletes progress
   const resetProgress = () => {
-    if(user?.displayName !== undefined) {
+    if (user?.displayName !== undefined) {
       remove(ref(database, "users/" + user.uid + "/" + id));
     }
     initial();
@@ -246,33 +278,44 @@ export default function FlashcardMode(props) {
           </AiFillCheckCircle>
         </div>
       </div>
+      <div className="bucket-text">
+        Click on a bucket to only get cards from that bucket
+      </div>
       <div className="status-container">
         {/* creates an empty array to loop 5 times for each bucket */}
-        {Array.apply(null, {length: 5}).map((el, index) => {
+        {Array.apply(null, { length: 5 }).map((el, index) => {
           return (
-            <div 
-              className={(singleBucketMode && singleBucket === (index+1) ? ("single ") : ("")) + "bucket-" + (index+1) + " bucket "} 
-              onClick={() => {
-                setSingleBucketMode(singleBucket === (index+1) ? (!singleBucketMode) : (true)); 
-                setSingleBucket((index+1))
+            <div
+              className={
+                (singleBucketMode && singleBucket === index + 1
+                  ? "single "
+                  : "") +
+                "bucket-" +
+                (index + 1) +
+                " bucket "
+              }
+              onClick={async () => {
+                setSingleBucketMode(
+                  singleBucket === index + 1 ? !singleBucketMode : true
+                );
+                setSingleBucket(index + 1);
               }}
             >
-              <div className="bucket-title">Bucket {(index+1)}</div>
+              <div className="bucket-title">Bucket {index + 1}</div>
               <div className="bucket-holder">
                 {cards.map((card, i) => {
-                  return card.bucket === (index+1) ? (
-                    <div className="dot-holder" key={card.id + (index+1)}>
+                  return card.bucket === index + 1 ? (
+                    <div className="dot-holder" key={card.id + (index + 1)}>
                       {bucketItem()}
                     </div>
                   ) : (
-                    <Fragment key={card.id + (index+1)} />
+                    <Fragment key={card.id + (index + 1)} />
                   );
                 })}
               </div>
             </div>
-          )
+          );
         })}
-        
       </div>
     </div>
   );
