@@ -10,7 +10,9 @@ import TeachersMenu from "../components/TeachersMenu";
 
 export default function SearchPage() {
   const [flashcardMeta, setFlashcardMeta] = useState({});
+  // eslint-disable-next-line
   const [classes, setClasses] = useState({});
+  // eslint-disable-next-line
   const [teachers, setTeachers] = useState({});
   const [searchRecentInput, setSearchRecentInput] = useState("");
   //useState to store search information
