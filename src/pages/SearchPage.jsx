@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { database } from "../firebase-config";
 import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
@@ -7,8 +7,10 @@ import SetBoxView from "../components/SetBoxView";
 import "./SearchPage.css";
 import ClassesMenu from "../components/ClassesMenu";
 import TeachersMenu from "../components/TeachersMenu";
+import { BsSearch } from "react-icons/bs";
 
 export default function SearchPage() {
+  const searchRef = useRef(null);
   const [flashcardMeta, setFlashcardMeta] = useState({});
 
   // eslint-disable-next-line
@@ -33,9 +35,17 @@ export default function SearchPage() {
         <input
           key="search"
           type="text"
+          id="search-bar-sp"
           placeholder="Search flashcards by title"
-          className="search-bar"
+          className="search-box"
+          autoFocus
+          ref={searchRef}
           onChange={(e) => setSearchRecentInput(e.target.value.toLowerCase())}
+        ></input>
+        <BsSearch
+          onClick={() => searchRef.current.focus()}
+          disabled
+          className="search-glass"
         />
       </div>
     );
@@ -80,7 +90,6 @@ export default function SearchPage() {
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
       <div className="search-page">
-
         {searchBar()}
         <div className="create-set-extras">
           <ClassesMenu classSelect={(classes) => setClasses(classes)} />
@@ -89,28 +98,29 @@ export default function SearchPage() {
         {/**Input object onChange updates the search information in the useState */}
         {/**Input object onChange updates the search information in the useState */}
         {/**Before map filter the array using .filter().map where in the filter put some booleans to check if it matches*/}
-        {Object.keys(flashcardMeta)
-          .filter((item) => {
-            return (
-              flashcardMeta[item].Name.toLowerCase().includes(
-                searchRecentInput
-              ) &&
-              teacherFilter(flashcardMeta[item]) &&
-              classFilter(flashcardMeta[item])
-            );
-          })
-          .map((key, index) => (
-            <div key={key} className="search-cnpontainer">
-              {flashcardMeta[key].Name.length !== 0 ? (
-                <Link to={"/Set/" + key}>
-                  <SetBoxView id={key} key={key} />
-                </Link>
-              ) : (
-                <Link to={"/Set/" + key}>{"No Title"}</Link>
-              )}
-            </div>
-          ))}
-
+        <div className="search-items">
+          {Object.keys(flashcardMeta)
+            .filter((item) => {
+              return (
+                flashcardMeta[item].Name.toLowerCase().includes(
+                  searchRecentInput
+                ) &&
+                teacherFilter(flashcardMeta[item]) &&
+                classFilter(flashcardMeta[item])
+              );
+            })
+            .map((key, index) => (
+              <div key={key} className="search-cnpontainer">
+                {flashcardMeta[key].Name.length !== 0 ? (
+                  <Link to={"/Set/" + key}>
+                    <SetBoxView id={key} key={key} />
+                  </Link>
+                ) : (
+                  <Link to={"/Set/" + key}>{"No Title"}</Link>
+                )}
+              </div>
+            ))}
+        </div>
       </div>
     );
   }
