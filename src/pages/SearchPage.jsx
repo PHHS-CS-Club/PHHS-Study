@@ -39,6 +39,42 @@ export default function SearchPage() {
     );
   }
 
+  function teacherFilter(item) {
+    if (!Object.values(teachers).includes(true)) {
+      return true;
+    }
+    let temp = structuredClone(teachers);
+    Object.keys(temp).forEach((key) => {
+      if (!temp[key]) delete temp[key];
+    });
+    let test = false;
+    item?.Teachers?.forEach((x, i) => {
+      console.table(Object.keys(temp).includes(x));
+      if (Object.keys(temp).includes(x)) {
+        test = true;
+      }
+    });
+    return test;
+  }
+
+  function classFilter(item) {
+    if (!Object.values(classes).includes(true)) {
+      return true;
+    }
+    let temp = structuredClone(classes);
+    Object.keys(temp).forEach((key) => {
+      if (!temp[key]) delete temp[key];
+    });
+    let test = false;
+    item?.Classes?.forEach((x, i) => {
+      console.table(Object.keys(temp).includes(x));
+      if (Object.keys(temp).includes(x)) {
+        test = true;
+      }
+    });
+    return test;
+  }
+
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
       <div className="search-page">
@@ -52,8 +88,12 @@ export default function SearchPage() {
         {/**Before map filter the array using .filter().map where in the filter put some booleans to check if it matches*/}
         {Object.keys(flashcardMeta)
           .filter((item) => {
-            return flashcardMeta[item]?.Name.toLowerCase().includes(
-              searchRecentInput
+            return (
+              flashcardMeta[item].Name.toLowerCase().includes(
+                searchRecentInput
+              ) &&
+              teacherFilter(flashcardMeta[item]) &&
+              classFilter(flashcardMeta[item])
             );
           })
           .map((key, index) => (
