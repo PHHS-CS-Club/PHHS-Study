@@ -6,12 +6,15 @@ export default function ClassesMenu(props) {
   const [classes, setClasses] = useState({});
   const [current, setCurrent] = useState("main");
 
+  //Sets the classes object
   useEffect(() => {
     if (props.classes) {
       setClasses(props.classes);
     }
   }, [props.classes]);
 
+  //Function ran when a checkbox value is changed, updates the teachers object with the new data
+  //Also runs the classSelect function passed in through props that updates the class data in the parent
   const handleClassChange = (event) => {
     const target = event.target;
     const value = target.checked;
@@ -22,10 +25,11 @@ export default function ClassesMenu(props) {
     }
   };
 
+  //Given the classes' name, returns a checkbox <div> which contains the checkbox input and label
   function checkbox(x) {
     return (
       <div key={x} className="class-checkbox" style={{ display: "inline" }}>
-        {" "}
+        {/**Checkbox */}
         <input
           className="class-check"
           style={{ display: "inline" }}
@@ -35,6 +39,7 @@ export default function ClassesMenu(props) {
           onChange={handleClassChange}
           checked={classes[x] !== undefined && classes[x] === true}
         ></input>{" "}
+        {/**Label */}
         <label
           className="class-label"
           style={{ display: "inline", userSelect: "none" }}
@@ -47,6 +52,7 @@ export default function ClassesMenu(props) {
     );
   }
 
+  //Given a className, returns a button which changes the selected tab
   function classButton(className) {
     return (
       <button
@@ -60,6 +66,7 @@ export default function ClassesMenu(props) {
     );
   }
 
+  //Returns a classButton for each subject
   function classSelect() {
     return (
       <>
@@ -77,6 +84,7 @@ export default function ClassesMenu(props) {
     );
   }
 
+  //For each class, generates the list of checkboxes if the subject is selected
   function showBoxes() {
     if (current === "science") {
       return (
@@ -125,6 +133,7 @@ export default function ClassesMenu(props) {
     }
   }
 
+  //Returns the class selectors and checkboxes in a <div>
   return (
     <div className="class-container">
       {classSelect()}

@@ -15,6 +15,11 @@
   background-color: rgb(111, 111, 111);
 }
 
+.single {
+  border: 2px solid gold;
+  box-shadow: 0px 0px 4px 2px gold !important;
+}
+
 .current-level {
   background-color: rgb(225, 225, 225);
   padding: 5px 10px 5px 10px;
@@ -111,16 +116,28 @@
   justify-content: center;
 }
 
+.bucket-text {
+  font-size: 20px;
+  color: rgb(15, 15, 15);
+  font-weight: bold;
+  background-color: rgb(111, 111, 111);
+  text-align: center;
+}
+
 .bucket {
   background-color: rgb(143, 181, 227);
   padding: 5px 5px 20px 5px;
   border-radius: 10px;
-  transition: 250ms;
+  transition: 50ms;
   flex: 1;
   max-width: 250px;
   height: fit-content;
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
   margin: 0px 5px 5px 5px;
+}
+
+.bucket:hover {
+  cursor: pointer;
 }
 
 .bucket-holder {

@@ -21,6 +21,10 @@
   right: 8px;
 }
 
+.edit-icon-setbox:hover {
+  color: rgb(125, 125, 255);
+}
+
 .search-set-classes,
 .search-set-teachers {
   display: flex;

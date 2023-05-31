@@ -10,11 +10,13 @@ import TeachersMenu from "../components/TeachersMenu";
 
 export default function SearchPage() {
   const [flashcardMeta, setFlashcardMeta] = useState({});
+
   // eslint-disable-next-line
   const [classes, setClasses] = useState({});
   // eslint-disable-next-line
   const [teachers, setTeachers] = useState({});
   const [searchRecentInput, setSearchRecentInput] = useState("");
+
   //useState to store search information
   //useState object to store picked classes/teachers
   useEffect(() => {
@@ -78,6 +80,7 @@ export default function SearchPage() {
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
       <div className="search-page">
+
         {searchBar()}
         <div className="create-set-extras">
           <ClassesMenu classSelect={(classes) => setClasses(classes)} />
@@ -107,6 +110,7 @@ export default function SearchPage() {
               )}
             </div>
           ))}
+
       </div>
     );
   }

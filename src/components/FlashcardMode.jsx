@@ -19,35 +19,59 @@ export default function FlashcardMode(props) {
   const { user } = UserAuth();
   const { id } = useParams();
   const cardRef = useRef();
+  const [singleBucketMode, setSingleBucketMode] = useState(false);
+  const [singleBucket, setSingleBucket] = useState(1);
+
+  const nullCard = {
+    back: "No Cards Available",
+    front: "No Cards Available",
+    id: null,
+    mathModeBack: false,
+    mathModeFront: false,
+  };
 
   useEffect(() => {
     initial();
     //eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    getNewCard();
+    cardRef.current?.setFlipped(false);
+    setFlipped(false);
+    //eslint-disable-next-line
+  }, [singleBucketMode, singleBucket]);
+
+  //Initializes the cards
   function initial() {
+    //If there is a user it will attempt to get user data
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         (snapshot) => {
+          //If it gets null data then it will default set it
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
+            //Gets array data
             var arr = snapshot.val();
+            //Sets each card to the card object with their bucket and index
             arr.forEach((c, i) => {
               arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
             });
+            //Sets cards
             setCards(arr);
-            let keys = Object.keys(snapshot.val());
-            setCurrentCard(
-              snapshot.val()[keys[Math.floor(Math.random() * keys.length)]]
-            );
+            //Sets current to a random card
+            getNewCard();
           } else {
+            //Gets cards
             arr = props.cards;
+            //Sets buckets and index
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
+            //Sets cards
             setCards(arr);
-            let keys = Object.keys(arr);
-            setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+            //Sets current to a random card
+            getNewCard();
           }
         },
         {
@@ -55,36 +79,63 @@ export default function FlashcardMode(props) {
         }
       );
     } else {
+      //Gets cards and sets all to bucket 1
       var arr = props.cards;
       arr.forEach((c, i) => {
         arr[i] = { ...c, bucket: 1, index: i };
       });
+      //Sets cards
       setCards(arr);
-      let keys = Object.keys(arr);
-      setCurrentCard(arr[keys[Math.floor(Math.random() * keys.length)]]);
+      //Sets current to a random card
+      getNewCard();
     }
   }
 
+  //Sets current
   function getNewCard() {
-    let arr = cards.filter((x) => {
-      return x.id !== currentCard.id && x.bucket === currentBucket;
-    });
-    let i = 0;
-    let tempBucket;
-    while (arr.length < 1 && i < 100) {
-      let newBucket = pickBucket(false, tempBucket);
-      if (tempBucket !== newBucket) newBucket = tempBucket;
-      arr = cards.filter((x) => {
-        return x.id !== currentCard.id && x.bucket === newBucket;
+    //If a bucket is picked gets one from that bucket
+    if (singleBucketMode) {
+      let filtered = cards.filter((x) => {
+        return x.bucket === singleBucket;
       });
-      i++;
-      tempBucket = pickBucket(false, newBucket);
+      if (filtered.length === 0) {
+        setCurrentCard(nullCard);
+      } else if (filtered.length === 1) {
+        setCurrentCard(filtered[0]);
+      } else {
+        filtered = filtered.filter((x) => {
+          return x.id !== currentCard.id;
+        });
+        setCurrentCard(filtered[Math.floor(Math.random() * filtered.length)]);
+      }
+    } else {
+      //Filters out the current card and bucket
+      let arr = cards.filter((x) => {
+        return x?.id !== currentCard?.id && x?.bucket === currentBucket;
+      });
+      let i = 0;
+      //Runs until there is options for the array to pick from or 100 iterations
+      while (arr.length < 1 && i < 100) {
+        //Gets a new bucket
+        let newBucket = pickBucket(false);
+        //Filters cards
+        arr = cards.filter((x) => {
+          return x.id !== currentCard?.id && x.bucket === newBucket;
+        });
+        i++;
+      }
+      //Sets current card to a random from the available cards
+      setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
     }
-    setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
   }
 
+  //picks a new bucket
+  //Parameters:
+  //notSame (boolean): if true it will not pick the same bucket as the notBucket int
+  //notBucket (int): must be inputted if notSame is true
   function pickBucket(notSame, notBucket) {
     let buckets = [0, 0, 0, 0, 0];
+    //Increments the index matching the bucket num
     cards.forEach((x) => {
       for (let i = 0; i < buckets.length; i++) {
         if (x.bucket === i + 1) {
@@ -92,6 +143,7 @@ export default function FlashcardMode(props) {
         }
       }
     });
+    //If a bucket has any cards, it recieves a weight
     let weights = [
       buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
@@ -99,11 +151,14 @@ export default function FlashcardMode(props) {
       buckets[3] > 0 ? 3.125 : 0,
       buckets[4] > 0 ? 1 : 0,
     ];
+    //If not same then the bucket passed is unweighted
     if (notSame) weights[notBucket - 1] = 0;
     let sum = 0;
+    //Adds up weights
     for (let i = 0; i < weights.length; i++) {
       sum += weights[i];
     }
+    //Gets random num and decides which bucket num
     let random = Math.floor(Math.random() * sum);
     for (let i = 0; i < weights.length; i++) {
       if (random < weights[i]) {
@@ -113,8 +168,10 @@ export default function FlashcardMode(props) {
     }
   }
 
+  //When a correct card is picked this is ran
   const handleCorrect = () => {
     var arr = cards;
+    //Updates bucket num by +1
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].id === currentCard.id) {
         if (arr[i].bucket < 5) {
@@ -122,12 +179,13 @@ export default function FlashcardMode(props) {
         }
       }
     }
-
+    //Gets new card and unflips the card
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
     cardRef.current.setFlipped(!flipped);
+    //Updates the database with the new info
     if (
       user !== null &&
       user !== undefined &&
@@ -138,8 +196,10 @@ export default function FlashcardMode(props) {
     }
   };
 
+  //When a card is marked as wrong this is ran
   const handleIncorrect = () => {
     var arr = cards;
+    //Updates bucket
     arr.forEach((c, i) => {
       if (c.id === currentCard.id) {
         if (c.bucket > 1) {
@@ -147,11 +207,13 @@ export default function FlashcardMode(props) {
         }
       }
     });
+    //Gets new card
     setCards(arr);
     setCurrentBucket(pickBucket(false));
     getNewCard();
     setFlipped(!flipped);
     cardRef.current.setFlipped(!flipped);
+    //Updates database
     if (
       user !== null &&
       user !== undefined &&
@@ -162,8 +224,11 @@ export default function FlashcardMode(props) {
     }
   };
 
+  //Deletes progress
   const resetProgress = () => {
-    remove(ref(database, "users/" + user.uid + "/" + id));
+    if (user?.displayName !== undefined) {
+      remove(ref(database, "users/" + user.uid + "/" + id));
+    }
     initial();
   };
 
@@ -208,77 +273,44 @@ export default function FlashcardMode(props) {
           </AiFillCheckCircle>
         </div>
       </div>
+      <div className="bucket-text">
+        Click on a bucket to only get cards from that bucket
+      </div>
       <div className="status-container">
-        <div className="bucket-1 bucket">
-          <div className="bucket-title">Bucket 1</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 1 ? (
-                <div className="dot-holder" key={card.id + "1"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "1"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-2 bucket">
-          <div className="bucket-title">Bucket 2</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 2 ? (
-                <div className="dot-holder" key={card.id + "2"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "2"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-3 bucket">
-          <div className="bucket-title">Bucket 3</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 3 ? (
-                <div className="dot-holder" key={card.id + "3"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "3"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-4 bucket">
-          <div className="bucket-title">Bucket 4</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 4 ? (
-                <div className="dot-holder" key={card.id + "4"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "4"} />
-              );
-            })}
-          </div>
-        </div>
-        <div className="bucket-5 bucket">
-          <div className="bucket-title">Bucket 5</div>
-          <div className="bucket-holder">
-            {cards.map((card, i) => {
-              return card.bucket === 5 ? (
-                <div className="dot-holder" key={card.id + "5"}>
-                  {bucketItem()}
-                </div>
-              ) : (
-                <Fragment key={card.id + "5"} />
-              );
-            })}
-          </div>
-        </div>
+        {/* creates an empty array to loop 5 times for each bucket */}
+        {Array.apply(null, { length: 5 }).map((el, index) => {
+          return (
+            <div
+              className={
+                (singleBucketMode && singleBucket === index + 1
+                  ? "single "
+                  : "") +
+                "bucket-" +
+                (index + 1) +
+                " bucket "
+              }
+              onClick={() => {
+                setSingleBucketMode(
+                  singleBucket === index + 1 ? !singleBucketMode : true
+                );
+                setSingleBucket(index + 1);
+              }}
+            >
+              <div className="bucket-title">Bucket {index + 1}</div>
+              <div className="bucket-holder">
+                {cards.map((card, i) => {
+                  return card.bucket === index + 1 ? (
+                    <div className="dot-holder" key={card.id + (index + 1)}>
+                      {bucketItem()}
+                    </div>
+                  ) : (
+                    <Fragment key={card.id + (index + 1)} />
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
