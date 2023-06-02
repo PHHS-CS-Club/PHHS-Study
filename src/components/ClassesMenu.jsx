@@ -58,7 +58,11 @@ export default function ClassesMenu(props) {
       <button
         className="class-button"
         onClick={() => {
-          setCurrent(className);
+          if (current !== className) {
+            setCurrent(className);
+          } else {
+            setCurrent("main");
+          }
         }}
       >
         {className.charAt(0).toUpperCase() + className.slice(1)}
@@ -128,6 +132,21 @@ export default function ClassesMenu(props) {
       return (
         <>
           <div id="compsci">{Classes.COMPSCI.map((x) => checkbox(x))}</div>
+        </>
+      );
+    } else if (current === "main") {
+      return (
+        <>
+          <div>
+            {Object.keys(classes).map((key, index) => {
+              console.log(classes);
+              if (classes[key]) {
+                return checkbox(key);
+              } else {
+                return <></>;
+              }
+            })}
+          </div>
         </>
       );
     }
