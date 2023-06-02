@@ -9,6 +9,18 @@
   background-color: rgb(256, 244, 212);
 }
 
+@media (max-width: 599px) {
+  .teacher-container {
+    width: 90vw;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .teacher-box-container {
+    padding: 0px;
+  }
+}
+
 .teacher-search-bar-container {
   position: relative;
   display: flex;

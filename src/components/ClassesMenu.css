@@ -8,6 +8,24 @@
   font-size: 20px;
 }
 
+@media (max-width: 600px) {
+  .class-container {
+    width: 90vw;
+  }
+  .cs-class-buttons {
+    max-width: 90vw;
+  }
+  .class-button {
+    font-size: 3vw;
+  }
+}
+
+@media (min-width: 601px) {
+  .class-button {
+    font-size: 15px;
+  }
+}
+
 .class-checkbox {
   width: fit-content;
   border-width: 0px 0px 1px 0px;
@@ -19,9 +37,7 @@
   cursor: pointer;
 }
 
-.class-button {
-  font-size: 20px;
-}
+
 
 .main {
   display: flex;
