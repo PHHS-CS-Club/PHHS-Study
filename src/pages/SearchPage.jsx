@@ -90,11 +90,14 @@ export default function SearchPage() {
   if (flashcardMeta !== undefined && flashcardMeta !== null) {
     return (
       <div className="search-page">
-        {searchBar()}
-        <div className="create-set-extras">
-          <ClassesMenu classSelect={(classes) => setClasses(classes)} />
-          <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+        <div className="search-header">
+          {searchBar()}
+          <div className="search-filters">
+            <ClassesMenu classSelect={(classes) => setClasses(classes)} />
+            <TeachersMenu teacherSelect={(teachers) => setTeachers(teachers)} />
+          </div>
         </div>
+
         {/**Input object onChange updates the search information in the useState */}
         {/**Input object onChange updates the search information in the useState */}
         {/**Before map filter the array using .filter().map where in the filter put some booleans to check if it matches*/}
@@ -110,7 +113,7 @@ export default function SearchPage() {
               );
             })
             .map((key, index) => (
-              <div key={key} className="search-cnpontainer">
+              <div key={key} className="search-container">
                 {flashcardMeta[key].Name.length !== 0 ? (
                   <Link to={"/Set/" + key}>
                     <SetBoxView id={key} key={key} />
