@@ -1,17 +1,22 @@
 .class-container {
-  background-color: rgb(125, 164, 236);
+  background-color: rgb(256,244,212);
   width: fit-content;
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   min-height: 200px;
   max-height: 200px;
-  border-radius: 5px 5px 0 0;
-  margin: 5px;
   transition: 0.05s;
   font-size: 20px;
 }
 
 .class-checkbox {
   width: fit-content;
+  border-width: 0px 0px 1px 0px;
+  border-color: black;
+  border-style: solid;
+}
+
+.class-checkbox:hover {
+  cursor: pointer;
 }
 
 .class-button {
@@ -27,11 +32,10 @@
 .class-select-title {
   text-align: center;
   background-color: rgb(243, 243, 243);
-  border-radius: 5px 5px 0px 0px;
 }
 
 .class-button {
-  background-color: rgb(205, 225, 231);
+  background-color: rgb(213, 213, 213);
   border-width: 0px;
   box-sizing: border-box;
   width: 100%;
@@ -39,7 +43,7 @@
 }
 
 .class-button:hover {
-  background-color: rgb(221, 246, 253);
+  background-color: rgb(247, 247, 247);
   opacity: 0.8;
   transition: 0.15s;
   cursor: pointer;
@@ -64,10 +68,9 @@
 #world_language,
 #english {
   width: 100%;
-  border-radius: 5px;
   height: 74.5%;
   overflow-y: scroll;
-  background-color: rgb(125, 164, 236);
+  background-color: rgb(256,244,212);
 }
 
 .main-enter {

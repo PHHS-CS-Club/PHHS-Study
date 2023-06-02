@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+
 import "./Navbar.css";
 
 export default function Navbar() {
   //Always loaded, used to link back to account and home page etc
-  const { user } = UserAuth();
+  const { user, googleSignIn } = UserAuth();
   const [accpath, setAccpath] = useState("");
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (user?.displayName) {
       setAccpath("/Account/" + user.uid);
@@ -48,9 +58,7 @@ export default function Navbar() {
                 Account
               </Link>
             ) : (
-              <Link className="navbar-link-real" to="SignIn">
-                Sign In
-              </Link>
+              <div className="navbar-link-real" onClick={handleGoogleSignIn}>Sign In</div>
             )}
           </li>
         </ul>

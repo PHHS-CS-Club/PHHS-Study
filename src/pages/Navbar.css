@@ -6,48 +6,131 @@ ul {
 .navbar-container {
   height: fit-content;
   display: flex;
-  margin-bottom: 50px;
+  background: rgb(58, 111, 23) s;
+  background: linear-gradient(
+    180deg,
+    rgb(58, 111, 23) 7%,
+    rgba(48, 94, 17, 1) 95%
+  );
+  border-bottom: 1px solid black;
 }
 
 .logo-container {
   flex: 2;
-  background-color: lightblue;
 }
 
-.navbar-logo {
-  text-align: left;
-  padding-left: 50px;
 
-  height: 100%;
-  line-height: 70px;
-  font-weight: bold;
-  font-size: 30px;
-  width: fit-content;
-}
 
 .nav {
   all: unset;
 }
 
-.navbar-bar {
-  flex: 2;
-  background-color: lightblue;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 0px;
-  height: 70px;
+
+
+@media (min-width: 1000px) {
+  .navbar-link {
+    width: 100%;
+    height: 100%;
+    line-height: 70px;
+    text-align: center;
+    font-size: 25px;
+    transition: 0.15s;
+    display: flex;
+  }
+  .navbar-logo {
+    text-align: left;
+    padding-left: 50px;
+    height: 100%;
+    line-height: 70px;
+    font-weight: bold;
+    font-size: 30px;
+    width: fit-content;
+  }
+  .navbar-bar {
+    flex: 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0px;
+    height: 70px;
+  }
 }
 
-.navbar-link {
-  width: 100%;
-  height: 100%;
-  line-height: 70px;
-  text-align: center;
-  font-size: 25px;
-  transition: 0.15s;
-  display: flex;
+
+@media (max-width: 999px) and (min-width: 600px) {
+  .navbar-link {
+    width: 100%;
+    height: 100%;
+    line-height: 70px;
+    text-align: center;
+    font-size: 15px;
+    transition: 0.15s;
+    display: flex;
+  }
+  .navbar-logo {
+    text-align: left;
+    padding-left: 50px;
+    height: 100%;
+    line-height: 70px;
+    font-weight: bold;
+    font-size: 20px;
+    width: fit-content;
+  }
+  .navbar-bar {
+    flex: 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0px;
+    height: 70px;
+  }
 }
+
+@media (max-width: 599px) {
+  .navbar-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+    height: 100%;
+  }
+  .navbar-link {
+    width: 100%;
+    height: 100%;
+    line-height:40px;
+    text-align: center;
+    font-size: 15px;
+    transition: 0.15s;
+    display: flex;
+  }
+  .navbar-logo {
+    flex: 1;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+  }
+  .navbar-container {
+    flex-direction: column;
+  }
+
+  .logo-container {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-link-real {
+    border-bottom: 1px solid black;
+  }
+
+}
+
+
 
 .create-link {
   border: 1px solid black;
@@ -81,7 +164,8 @@ ul {
 }
 
 .navbar-link:hover {
-  background-color: rgb(185, 231, 247);
+  /*background-color: rgb(255, 0, 0);*/
+  text-decoration: underline;
   transition: 0.15s;
 }
 

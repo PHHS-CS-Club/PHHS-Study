@@ -64,7 +64,7 @@ export default function TeachersMenu(props) {
         <input
           key="search"
           type="text"
-          placeholder="Search teachers by last name"
+          placeholder="Search by last name"
           className="teacher-search-bar"
           onChange={(e) => setSearchLastInput(e.target.value)}
         />
@@ -102,6 +102,7 @@ export default function TeachersMenu(props) {
   //returns the search bar and boxes all in a <div>
   return (
     <div className="teacher-container">
+      <div className="teacher-menu-header">Pick Teachers</div>
       {searchBar()}
       <div className="teacher-box-container">{showBoxes()}</div>
     </div>

@@ -28,7 +28,7 @@ export default function ClassesMenu(props) {
   //Given the classes' name, returns a checkbox <div> which contains the checkbox input and label
   function checkbox(x) {
     return (
-      <div key={x} className="class-checkbox" style={{ display: "inline" }}>
+      <div key={x} name={x} className="class-checkbox" style={{ display: "inline" }}>
         {/**Checkbox */}
         <input
           className="class-check"

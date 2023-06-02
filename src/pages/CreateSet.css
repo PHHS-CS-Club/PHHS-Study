@@ -134,6 +134,9 @@ textarea {
 
 .create-set-extras {
   display: flex;
+  border: 1px solid black;
+  border-width: 0px 1px 1px 1px;
   justify-content: space-evenly;
-  width: 1000px;
+  width: 100vw;
+  padding: 10px;
 }
