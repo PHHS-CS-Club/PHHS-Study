@@ -7,7 +7,6 @@ import SetBoxView from "../components/SetBoxView";
 import "./SearchPage.css";
 import ClassesMenu from "../components/ClassesMenu";
 import TeachersMenu from "../components/TeachersMenu";
-import { BsSearch } from "react-icons/bs";
 
 export default function SearchPage() {
   const searchRef = useRef(null);
@@ -18,7 +17,7 @@ export default function SearchPage() {
   // eslint-disable-next-line
   const [teachers, setTeachers] = useState({});
   const [searchRecentInput, setSearchRecentInput] = useState("");
-
+  
   //useState to store search information
   //useState object to store picked classes/teachers
   useEffect(() => {
@@ -42,11 +41,7 @@ export default function SearchPage() {
           ref={searchRef}
           onChange={(e) => setSearchRecentInput(e.target.value.toLowerCase())}
         ></input>
-        <BsSearch
-          onClick={() => searchRef.current.focus()}
-          disabled
-          className="search-glass"
-        />
+       
       </div>
     );
   }

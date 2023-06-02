@@ -52,13 +52,6 @@
   width: 100vw;
 }
 
-.search-glass {
-  --glass-margin: calc(var(--search-margin));
-  position: absolute;
-  top: 14px;
-  right: 88px;
-  user-select: none;
-}
 
 .search-glass:hover {
   cursor: pointer;
