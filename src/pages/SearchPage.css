@@ -52,6 +52,15 @@
   width: 100vw;
 }
 
+@media (max-width: 600px) {
+  .search-filters {
+    align-items: center;
+    flex-direction: column;
+  }
+  .search-page {
+    width: 100vw;
+  }
+}
 
 .search-glass:hover {
   cursor: pointer;

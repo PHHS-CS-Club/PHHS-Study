@@ -38,7 +38,7 @@
   border: 1px solid black;
   margin: 5px;
   padding: 3px;
-  background-color: rgb(143, 169, 255);
+  background-color: rgb(244, 255, 143);
   box-shadow: 0px 0px 4px 0.5px rgba(0, 0, 0, 0.1);
   transform: translateY(var(--translate-y, 0));
   transition: 150ms;
@@ -86,19 +86,19 @@
 .viewset-buttons {
   flex: 1;
   color: black;
-  border: 1px solid rgb(223, 236, 241);
+  border: 1px solid rgb(223, 241, 228);
   padding: 18px 36px;
   display: inline-block;
   font-size: 20px;
   font-weight: bold;
-  background-color: rgb(101, 151, 225);
+  background-color: rgb(62, 131, 61);
   cursor: pointer;
-  box-shadow: inset 0 0 0 0 rgb(223, 236, 241);
+  box-shadow: inset 0 0 0 0 rgb(106, 194, 102);
   transition: ease 0.3s;
 }
 
 .viewset-buttons:hover {
-  box-shadow: inset 0 0 0 50px rgb(223, 236, 241);
+  box-shadow: inset 0 0 0 50px rgb(106, 194, 102);
 }
 
 .vsedit-button {

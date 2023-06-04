@@ -53,7 +53,12 @@ ul {
     align-items: center;
     margin: 0px;
     height: 70px;
+    width: 100vw;
   }
+  .navbar-container {
+    width: 100vw;
+  }
+
 }
 
 
