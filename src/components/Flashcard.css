@@ -6,7 +6,7 @@
   width: 800px;
   transition: 250ms;
   cursor: pointer;
-  transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+  transform: perspective(1500px) rotateY(var(--rotate-y, 0))
     translateY(var(--translate-y, 0));
   overflow: wrap;
   font-size: 1.5em;
@@ -88,8 +88,8 @@
   overflow: auto;
 }
 
-.card .front,
-.card .back {
+.card.front,
+.card.back {
   position: absolute;
   padding: 1rem;
   backface-visibility: hidden;
