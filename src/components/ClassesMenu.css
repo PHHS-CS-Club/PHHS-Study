@@ -44,6 +44,12 @@
   background-color: rgb(243, 243, 243);
 }
 
+.cs-class-buttons > button {
+  -webkit-appearance: none;
+  appearance: none;
+  all: revert;
+}
+
 .class-button {
   background-color: rgb(213, 213, 213);
   border-width: 0px;
