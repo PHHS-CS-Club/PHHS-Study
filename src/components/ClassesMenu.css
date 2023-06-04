@@ -22,7 +22,7 @@
   }
 }
 
-@media (min-width: 601px) {
+@media (min-width: 600px) {
   .class-button {
     font-size: 15px;
   }
@@ -56,6 +56,9 @@
   box-sizing: border-box;
   width: 100%;
   transition: 0.15s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .class-button:hover {
