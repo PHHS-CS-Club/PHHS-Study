@@ -15,7 +15,6 @@
   }
   .cs-class-buttons {
     max-width: 90vw;
-    all: revert;
   }
   .class-button {
     font-size: 3vw;
@@ -47,15 +46,24 @@
 .cs-class-buttons > button {
   -webkit-appearance: none;
   appearance: none;
-  all: revert;
 }
 
 .class-button {
+  flex: 1;
+  color: black;
+  border: 1px solid rgb(0, 0, 0);
+  border-width: 0px 0px 1px 0px;
+
+  padding: px;
+  margin: 0;
+  display: inline-block;
+  border-radius: 0px;
+  font-size: 15px;
+  font-weight: bold;
   background-color: rgb(213, 213, 213);
-  border-width: 0px;
-  box-sizing: border-box;
-  width: 100%;
-  transition: 0.15s;
+  box-shadow: none;
+  cursor: pointer;
+  transition: ease 0.3s;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -74,9 +82,10 @@
 
 .cs-class-buttons {
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 #main,
