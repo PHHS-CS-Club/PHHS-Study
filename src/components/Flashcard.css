@@ -23,7 +23,7 @@
   .back-text {
     max-height: 40vh;
     max-width: 90vw;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
@@ -39,7 +39,7 @@
   .back-text {
     max-height: 40vh;
     max-width: 50vw;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
@@ -54,7 +54,7 @@
   .front-text,
   .back-text {
     max-width: 800px;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
