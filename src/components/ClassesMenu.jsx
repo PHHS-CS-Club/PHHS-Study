@@ -28,7 +28,12 @@ export default function ClassesMenu(props) {
   //Given the classes' name, returns a checkbox <div> which contains the checkbox input and label
   function checkbox(x) {
     return (
-      <div key={x} name={x} className="class-checkbox" style={{ display: "inline" }}>
+      <div
+        key={x}
+        name={x}
+        className="class-checkbox"
+        style={{ display: "inline" }}
+      >
         {/**Checkbox */}
         <input
           className="class-check"
@@ -137,7 +142,7 @@ export default function ClassesMenu(props) {
     } else if (current === "main") {
       return (
         <>
-          <div>
+          <div id="main">
             {Object.keys(classes).map((key, index) => {
               console.log(classes);
               if (classes[key]) {

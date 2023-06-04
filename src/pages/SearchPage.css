@@ -47,7 +47,7 @@
 .search-filters {
   padding: 10px 0px;
   display: flex;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0px 0px 1px 0px;
   justify-content: space-evenly;
   width: 100vw;
 }
