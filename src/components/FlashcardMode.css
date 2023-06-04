@@ -1,3 +1,7 @@
+.flashcard-mode-body {
+  width: 100%;
+}
+
 .card-container-fsm {
   display: flex;
   justify-content: center;
@@ -13,7 +17,6 @@
     flex-direction: column;
     width: 100vw;
     padding: 0;
-    overflow: scroll;
   }
   .fs-buttons {
     z-index: 2;
@@ -28,7 +31,7 @@
     max-width: 90vw;
   }
   .katex {
-    font-size: 20px;
+    font-size: calc(calc(3vw + 3vh) / 2);
   }
   .card-correct {
     fill: rgb(7, 205, 7);

@@ -3,6 +3,14 @@
   font-size: 20px;
 }
 
+.flashcard-mode-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .viewset-title {
   font-size: 40px;
   font-weight: bold;
@@ -128,14 +136,17 @@
 }
 
 .exit-fsmode-button {
-  background-color: rgb(133, 172, 255);
-  padding: 10px 0px 10px 0px;
+  color: rgb(249, 240, 57);
   font-weight: 700;
+  width: 100%;
+  background-color: rgba(48, 94, 17, 1);
+  padding: 10px 0px 10px 0px;
   transition: 250ms;
-  border: 2px solid black;
+  border-bottom: 1px solid black;
+  border-width: 0px 0px 1px 0px;
 }
 
 .exit-fsmode-button:hover {
-  background-color: rgb(172, 198, 255);
+  text-decoration: underline;
   cursor: pointer;
 }

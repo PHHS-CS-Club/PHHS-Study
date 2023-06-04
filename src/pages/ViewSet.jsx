@@ -113,17 +113,17 @@ export default function ViewSet() {
     //If mode is set to Flashcard, renders the FlashcardMode component on the page
   } else if (mode === "Flashcard") {
     return (
-      <>
+      <div className="flashcard-mode-container">
         <button
           className="exit-fsmode-button"
           onClick={() => {
             setMode("view");
           }}
         >
-          Exit
+          Exit Flashcard Mode
         </button>
         <FlashcardMode cards={cards} />
-      </>
+      </div>
     );
   }
 }
