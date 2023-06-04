@@ -62,39 +62,45 @@ const SetBoxView = (id) => {
         ) : (
           <></>
         )}
-        {/*Displays the info from the flashcardMeta*/}
-        <div className="search-set-name">{flashcardMeta.Name}</div>
-        <div className="search-set-author">{"By: " + flashcardMeta.Author}</div>
-        {/*Displays the first item for classes/teachers, and then displays the rest in a tooltip that the user can hover over*/}
-        <div className="search-set-classes" id="classes-view">
-          {/*First item here*/}
-          {flashcardMeta.Classes !== undefined ? flashcardMeta.Classes[0] : ""}
-          {/*Tooltip data here*/}
-          <div
-            data-tooltip-id="class-tooltip"
-            data-tooltip-content={classesList() ? classesList() : ""}
-            className="tooltip-container"
-          >
-            <AiOutlineQuestionCircle className="tooltip-icon" />
+        <Link to={"/Set/" + id.id}>
+          {/*Displays the info from the flashcardMeta*/}
+          <div className="search-set-name">{flashcardMeta.Name}</div>
+          <div className="search-set-author">
+            {"By: " + flashcardMeta.Author}
           </div>
-        </div>
-        <div className="search-set-teachers" id="teacher-view">
-          {/*First item here*/}
-          {flashcardMeta.Teachers !== undefined
-            ? flashcardMeta.Teachers[0]
-            : ""}
-          {/*Tooltip data here*/}
-          <div
-            data-tooltip-id="teacher-tooltip"
-            data-tooltip-content={teachersList() ? teachersList() : ""}
-            className="tooltip-container"
-          >
-            <AiOutlineQuestionCircle className="tooltip-icon" />
+          {/*Displays the first item for classes/teachers, and then displays the rest in a tooltip that the user can hover over*/}
+          <div className="search-set-classes" id="classes-view">
+            {/*First item here*/}
+            {flashcardMeta.Classes !== undefined
+              ? flashcardMeta.Classes[0]
+              : ""}
+            {/*Tooltip data here*/}
+            <div
+              data-tooltip-id="class-tooltip"
+              data-tooltip-content={classesList() ? classesList() : ""}
+              className="tooltip-container"
+            >
+              <AiOutlineQuestionCircle className="tooltip-icon" />
+            </div>
           </div>
-        </div>
-        {/**If you want to find out how to use the tooltip, here is the npm package: https://www.npmjs.com/package/react-tooltip */}
-        <Tooltip id="teacher-tooltip" />
-        <Tooltip id="class-tooltip" />
+          <div className="search-set-teachers" id="teacher-view">
+            {/*First item here*/}
+            {flashcardMeta.Teachers !== undefined
+              ? flashcardMeta.Teachers[0]
+              : ""}
+            {/*Tooltip data here*/}
+            <div
+              data-tooltip-id="teacher-tooltip"
+              data-tooltip-content={teachersList() ? teachersList() : ""}
+              className="tooltip-container"
+            >
+              <AiOutlineQuestionCircle className="tooltip-icon" />
+            </div>
+          </div>
+          {/**If you want to find out how to use the tooltip, here is the npm package: https://www.npmjs.com/package/react-tooltip */}
+          <Tooltip id="teacher-tooltip" />
+          <Tooltip id="class-tooltip" />
+        </Link>
       </div>
     </>
   );

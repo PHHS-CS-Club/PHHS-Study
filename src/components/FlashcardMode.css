@@ -1,3 +1,7 @@
+.flashcard-mode-body {
+  width: 100%;
+}
+
 .card-container-fsm {
   display: flex;
   justify-content: center;
@@ -6,6 +10,62 @@
   background-color: rgb(111, 111, 111);
   padding-left: 150px;
   flex: 1;
+}
+
+@media (max-width: 600px) {
+  .card-container-fsm {
+    flex-direction: column;
+    width: 100vw;
+    padding: 0;
+  }
+  .fs-buttons {
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100px;
+    width: 90vw;
+    margin: 10px 0px 0px 0px;
+  }
+  .card {
+    max-width: 90vw;
+  }
+  .katex {
+    font-size: calc(calc(3vw + 3vh) / 2);
+  }
+  .card-correct {
+    fill: rgb(7, 205, 7);
+    margin-top: 0px;
+  }
+
+  .card-incorrect {
+    fill: red;
+    margin: 0px;
+  }
+  .unflipped {
+    opacity: 0;
+  }
+
+  .card-correct,
+  .card-incorrect {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: 0.25s;
+    z-index: 1;
+  }
+  .status-container {
+    background-color: rgb(111, 111, 111);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .bucket-title {
+    font-size: 3vw;
+    padding: 2px;
+    margin: 5px;
+  }
 }
 
 .cl-container {
@@ -53,17 +113,6 @@
   cursor: pointer;
 }
 
-.card-correct,
-.card-incorrect {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-  opacity: 1;
-  transition: 0.25s;
-  transform: translateX(-150px);
-  z-index: 1;
-}
-
 .card-correct:hover,
 .card-incorrect:hover {
   opacity: 0.7;
@@ -76,10 +125,7 @@
 
 .flipped {
   transform: translateX(0px);
-}
-
-.unflipped {
-  transform: translateX(-150px);
+  transform: translateY(0px);
 }
 
 .card-correct,
@@ -90,30 +136,44 @@
   background-color: black;
 }
 
-.card-correct {
-  fill: rgb(7, 205, 7);
-  margin-top: 150px;
-}
+@media (min-width: 601px) {
+  .fs-buttons {
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0px 0px 0px 30px;
+    min-width: 101.3px;
+  }
+  .card-correct {
+    fill: rgb(7, 205, 7);
+    margin-top: 150px;
+  }
 
-.card-incorrect {
-  fill: red;
-}
+  .card-incorrect {
+    fill: red;
+    margin: 0px;
+  }
+  .unflipped {
+    transform: translateX(-150px);
+  }
 
-.fs-buttons {
-  z-index: 2;
-  height: 1fr;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: stretch;
-  margin-left: 30px;
-}
-
-.status-container {
-  background-color: rgb(111, 111, 111);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  .card-correct,
+  .card-incorrect {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.25s;
+    z-index: 1;
+  }
+  .status-container {
+    background-color: rgb(111, 111, 111);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
 }
 
 .bucket-text {
@@ -122,15 +182,16 @@
   font-weight: bold;
   background-color: rgb(111, 111, 111);
   text-align: center;
+  padding: 5px 0px;
 }
 
 .bucket {
+  flex: 1;
   background-color: rgb(143, 181, 227);
-  padding: 5px 5px 20px 5px;
+  padding: 0px 0px 0px 0px;
   border-radius: 10px;
   transition: 50ms;
-  flex: 1;
-  max-width: 250px;
+  width: 90%;
   height: fit-content;
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
   margin: 0px 5px 5px 5px;
@@ -141,6 +202,7 @@
 }
 
 .bucket-holder {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
 }

@@ -3,6 +3,14 @@
   font-size: 20px;
 }
 
+.flashcard-mode-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .viewset-title {
   font-size: 40px;
   font-weight: bold;
@@ -38,7 +46,7 @@
   border: 1px solid black;
   margin: 5px;
   padding: 3px;
-  background-color: rgb(143, 169, 255);
+  background-color: rgb(244, 255, 143);
   box-shadow: 0px 0px 4px 0.5px rgba(0, 0, 0, 0.1);
   transform: translateY(var(--translate-y, 0));
   transition: 150ms;
@@ -86,19 +94,28 @@
 .viewset-buttons {
   flex: 1;
   color: black;
-  border: 1px solid rgb(223, 236, 241);
+  border: 1px solid rgb(223, 241, 228);
   padding: 18px 36px;
   display: inline-block;
   font-size: 20px;
   font-weight: bold;
-  background-color: rgb(101, 151, 225);
+  background-color: rgb(62, 131, 61);
   cursor: pointer;
-  box-shadow: inset 0 0 0 0 rgb(223, 236, 241);
+  box-shadow: inset 0 0 0 0 rgb(106, 194, 102);
   transition: ease 0.3s;
 }
 
+@media (max-width: 600px) {
+  .viewset-teachers,
+  .viewset-classes {
+    overflow: wrap;
+    flex-wrap: wrap;
+    max-width: calc(100%-20px);
+  }
+}
+
 .viewset-buttons:hover {
-  box-shadow: inset 0 0 0 50px rgb(223, 236, 241);
+  box-shadow: inset 0 0 0 50px rgb(106, 194, 102);
 }
 
 .vsedit-button {
@@ -119,14 +136,17 @@
 }
 
 .exit-fsmode-button {
-  background-color: rgb(133, 172, 255);
-  padding: 10px 0px 10px 0px;
+  color: rgb(249, 240, 57);
   font-weight: 700;
+  width: 100%;
+  background-color: rgba(48, 94, 17, 1);
+  padding: 10px 0px 10px 0px;
   transition: 250ms;
-  border: 2px solid black;
+  border-bottom: 1px solid black;
+  border-width: 0px 0px 1px 0px;
 }
 
 .exit-fsmode-button:hover {
-  background-color: rgb(172, 198, 255);
+  text-decoration: underline;
   cursor: pointer;
 }

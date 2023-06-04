@@ -40,15 +40,15 @@ export default function FlashcardMode(props) {
     cardRef.current?.setFlipped(false);
     setFlipped(false);
     //eslint-disable-next-line
-  }, [singleBucketMode, singleBucket]);
+  }, [singleBucketMode, singleBucket, cards]);
 
   //Initializes the cards
-  function initial() {
+  async function initial() {
     //If there is a user it will attempt to get user data
     if (user !== null && user !== undefined) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
-        (snapshot) => {
+        async (snapshot) => {
           //If it gets null data then it will default set it
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
             //Gets array data
@@ -58,7 +58,8 @@ export default function FlashcardMode(props) {
               arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
             });
             //Sets cards
-            setCards(arr);
+            console.table(arr);
+            await setCards(arr);
             //Sets current to a random card
             getNewCard();
           } else {
@@ -69,7 +70,8 @@ export default function FlashcardMode(props) {
               arr[i] = { ...c, bucket: 1, index: i };
             });
             //Sets cards
-            setCards(arr);
+            console.table(arr);
+            await setCards(arr);
             //Sets current to a random card
             getNewCard();
           }
@@ -84,8 +86,9 @@ export default function FlashcardMode(props) {
       arr.forEach((c, i) => {
         arr[i] = { ...c, bucket: 1, index: i };
       });
+      console.table(arr);
       //Sets cards
-      setCards(arr);
+      await setCards(arr);
       //Sets current to a random card
       getNewCard();
     }
@@ -115,7 +118,7 @@ export default function FlashcardMode(props) {
       });
       let i = 0;
       //Runs until there is options for the array to pick from or 100 iterations
-      while (arr.length < 1 && i < 100) {
+      while (arr?.length < 1 && i < 100) {
         //Gets a new bucket
         let newBucket = pickBucket(false);
         //Filters cards
@@ -125,7 +128,7 @@ export default function FlashcardMode(props) {
         i++;
       }
       //Sets current card to a random from the available cards
-      setCurrentCard(arr[Math.floor(Math.random() * arr.length)]);
+      setCurrentCard(arr[Math.floor(Math.random() * arr?.length)]);
     }
   }
 

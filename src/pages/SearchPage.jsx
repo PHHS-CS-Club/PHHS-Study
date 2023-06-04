@@ -17,7 +17,7 @@ export default function SearchPage() {
   // eslint-disable-next-line
   const [teachers, setTeachers] = useState({});
   const [searchRecentInput, setSearchRecentInput] = useState("");
-  
+
   //useState to store search information
   //useState object to store picked classes/teachers
   useEffect(() => {
@@ -41,7 +41,6 @@ export default function SearchPage() {
           ref={searchRef}
           onChange={(e) => setSearchRecentInput(e.target.value.toLowerCase())}
         ></input>
-       
       </div>
     );
   }
@@ -110,9 +109,7 @@ export default function SearchPage() {
             .map((key, index) => (
               <div key={key} className="search-container">
                 {flashcardMeta[key].Name.length !== 0 ? (
-                  <Link to={"/Set/" + key}>
-                    <SetBoxView id={key} key={key} />
-                  </Link>
+                  <SetBoxView id={key} key={key} />
                 ) : (
                   <Link to={"/Set/" + key}>{"No Title"}</Link>
                 )}

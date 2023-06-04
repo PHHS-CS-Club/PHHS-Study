@@ -1,11 +1,24 @@
 .class-container {
-  background-color: rgb(256,244,212);
+  background-color: rgb(256, 244, 212);
   width: fit-content;
   /*border: 2px solid black;*/
   min-height: 200px;
   max-height: 200px;
   transition: 0.05s;
   font-size: 20px;
+}
+
+@media (max-width: 600px) {
+  .class-container {
+    width: 90vw;
+    height: 200px;
+  }
+  .cs-class-buttons {
+    max-width: 90vw;
+  }
+  .class-button {
+    font-size: 3vw;
+  }
 }
 
 .class-checkbox {
@@ -19,10 +32,6 @@
   cursor: pointer;
 }
 
-.class-button {
-  font-size: 20px;
-}
-
 .main {
   display: flex;
   justify-content: center;
@@ -34,12 +43,30 @@
   background-color: rgb(243, 243, 243);
 }
 
+.cs-class-buttons > button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .class-button {
+  flex: 1;
+  color: black;
+  border: 1px solid rgb(0, 0, 0);
+  border-width: 0px 0px 1px 0px;
+
+  padding: px;
+  margin: 0;
+  display: inline-block;
+  border-radius: 0px;
+  font-size: 15px;
+  font-weight: bold;
   background-color: rgb(213, 213, 213);
-  border-width: 0px;
-  box-sizing: border-box;
-  width: 100%;
-  transition: 0.15s;
+  box-shadow: none;
+  cursor: pointer;
+  transition: ease 0.3s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .class-button:hover {
@@ -55,11 +82,13 @@
 
 .cs-class-buttons {
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
+#main,
 #compsci,
 #njrotc,
 #science,
@@ -68,9 +97,9 @@
 #world_language,
 #english {
   width: 100%;
-  height: 74.5%;
+  max-height: 74.5%;
   overflow-y: scroll;
-  background-color: rgb(256,244,212);
+  background-color: rgb(256, 244, 212);
 }
 
 .main-enter {
