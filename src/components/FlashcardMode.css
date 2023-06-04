@@ -52,6 +52,7 @@
     height: 100px;
     cursor: pointer;
     transition: 0.25s;
+    will-change: opacity;
     z-index: 1;
   }
   .status-container {
