@@ -48,20 +48,26 @@ const Flashcard = forwardRef((flashcard, ref) => {
         {!flip ? (
           flashcard.mFront ? (
             <div className="front" ref={frontEl}>
-              <InlineMath>{flashcard.question}</InlineMath>
+              <div className="front-text">
+                {" "}
+                <InlineMath>{flashcard.question}</InlineMath>
+              </div>
             </div>
           ) : (
             <div className="front" ref={frontEl}>
-              {flashcard.question}
+              <div className="front-text"> {flashcard.question}</div>
             </div>
           )
         ) : flashcard.mBack ? (
           <div className="back" ref={backEl}>
-            <InlineMath>{flashcard.answer}</InlineMath>
+            <div className="back-text">
+              {" "}
+              <InlineMath>{flashcard.answer}</InlineMath>
+            </div>
           </div>
         ) : (
           <div className="back" ref={backEl}>
-            {flashcard.answer}
+            <div className="back-text"> {flashcard.answer}</div>
           </div>
         )}
       </div>
