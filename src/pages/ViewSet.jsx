@@ -80,8 +80,8 @@ export default function ViewSet() {
             Flashcard mode
           </button>
           {/* Make these change mode for new components for flashcard modes */}
-          <button className="viewset-buttons"> Learn mode </button>
-          <button className="viewset-buttons"> Flashcard games </button>
+          {/*<button className="viewset-buttons"> Learn mode </button>
+          <button className="viewset-buttons"> Flashcard games </button> */}
         </div>
 
         {/**Displays all the cards */}
