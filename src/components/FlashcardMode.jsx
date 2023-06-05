@@ -247,7 +247,7 @@ export default function FlashcardMode(props) {
           Reset Progress
         </button>
       </div>
-
+      <div className="flip-status">{flipped ? ("Back") : ("Front")}</div>
       <div className="card-container-fsm">
         <Flashcard
           question={currentCard?.front}
@@ -262,7 +262,7 @@ export default function FlashcardMode(props) {
         <div
           className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}
         >
-          <AiFillCloseCircle
+          {window.innerWidth > 600 || flipped ? (<><AiFillCloseCircle
             className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
             onClick={handleIncorrect}
           >
@@ -273,7 +273,8 @@ export default function FlashcardMode(props) {
             onClick={handleCorrect}
           >
             Incorrect
-          </AiFillCheckCircle>
+          </AiFillCheckCircle></>) : (<></>)}
+          
         </div>
       </div>
       <div className="bucket-text">

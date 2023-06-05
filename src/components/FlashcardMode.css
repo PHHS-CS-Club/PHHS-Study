@@ -1,5 +1,9 @@
 .flashcard-mode-body {
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(111, 111, 111);
 }
 
 .card-container-fsm {
@@ -19,7 +23,6 @@
     padding: 0;
   }
   .fs-buttons {
-    z-index: 2;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -42,18 +45,14 @@
     fill: red;
     margin: 0px;
   }
-  .unflipped {
-    opacity: 0;
-  }
+
 
   .card-correct,
   .card-incorrect {
     width: 100px;
     height: 100px;
     cursor: pointer;
-    transition: 0.25s;
     will-change: opacity;
-    z-index: 1;
   }
   .status-container {
     background-color: rgb(111, 111, 111);
@@ -70,6 +69,7 @@
 }
 
 .cl-container {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,6 +107,16 @@
   transition: 250ms;
   transform: translateY(var(--translate-y, 0));
   max-width: 500px;
+}
+
+.flip-status {
+  text-align: center;
+  background-color: rgb(92, 152, 227);
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin: 0px 0px 15px 0px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
 }
 
 .reset-prog-button:hover {

@@ -15,6 +15,12 @@ ul {
   border-bottom: 1px solid black;
 }
 
+@media (max-width: 600px) {
+  .navbar-container {
+    border-bottom: 0px solid black;
+  }
+}
+
 .logo-container {
   flex: 2;
 }
