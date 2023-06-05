@@ -262,7 +262,7 @@ export default function FlashcardMode(props) {
         <div
           className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}
         >
-          <AiFillCloseCircle
+          {flipped ? ( <AiFillCloseCircle
             className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
             onClick={handleIncorrect}
           >
@@ -273,7 +273,8 @@ export default function FlashcardMode(props) {
             onClick={handleCorrect}
           >
             Incorrect
-          </AiFillCheckCircle>
+          </AiFillCheckCircle>) : (<></>)}
+         
         </div>
       </div>
       <div className="bucket-text">
