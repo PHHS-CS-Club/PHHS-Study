@@ -139,6 +139,7 @@
   color: rgb(249, 240, 57);
   font-weight: 700;
   width: 100%;
+  margin: 0px;
   background-color: rgba(48, 94, 17, 1);
   padding: 10px 0px 10px 0px;
   transition: 250ms;
