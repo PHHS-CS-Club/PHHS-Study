@@ -6,12 +6,16 @@ import "./Navbar.css";
 
 export default function Navbar() {
   //Always loaded, used to link back to account and home page etc
-  const { user, googleSignIn } = UserAuth();
+  const { user, googleSignInRed, googleSignInPop } = UserAuth();
   const [accpath, setAccpath] = useState("");
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      if (window.innerWidth < 601) {
+        await googleSignInPop();
+      } else {
+        await googleSignInRed();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +62,9 @@ export default function Navbar() {
                 Account
               </Link>
             ) : (
-              <div className="navbar-link-real" onClick={handleGoogleSignIn}>Sign In</div>
+              <div className="navbar-link-real" onClick={handleGoogleSignIn}>
+                Sign In
+              </div>
             )}
           </li>
         </ul>

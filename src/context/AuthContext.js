@@ -3,6 +3,7 @@ import {
   /* eslint-disable no-unused-vars */
   GoogleAuthProvider,
   signInWithRedirect,
+  signInWithPopup,
   signOut,
   onAuthStateChanged,
   /* eslint-enable no-unused-vars */
@@ -17,9 +18,14 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const googleSignIn = () => {
+  const googleSignInRed = () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
+  };
+
+  const googleSignInPop = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
   };
 
   const logOut = () => {
@@ -36,7 +42,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <AuthContext.Provider
+      value={{ googleSignInRed, googleSignInPop, logOut, user }}
+    >
       {children}
     </AuthContext.Provider>
   );
