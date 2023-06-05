@@ -10,10 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   background-color: rgb(111, 111, 111);
-  padding-left: 150px;
-  flex: 1;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
