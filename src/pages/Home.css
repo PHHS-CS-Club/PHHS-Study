@@ -49,7 +49,7 @@ body {
 .contributers-div {
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  height: 500px;
+  height: 400px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -64,6 +64,7 @@ body {
 .contributers-image {
   max-height: 100%;
   max-width: 100%;
+  border: 1px rgb(0, 0, 0) solid;
 }
 .contributers-writing {
   flex: 1;
