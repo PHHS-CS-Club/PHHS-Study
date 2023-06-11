@@ -21,7 +21,11 @@ export default function Home() {
           </div>
           <div className="website-paragraph">
             Our goal is to support the students of Patrick Henry and help them
-            prepare, practice, and study for their classes.
+            prepare, practice, and study for their classes. We offer the ability
+            to create, edit, and share flashcards. To find a flashcard set, go
+            to the "Search" page. To make a flashcard set, go to the "Creat Set"
+            page. To change your username, role, log out, or view your flashcard
+            sets, go to the "Account" page.
           </div>
         </div>
       </div>
