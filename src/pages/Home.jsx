@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import clubPhoto from "../images/ClubPhoto.jpg";
 
 export default function Home() {
   return (
@@ -43,7 +44,9 @@ export default function Home() {
             Mascot: Colin Miller
           </div>
         </div>
-        <div className="contributers-image">image</div>
+        <div className="contributers-container-image">
+          <img className="contributers-image" src={clubPhoto} alt="ClubPhoto" />
+        </div>
       </div>
     </>
   );

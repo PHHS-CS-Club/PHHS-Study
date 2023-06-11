@@ -1,3 +1,6 @@
+body {
+  background-color: rgb(58, 111, 23);
+}
 .home-starter-container {
   display: flex;
   justify-content: center;
@@ -20,6 +23,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  background-color: rgb(58, 111, 23);
 }
 
 .website-goal-image {
@@ -49,12 +53,17 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  background-color: rgb(255, 215, 0);
 }
-.contributers-image {
+.contributers-container-image {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.contributers-image {
+  max-height: 100%;
+  max-width: 100%;
 }
 .contributers-writing {
   flex: 1;
