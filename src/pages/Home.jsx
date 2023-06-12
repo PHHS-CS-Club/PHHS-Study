@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import clubPhoto from "../images/ClubPhoto.jpg";
+import clubLogo from "../images/ClubLogo.png";
 
 export default function Home() {
   return (
@@ -14,18 +15,19 @@ export default function Home() {
         </div>
       </div>
       <div className="website-goal-div">
-        <div className="website-goal-image">image</div>
+        <div className="website-goal-container-image">
+          <img className="website-goal-image" src={clubLogo} alt="ClubLogo" />
+        </div>
         <div className="website-goal-writing">
-          <div className="website-goal-title">
-            What Is The Purpose Of This Website?
-          </div>
+          <div className="website-goal-title">What We Are About</div>
           <div className="website-paragraph">
-            Our goal is to support the students of Patrick Henry and help them
-            prepare, practice, and study for their classes. We offer the ability
-            to create, edit, and share flashcards. To find a flashcard set, go
-            to the "Search" page. To make a flashcard set, go to the "Creat Set"
-            page. To change your username, role, log out, or view your flashcard
-            sets, go to the "Account" page.
+            We are the computer science club of Patrick Henry High School. We
+            have developed this website to support the students of Patrick Henry
+            and help them prepare, practice, and study for their classes. We
+            offer the ability to create, edit, and share flashcards. To find a
+            flashcard set, go to the "Search" page. To make a flashcard set, go
+            to the "Create Set" page. To change your username, role, log out, or
+            view your flashcard sets, go to the "Account" page.
           </div>
         </div>
       </div>
