@@ -6,12 +6,8 @@ ul {
 .navbar-container {
   height: fit-content;
   display: flex;
-  background: rgb(58, 111, 23) s;
-  background: linear-gradient(
-    180deg,
-    rgb(58, 111, 23) 7%,
-    rgba(48, 94, 17, 1) 95%
-  );
+  background: rgb(52, 131, 0) s;
+  background: linear-gradient(180deg, rgb(52, 131, 0) 7%, rgb(48, 112, 0) 95%);
   border-bottom: 1px solid black;
 }
 
