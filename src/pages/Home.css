@@ -55,7 +55,7 @@ body {
   line-height: 35px;
   font-size: 20px;
 }
-.contributers-div {
+.contributors-div {
   justify-content: center;
   background-color: rgb(255, 255, 255);
   height: 400px;
@@ -64,18 +64,18 @@ body {
   flex-direction: row;
   background-color: rgb(255, 215, 0);
 }
-.contributers-container-image {
+.contributors-container-image {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.contributers-image {
+.contributors-image {
   max-height: 100%;
   max-width: 100%;
   border: 1px rgb(0, 0, 0) solid;
 }
-.contributers-writing {
+.contributors-writing {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@ body {
   font-size: 20px;
   line-height: 30px;
 }
-.contributers-title {
+.contributors-title {
   font-size: 38px;
   padding-bottom: 2%;
   text-decoration: underline;

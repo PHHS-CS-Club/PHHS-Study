@@ -31,10 +31,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="contributers-div">
-        <div className="contributers-writing">
-          <div className="contributers-title">Contributers</div>
-          <div className="contributers-names">
+      <div className="contributors-div">
+        <div className="contributors-writing">
+          <div className="contributors-title">Contributors</div>
+          <div className="contributors-names">
             President: Ryan Virtue
             <br />
             Vice President: Kyle Vo
@@ -50,8 +50,8 @@ export default function Home() {
             Mascot: Colin Miller
           </div>
         </div>
-        <div className="contributers-container-image">
-          <img className="contributers-image" src={clubPhoto} alt="ClubPhoto" />
+        <div className="contributors-container-image">
+          <img className="contributors-image" src={clubPhoto} alt="ClubPhoto" />
         </div>
       </div>
     </>
