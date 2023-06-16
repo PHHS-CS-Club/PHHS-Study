@@ -11,11 +11,11 @@
 
 .search-header {
   padding-top: 20px;
-  background: rgba(48, 94, 17, 1);
+  background: rgb(52, 131, 0);
   background: linear-gradient(
     180deg,
-    rgba(48, 94, 17, 1) 7%,
-    rgba(28, 54, 11, 1) 95%
+    rgba(52, 131, 0, 1) 7%,
+    rgba(48, 112, 0, 1) 95%
   );
 }
 
@@ -25,7 +25,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: rgba(52, 131, 0, 1);
 }
 
 .search-bar-container {
