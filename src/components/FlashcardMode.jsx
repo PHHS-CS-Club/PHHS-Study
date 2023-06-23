@@ -118,7 +118,7 @@ export default function FlashcardMode(props) {
       });
       let i = 0;
       //Runs until there is options for the array to pick from or 100 iterations
-      while (arr?.length < 1 && i < 100) {
+      while (arr?.length < 1 && i < 3) {
         //Gets a new bucket
         let newBucket = pickBucket(false);
         //Filters cards
@@ -247,7 +247,7 @@ export default function FlashcardMode(props) {
           Reset Progress
         </button>
       </div>
-      <div className="flip-status">{flipped ? ("Back") : ("Front")}</div>
+      <div className="flip-status">{flipped ? "Back" : "Front"}</div>
       <div className="card-container-fsm">
         <Flashcard
           question={currentCard?.front}
@@ -262,19 +262,28 @@ export default function FlashcardMode(props) {
         <div
           className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}
         >
-          {window.innerWidth > 600 || flipped ? (<><AiFillCloseCircle
-            className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
-            onClick={handleIncorrect}
-          >
-            Correct
-          </AiFillCloseCircle>
-          <AiFillCheckCircle
-            className={"card-correct" + (flipped ? " flipped" : " unflipped")}
-            onClick={handleCorrect}
-          >
-            Incorrect
-          </AiFillCheckCircle></>) : (<></>)}
-          
+          {window.innerWidth > 600 || flipped ? (
+            <>
+              <AiFillCloseCircle
+                className={
+                  "card-incorrect" + (flipped ? " flipped" : " unflipped")
+                }
+                onClick={handleIncorrect}
+              >
+                Correct
+              </AiFillCloseCircle>
+              <AiFillCheckCircle
+                className={
+                  "card-correct" + (flipped ? " flipped" : " unflipped")
+                }
+                onClick={handleCorrect}
+              >
+                Incorrect
+              </AiFillCheckCircle>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="bucket-text">
