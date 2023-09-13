@@ -195,9 +195,10 @@
 }
 
 .bucket {
+  
   flex: 1;
   background-color: rgb(143, 181, 227);
-  padding: 0px 0px 0px 0px;
+  padding: 0px;
   border-radius: 10px;
   transition: 50ms;
   width: 90%;
@@ -217,6 +218,7 @@
 }
 
 .bucket-title {
+  padding: 5px 10px;
   text-align: center;
   background-color: rgb(92, 153, 227);
   border-radius: 10px;
@@ -226,5 +228,8 @@
 
 .green-dot {
   color: green;
+  fill: green;
   border-radius: 20px;
+  height: 15px;
+  width: 15px;
 }

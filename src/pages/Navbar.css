@@ -7,7 +7,8 @@ ul {
   height: fit-content;
   display: flex;
   background: rgb(52, 131, 0) s;
-  background: linear-gradient(180deg, rgb(52, 131, 0) 7%, rgb(48, 112, 0) 95%);
+  background: linear-gradient(180deg,#3a6f17 7%,#305e11 95%);
+
   border-bottom: 1px solid black;
 }
 

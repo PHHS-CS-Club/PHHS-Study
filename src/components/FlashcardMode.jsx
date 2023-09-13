@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import Flashcard from "./Flashcard";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { GoPrimitiveDot } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 import "./FlashcardMode.css";
 import { Fragment } from "react";
 import { database } from "../firebase-config";
@@ -236,7 +236,7 @@ export default function FlashcardMode(props) {
   };
 
   function bucketItem(cardid) {
-    return <GoPrimitiveDot key={cardid} className="green-dot" />;
+    return <GoDotFill key={cardid} className="green-dot" />;
   }
 
   return (
