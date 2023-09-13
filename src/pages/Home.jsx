@@ -14,6 +14,7 @@ export default function Home() {
           Welcome to the Patrick Henry High School Flashcard and Study Website!
         </div>
       </div>
+        <div className="complaints">If you have any complaints, please let us know <a className="complaint-link" rel="noreferrer" target="_blank" href="https://forms.gle/73ziV7PvK1isb9XS9">here</a></div>
       <div className="website-goal-div">
         <div className="website-goal-container-image">
           <img className="website-goal-image" src={clubLogo} alt="ClubLogo" />

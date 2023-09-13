@@ -16,6 +16,19 @@ body {
   text-align: center;
 }
 
+.complaints{
+  background-color: rgb(255, 215, 0);
+  font-size: 35px;
+  padding: 20px 0px;
+  text-align: center;
+  justify-content: center;
+}
+.complaint-link{
+  color: rgb(18, 33, 244);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .website-goal-div {
   justify-content: center;
   background-color: rgb(255, 255, 255);
