@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import Flashcard from "./Flashcard";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { GoPrimitiveDot } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 import "./FlashcardMode.css";
 import { Fragment } from "react";
 import { database } from "../firebase-config";
@@ -118,7 +118,7 @@ export default function FlashcardMode(props) {
       });
       let i = 0;
       //Runs until there is options for the array to pick from or 100 iterations
-      while (arr?.length < 1 && i < 100) {
+      while (arr?.length < 1 && i < 3) {
         //Gets a new bucket
         let newBucket = pickBucket(false);
         //Filters cards
@@ -150,8 +150,8 @@ export default function FlashcardMode(props) {
     let weights = [
       buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
-      buckets[2] > 0 ? 12.5 : 0,
-      buckets[3] > 0 ? 3.125 : 0,
+      buckets[2] > 0 ? 12 : 0,
+      buckets[3] > 0 ? 3 : 0,
       buckets[4] > 0 ? 1 : 0,
     ];
     //If not same then the bucket passed is unweighted
@@ -236,7 +236,7 @@ export default function FlashcardMode(props) {
   };
 
   function bucketItem(cardid) {
-    return <GoPrimitiveDot key={cardid} className="green-dot" />;
+    return <GoDotFill key={cardid} className="green-dot" />;
   }
 
   return (
@@ -247,7 +247,7 @@ export default function FlashcardMode(props) {
           Reset Progress
         </button>
       </div>
-      <div className="flip-status">{flipped ? ("Back") : ("Front")}</div>
+      <div className="flip-status">{flipped ? "Back" : "Front"}</div>
       <div className="card-container-fsm">
         <Flashcard
           question={currentCard?.front}
@@ -262,19 +262,28 @@ export default function FlashcardMode(props) {
         <div
           className={"fs-buttons" + (flipped ? " flipped-b" : " unflipped-b")}
         >
-          {window.innerWidth > 600 || flipped ? (<><AiFillCloseCircle
-            className={"card-incorrect" + (flipped ? " flipped" : " unflipped")}
-            onClick={handleIncorrect}
-          >
-            Correct
-          </AiFillCloseCircle>
-          <AiFillCheckCircle
-            className={"card-correct" + (flipped ? " flipped" : " unflipped")}
-            onClick={handleCorrect}
-          >
-            Incorrect
-          </AiFillCheckCircle></>) : (<></>)}
-          
+          {window.innerWidth > 600 || flipped ? (
+            <>
+              <AiFillCloseCircle
+                className={
+                  "card-incorrect" + (flipped ? " flipped" : " unflipped")
+                }
+                onClick={handleIncorrect}
+              >
+                Correct
+              </AiFillCloseCircle>
+              <AiFillCheckCircle
+                className={
+                  "card-correct" + (flipped ? " flipped" : " unflipped")
+                }
+                onClick={handleCorrect}
+              >
+                Incorrect
+              </AiFillCheckCircle>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="bucket-text">

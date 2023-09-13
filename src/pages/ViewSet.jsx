@@ -19,18 +19,30 @@ export default function ViewSet() {
   //Gets the flashcard data to display
   useEffect(() => {
     //gets the cards
-    onValue(ref(database, id), (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        setCards(data.cards);
+    onValue(
+      ref(database, id),
+      (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          setCards(data.cards);
+        }
+      },
+      {
+        onlyOnce: true,
       }
-    });
+    );
 
     //Gets the metaData
-    onValue(ref(database, "flashcard-sets/" + id), (snapshot) => {
-      const metaData = snapshot.val();
-      setMetadata(metaData);
-    });
+    onValue(
+      ref(database, "flashcard-sets/" + id),
+      (snapshot) => {
+        const metaData = snapshot.val();
+        setMetadata(metaData);
+      },
+      {
+        onlyOnce: true,
+      }
+    );
   }, [id]);
 
   //Based on the current mode, it will display different modes located in the components
