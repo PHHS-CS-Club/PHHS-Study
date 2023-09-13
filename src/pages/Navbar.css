@@ -6,13 +6,16 @@ ul {
 .navbar-container {
   height: fit-content;
   display: flex;
-  background: rgb(58, 111, 23) s;
-  background: linear-gradient(
-    180deg,
-    rgb(58, 111, 23) 7%,
-    rgba(48, 94, 17, 1) 95%
-  );
+  background: rgb(52, 131, 0) s;
+  background: linear-gradient(180deg,#3a6f17 7%,#305e11 95%);
+
   border-bottom: 1px solid black;
+}
+
+@media (max-width: 600px) {
+  .navbar-container {
+    border-bottom: 0px solid black;
+  }
 }
 
 .logo-container {

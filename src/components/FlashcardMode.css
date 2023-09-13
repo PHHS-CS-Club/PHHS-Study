@@ -1,15 +1,17 @@
 .flashcard-mode-body {
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(111, 111, 111);
 }
 
 .card-container-fsm {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   background-color: rgb(111, 111, 111);
-  padding-left: 150px;
-  flex: 1;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -19,7 +21,6 @@
     padding: 0;
   }
   .fs-buttons {
-    z-index: 2;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -42,17 +43,14 @@
     fill: red;
     margin: 0px;
   }
-  .unflipped {
-    opacity: 0;
-  }
+
 
   .card-correct,
   .card-incorrect {
     width: 100px;
     height: 100px;
     cursor: pointer;
-    transition: 0.25s;
-    z-index: 1;
+    will-change: opacity;
   }
   .status-container {
     background-color: rgb(111, 111, 111);
@@ -69,6 +67,7 @@
 }
 
 .cl-container {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,6 +105,16 @@
   transition: 250ms;
   transform: translateY(var(--translate-y, 0));
   max-width: 500px;
+}
+
+.flip-status {
+  text-align: center;
+  background-color: rgb(92, 152, 227);
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin: 0px 0px 15px 0px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
 }
 
 .reset-prog-button:hover {
@@ -186,9 +195,10 @@
 }
 
 .bucket {
+  
   flex: 1;
   background-color: rgb(143, 181, 227);
-  padding: 0px 0px 0px 0px;
+  padding: 0px;
   border-radius: 10px;
   transition: 50ms;
   width: 90%;
@@ -208,6 +218,7 @@
 }
 
 .bucket-title {
+  padding: 5px 10px;
   text-align: center;
   background-color: rgb(92, 153, 227);
   border-radius: 10px;
@@ -217,5 +228,8 @@
 
 .green-dot {
   color: green;
+  fill: green;
   border-radius: 20px;
+  height: 15px;
+  width: 15px;
 }
