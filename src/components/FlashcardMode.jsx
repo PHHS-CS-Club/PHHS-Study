@@ -150,8 +150,8 @@ export default function FlashcardMode(props) {
     let weights = [
       buckets[0] > 0 ? 400 : 0,
       buckets[1] > 0 ? 50 : 0,
-      buckets[2] > 0 ? 12.5 : 0,
-      buckets[3] > 0 ? 3.125 : 0,
+      buckets[2] > 0 ? 12 : 0,
+      buckets[3] > 0 ? 3 : 0,
       buckets[4] > 0 ? 1 : 0,
     ];
     //If not same then the bucket passed is unweighted
