@@ -48,7 +48,7 @@ export default function TeachersMenu(props) {
         <label
           className="teacher-label"
           style={{ display: "inline", userSelect: "none" }}
-          htmlFor={x}
+          htmlFor={x+'-box'}
         >
           {x.split(", ")[1].substring(0, 1) + ". " + x.split(", ")[0]}
         </label>

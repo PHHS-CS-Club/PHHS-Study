@@ -48,7 +48,7 @@ export default function ClassesMenu(props) {
         <label
           className="class-label"
           style={{ display: "inline", userSelect: "none" }}
-          htmlFor={x}
+          htmlFor={x + "-box"}
         >
           {x}
         </label>

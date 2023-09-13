@@ -32,6 +32,20 @@
   cursor: pointer;
 }
 
+.class-label:hover, .class-check:hover {
+  cursor: pointer;
+}
+
+.class-label{
+  transition: 0.25s;
+}
+
+.class-label:hover{
+  transition: 0.25s;
+  color:blue;
+  cursor: pointer;
+}
+
 .main {
   display: flex;
   justify-content: center;

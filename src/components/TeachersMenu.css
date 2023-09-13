@@ -42,6 +42,16 @@
   font-size: 20px;
 }
 
+.teacher-label {
+  transition: 0.25s;
+}
+
+.teacher-label:hover{
+  transition: 0,25s;
+  color: blue;
+  cursor: pointer;
+}
+
 .teacher-search-bar::placeholder {
   color: black;
   opacity: 0.6;
