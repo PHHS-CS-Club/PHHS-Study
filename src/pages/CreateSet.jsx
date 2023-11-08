@@ -143,6 +143,7 @@ export default function CreateSet() {
         Name: name,
         Classes: trueClasses,
         Teachers: trueTeachers,
+        Version: 1,
       });
       //Updates madeSets
       if (userData.madeSets?.length > 0) {

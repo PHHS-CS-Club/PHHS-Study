@@ -21,6 +21,8 @@ export default function FlashcardMode(props) {
   const cardRef = useRef();
   const [singleBucketMode, setSingleBucketMode] = useState(false);
   const [singleBucket, setSingleBucket] = useState(1);
+  const [modeVersion, setModeVersion] = useState(0);
+  const [version, setVersion] = useState(0);
 
   const nullCard = {
     back: "No Cards Available",
@@ -42,6 +44,17 @@ export default function FlashcardMode(props) {
     //eslint-disable-next-line
   }, [singleBucketMode, singleBucket, cards]);
 
+  useEffect(() => {
+    onValue(
+      ref(database, "flashcard-sets/" + id),
+      (snapshot) => {
+        setVersion(snapshot.child("Version").val());
+        console.log("Version: " + snapshot.val().Version);
+      }
+    )
+    //eslint-disable-next-line
+  }, []);
+
   //Initializes the cards
   async function initial() {
     //If there is a user it will attempt to get user data
@@ -52,7 +65,9 @@ export default function FlashcardMode(props) {
           //If it gets null data then it will default set it
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
             //Gets array data
-            var arr = snapshot.val();
+            setModeVersion(snapshot.child("Version").val());
+            console.log("Mode version" + snapshot.val().Version);
+            var arr = snapshot.child("Cards").val()
             //Sets each card to the card object with their bucket and index
             arr.forEach((c, i) => {
               arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
@@ -68,6 +83,10 @@ export default function FlashcardMode(props) {
             //Sets buckets and index
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
+            });
+            set(ref(database, "users/" + user.uid + "/" + id), {
+              Version: version,
+              Cards: arr,
             });
             //Sets cards
             console.table(arr);
@@ -195,7 +214,10 @@ export default function FlashcardMode(props) {
       cards !== undefined &&
       cards !== null
     ) {
-      set(ref(database, "users/" + user.uid + "/" + id), cards);
+      set(ref(database, "users/" + user.uid + "/" + id), {
+        Cards: cards, 
+        Version: modeVersion
+      });
     }
   };
 
@@ -223,7 +245,10 @@ export default function FlashcardMode(props) {
       cards !== undefined &&
       cards !== null
     ) {
-      set(ref(database, "users/" + user.uid + "/" + id), cards);
+      set(ref(database, "users/" + user.uid + "/" + id), {
+        Cards: cards, 
+        Version: modeVersion
+      });
     }
   };
 

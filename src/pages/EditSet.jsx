@@ -19,6 +19,7 @@ export default function EditSet() {
   const [cards, setCards] = useState([]);
   const [classes, setClasses] = useState({});
   const [teachers, setTeachers] = useState({});
+  const [version, setVersion] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
   //remove after using these
@@ -43,6 +44,7 @@ export default function EditSet() {
         setClasses(arrToObject(snapshot.val().Classes));
         setTeachers(arrToObject(snapshot.val().Teachers));
         setName(snapshot.val().Name);
+        setVersion(snapshot.val().Version);
       },
       {
         onlyOnce: true,
@@ -57,6 +59,13 @@ export default function EditSet() {
       newEl = { ...newEl, [teacher]: true };
     });
     return newEl;
+  }
+
+  function fixVersion() {
+    if (version === undefined || version === null) {
+      return 1;
+    } 
+    return version + 1;
   }
 
   const createCard = () => {
@@ -140,6 +149,7 @@ export default function EditSet() {
         Name: name,
         Classes: trueClasses,
         Teachers: trueTeachers,
+        Version: fixVersion(),
       });
       alert("Set Updated!");
     }
