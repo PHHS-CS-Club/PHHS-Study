@@ -23,6 +23,8 @@ export default function FlashcardMode(props) {
   const [singleBucket, setSingleBucket] = useState(1);
   const [modeVersion, setModeVersion] = useState(0);
   const [version, setVersion] = useState(0);
+  const [realCards, setRealCards] = useState(() => props.cards.map((item) => item));
+
 
   const nullCard = {
     back: "No Cards Available",
@@ -46,10 +48,20 @@ export default function FlashcardMode(props) {
 
   useEffect(() => {
     onValue(
+      ref(database, id + "/cards"),
+      (snapshot) => {
+        setRealCards(snapshot.val());
+      }
+    )
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    onValue(
       ref(database, "flashcard-sets/" + id),
       (snapshot) => {
         setVersion(snapshot.child("Version").val());
-        console.log("Version: " + snapshot.val().Version);
+        console.log("Version: " + snapshot.child("Version").val());
       }
     )
     //eslint-disable-next-line
@@ -66,12 +78,19 @@ export default function FlashcardMode(props) {
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
             //Gets array data
             setModeVersion(snapshot.child("Version").val());
-            console.log("Mode version" + snapshot.val().Version);
-            var arr = snapshot.child("Cards").val()
-            //Sets each card to the card object with their bucket and index
-            arr.forEach((c, i) => {
-              arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
-            });
+            //console.log("Mode version" + snapshot.val().Version);
+            var arr = snapshot.child("Cards").val();
+            if (modeVersion === version) {
+              //Sets each card to the card object with their bucket and index
+              arr.forEach((c, i) => {
+                arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
+              });
+            } else {
+              arr = realCards;
+              arr.forEach((c, i) => {
+                arr[i] = { ...c, bucket: 1, index: i };
+              });
+            }
             //Sets cards
             console.table(arr);
             await setCards(arr);
@@ -84,6 +103,7 @@ export default function FlashcardMode(props) {
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
+            setModeVersion(version);
             set(ref(database, "users/" + user.uid + "/" + id), {
               Version: version,
               Cards: arr,
@@ -99,6 +119,7 @@ export default function FlashcardMode(props) {
           onlyOnce: true,
         }
       );
+      console.log("Version: ")
     } else {
       //Gets cards and sets all to bucket 1
       var arr = props.cards;
