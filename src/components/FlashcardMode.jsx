@@ -22,7 +22,6 @@ export default function FlashcardMode(props) {
   const [singleBucketMode, setSingleBucketMode] = useState(false);
   const [singleBucket, setSingleBucket] = useState(1);
   const [modeVersion, setModeVersion] = useState(0);
-  const [version, setVersion] = useState(0);
   const [realCards, setRealCards] = useState(() => props.cards.map((item) => item));
 
 
@@ -51,17 +50,9 @@ export default function FlashcardMode(props) {
       ref(database, id + "/cards"),
       (snapshot) => {
         setRealCards(snapshot.val());
-      }
-    )
-    //eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    onValue(
-      ref(database, "flashcard-sets/" + id),
-      (snapshot) => {
-        setVersion(snapshot.child("Version").val());
-        console.log("Version: " + snapshot.child("Version").val());
+      },
+      {
+        onlyOnce: true,
       }
     )
     //eslint-disable-next-line
@@ -71,29 +62,63 @@ export default function FlashcardMode(props) {
   async function initial() {
     //If there is a user it will attempt to get user data
     if (user !== null && user !== undefined) {
+      var realCardVersion;
+      await onValue(
+        ref(database, "flashcard-sets/" + id),
+        async (snapshot) => {
+          realCardVersion = snapshot.child("Version").val();
+        },
+        {
+          onlyOnce: true,
+        }
+      );
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         async (snapshot) => {
+          console.log(realCards);
           //If it gets null data then it will default set it
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
             //Gets array data
-            setModeVersion(snapshot.child("Version").val());
-            //console.log("Mode version" + snapshot.val().Version);
+            var progressVersion = snapshot.child("Version").val();
+            //console.log("Mode version" + progressVersion);
+            //console.log("Version" + realCardVersion);
             var arr = snapshot.child("Cards").val();
-            if (modeVersion === version) {
+            var modeCards = [];
+            var addIndex = 0;
+            if (progressVersion === realCardVersion) {
               //Sets each card to the card object with their bucket and index
               arr.forEach((c, i) => {
-                arr[i] = { ...props.cards[i], bucket: c.bucket, index: i };
+                modeCards[i] = { ...props.cards[i], bucket: c.bucket, index: i };
               });
             } else {
-              arr = realCards;
-              arr.forEach((c, i) => {
-                arr[i] = { ...c, bucket: 1, index: i };
+              //If the set was updated after the last progress was made in flashcard mode, it sees if it can find each of the cards from the newer set in the old data.
+              //If yes, it keeps the data for the card such as the bucket and front/back values.
+              //If not, put it back in the first bucket. This happens if the card is completely new or if it was just editted.
+              //This should still work properly if we ever add the feature to shift cards around in the deck.
+              realCards.forEach((c, i) => {
+                if (i < arr.length) {
+                  let found = false;
+                  arr.forEach((card) => {
+                    if (card.id === c.id && card.front === c.front && card.back === c.back) {
+                      found = true;
+                      modeCards[addIndex] = { ...card, bucket: card.bucket, index: i };
+                      addIndex++;
+                    }
+                  });
+                  if (!found) {
+                    modeCards[addIndex] = { ...c, bucket: 1, index: i };
+                    addIndex++;
+                  }
+                } else {
+                  modeCards[addIndex] = { ...c, bucket: 1, index: i };
+                  addIndex++;
+                }
               });
             }
             //Sets cards
-            console.table(arr);
-            await setCards(arr);
+            console.table(modeCards);
+            await setCards(modeCards);
+            await setModeVersion(realCardVersion);
             //Sets current to a random card
             getNewCard();
           } else {
@@ -103,9 +128,9 @@ export default function FlashcardMode(props) {
             arr.forEach((c, i) => {
               arr[i] = { ...c, bucket: 1, index: i };
             });
-            setModeVersion(version);
+            await setModeVersion(realCardVersion);
             set(ref(database, "users/" + user.uid + "/" + id), {
-              Version: version,
+              Version: realCardVersion,
               Cards: arr,
             });
             //Sets cards
@@ -119,7 +144,6 @@ export default function FlashcardMode(props) {
           onlyOnce: true,
         }
       );
-      console.log("Version: ")
     } else {
       //Gets cards and sets all to bucket 1
       var arr = props.cards;
