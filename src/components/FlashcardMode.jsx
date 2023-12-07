@@ -75,26 +75,29 @@ export default function FlashcardMode(props) {
       onValue(
         ref(database, "users/" + user.uid + "/" + id),
         async (snapshot) => {
-          console.log(realCards);
           //If it gets null data then it will default set it
           if (snapshot.val() !== null && snapshot.val() !== undefined) {
-            //Gets array data
+            //Gets card version stored in the mode data
             var progressVersion = snapshot.child("Version").val();
-            //console.log("Mode version" + progressVersion);
-            //console.log("Version" + realCardVersion);
+            //Gets array data
             var arr = snapshot.child("Cards").val();
+            //New array to populate cards with, only different from arr if cards have been changed
             var modeCards = [];
             var addIndex = 0;
             if (progressVersion === realCardVersion) {
-              //Sets each card to the card object with their bucket and index
+              //Sets each card to the card object with their bucket and index if the version found in the mode data = actual set version
               arr.forEach((c, i) => {
                 modeCards[i] = { ...props.cards[i], bucket: c.bucket, index: i };
               });
             } else {
-              //If the set was updated after the last progress was made in flashcard mode, it sees if it can find each of the cards from the newer set in the old data.
+              //If the set was updated after the last progress was made in flashcard mode, 
+              //it sees if it can find each of the cards from the newer set in the old data.
+
               //If yes, it keeps the data for the card such as the bucket and front/back values.
-              //If not, put it back in the first bucket. This happens if the card is completely new or if it was just editted.
-              //This should still work properly if we ever add the feature to shift cards around in the deck.
+              //If not, put it back in the first bucket. This happens if the card is completely new or if it was just edited.
+              
+              //If it is iterating past the length of the set found in the mode data, 
+              //it assumes it is looking at a new card and puts it in bucket 1
               realCards.forEach((c, i) => {
                 if (i < arr.length) {
                   let found = false;
