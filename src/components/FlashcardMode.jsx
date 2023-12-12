@@ -69,6 +69,15 @@ export default function FlashcardMode(props) {
 							}
 						});
 
+						arr.forEach((c, i) => {
+							if (
+								props.cards.filter((e) => e.id === c.id)
+									.length === 0
+							) {
+								arr.pop(i);
+							}
+						});
+
 						//Sets cards
 						await setCards(arr);
 						//Sets current to a random card
