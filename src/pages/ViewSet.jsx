@@ -20,7 +20,7 @@ export default function ViewSet() {
 	//Gets the id from the set
 	const { id } = useParams();
 	//Gets the flashcard data to display
-	const uRef = ref(database, "/users/" + user.uid);
+	const uRef = user ? ref(database, "/users/" + user.uid) : null;
 	const navigate = useNavigate();
 	useEffect(() => {
 		//gets the cards
@@ -48,16 +48,22 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
+	}, [id]);
 
-		onValue(
-			uRef,
-			(snapshot) => {
-				const data = snapshot.val();
-				setUserdata(data);
-			},
-			{ onlyOnce: true }
-		);
-	}, [id, uRef]);
+	useEffect(() => {
+		if (uRef !== null) {
+			onValue(
+				uRef,
+				(snapshot) => {
+					const data = snapshot.val();
+					setUserdata(data);
+				},
+				{ onlyOnce: true }
+			);
+		} else {
+			setUserdata(null);
+		}
+	}, [uRef]);
 
 	function copySet() {
 		//Generated new id
@@ -69,6 +75,8 @@ export default function ViewSet() {
 		newData.Author = userdata.username;
 		// sets the metaData for the deck
 		set(ref(database, "flashcard-sets/" + newId), newData);
+		console.log(newData);
+		console.log(newId);
 		//Updates madeSets
 		if (userdata.madeSets?.length > 0) {
 			update(ref(database, "users/" + user.uid), {
@@ -93,7 +101,7 @@ export default function ViewSet() {
 				<div className="flashcard-metadata">
 					<div className="viewset-title">
 						{/**Title */}
-						{metadata.Name}
+						{metadata ? metadata.Name : "Set does not exist"}
 						{/**If user owns the set creates an edit button */}
 						{user?.uid === metadata?.AuthorID ? (
 							<Link to={"/Edit/" + id}>
@@ -104,7 +112,7 @@ export default function ViewSet() {
 						) : (
 							<></>
 						)}
-						{
+						{metadata && user ? (
 							<div>
 								<button
 									className="vsedit-button"
@@ -113,45 +121,66 @@ export default function ViewSet() {
 									Copy
 								</button>
 							</div>
-						}
+						) : (
+							<></>
+						)}
 					</div>
 					{/**Author */}
-					<div className="viewset-author">
-						Created By {metadata.Author}
+					<div key={"author"} className="viewset-author">
+						Created By {metadata ? metadata.Author : "N/A"}
 					</div>
 					{/**Classes */}
-					<div className="viewset-classes">
+					<div key={"classes"} className="viewset-classes">
 						<div className="viewset-infopart">Classes: </div>
-						{metadata.Classes?.map((clas, i) => {
-							return <div className="item-viewset">{clas}</div>;
-						})}
+						{metadata ? (
+							metadata.Classes?.map((clas, i) => {
+								return (
+									<div key={clas} className="item-viewset">
+										{clas}
+									</div>
+								);
+							})
+						) : (
+							<></>
+						)}
 					</div>
 					{/**Teachers */}
-					<div className="viewset-teachers">
+					<div key={"teachers"} className="viewset-teachers">
 						<div className="viewset-infopart">Teachers: </div>
-						{metadata.Teachers?.map((clas, i) => {
-							return <div className="item-viewset">{clas}</div>;
-						})}
+						{metadata ? (
+							metadata.Teachers?.map((clas, i) => {
+								return (
+									<div key={clas} className="item-viewset">
+										{clas}
+									</div>
+								);
+							})
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
-
-				<div className="viewset-button-wrapper">
-					{/**Sets mode to flashcard */}
-					<button
-						className="viewset-buttons"
-						onClick={() => {
-							setMode("Flashcard");
-						}}
-					>
-						Flashcard mode
-					</button>
-					{/* Make these change mode for new components for flashcard modes */}
-					{/*<button className="viewset-buttons"> Learn mode </button>
-          <button className="viewset-buttons"> Flashcard games </button> */}
-				</div>
-
+				{metadata ? (
+					<div className="viewset-button-wrapper">
+						{/**Sets mode to flashcard */}
+						<button
+							className="viewset-buttons"
+							onClick={() => {
+								setMode("Flashcard");
+							}}
+						>
+							Flashcard mode
+						</button>
+					</div>
+				) : (
+					<></>
+				)}
 				{/**Displays all the cards */}
-				<div className="viewset-card-title">Cards</div>
+				{metadata ? (
+					<div className="viewset-card-title">Cards</div>
+				) : (
+					<></>
+				)}
 				<div className="cards-viewer">
 					{cards?.map((card) => {
 						return (
