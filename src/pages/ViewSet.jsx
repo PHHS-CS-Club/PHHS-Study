@@ -112,7 +112,7 @@ export default function ViewSet() {
 						) : (
 							<></>
 						)}
-						{metadata ? (
+						{metadata && user ? (
 							<div>
 								<button
 									className="vsedit-button"
