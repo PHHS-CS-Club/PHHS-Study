@@ -48,7 +48,9 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
+	}, [id]);
 
+	useEffect(() => {
 		onValue(
 			uRef,
 			(snapshot) => {
@@ -57,7 +59,7 @@ export default function ViewSet() {
 			},
 			{ onlyOnce: true }
 		);
-	}, [id, uRef]);
+	}, [uRef]);
 
 	function copySet() {
 		//Generated new id
@@ -69,6 +71,8 @@ export default function ViewSet() {
 		newData.Author = userdata.username;
 		// sets the metaData for the deck
 		set(ref(database, "flashcard-sets/" + newId), newData);
+		console.log(newData);
+		console.log(newId);
 		//Updates madeSets
 		if (userdata.madeSets?.length > 0) {
 			update(ref(database, "users/" + user.uid), {
@@ -116,21 +120,29 @@ export default function ViewSet() {
 						}
 					</div>
 					{/**Author */}
-					<div className="viewset-author">
+					<div key={"author"} className="viewset-author">
 						Created By {metadata.Author}
 					</div>
 					{/**Classes */}
-					<div className="viewset-classes">
+					<div key={"classes"} className="viewset-classes">
 						<div className="viewset-infopart">Classes: </div>
 						{metadata.Classes?.map((clas, i) => {
-							return <div className="item-viewset">{clas}</div>;
+							return (
+								<div key={clas} className="item-viewset">
+									{clas}
+								</div>
+							);
 						})}
 					</div>
 					{/**Teachers */}
-					<div className="viewset-teachers">
+					<div key={"teachers"} className="viewset-teachers">
 						<div className="viewset-infopart">Teachers: </div>
 						{metadata.Teachers?.map((clas, i) => {
-							return <div className="item-viewset">{clas}</div>;
+							return (
+								<div key={clas} className="item-viewset">
+									{clas}
+								</div>
+							);
 						})}
 					</div>
 				</div>

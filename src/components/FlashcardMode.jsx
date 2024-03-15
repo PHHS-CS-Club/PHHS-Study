@@ -320,6 +320,7 @@ export default function FlashcardMode(props) {
 				{Array.apply(null, { length: 5 }).map((el, index) => {
 					return (
 						<div
+							key={index}
 							className={
 								(singleBucketMode && singleBucket === index + 1
 									? "single "
