@@ -97,7 +97,7 @@ export default function ViewSet() {
 				<div className="flashcard-metadata">
 					<div className="viewset-title">
 						{/**Title */}
-						{metadata.Name}
+						{metadata ? metadata.Name : "Set does not exist"}
 						{/**If user owns the set creates an edit button */}
 						{user?.uid === metadata?.AuthorID ? (
 							<Link to={"/Edit/" + id}>
@@ -108,7 +108,7 @@ export default function ViewSet() {
 						) : (
 							<></>
 						)}
-						{
+						{metadata ? (
 							<div>
 								<button
 									className="vsedit-button"
@@ -117,53 +117,66 @@ export default function ViewSet() {
 									Copy
 								</button>
 							</div>
-						}
+						) : (
+							<></>
+						)}
 					</div>
 					{/**Author */}
 					<div key={"author"} className="viewset-author">
-						Created By {metadata.Author}
+						Created By {metadata ? metadata.Author : "N/A"}
 					</div>
 					{/**Classes */}
 					<div key={"classes"} className="viewset-classes">
 						<div className="viewset-infopart">Classes: </div>
-						{metadata.Classes?.map((clas, i) => {
-							return (
-								<div key={clas} className="item-viewset">
-									{clas}
-								</div>
-							);
-						})}
+						{metadata ? (
+							metadata.Classes?.map((clas, i) => {
+								return (
+									<div key={clas} className="item-viewset">
+										{clas}
+									</div>
+								);
+							})
+						) : (
+							<></>
+						)}
 					</div>
 					{/**Teachers */}
 					<div key={"teachers"} className="viewset-teachers">
 						<div className="viewset-infopart">Teachers: </div>
-						{metadata.Teachers?.map((clas, i) => {
-							return (
-								<div key={clas} className="item-viewset">
-									{clas}
-								</div>
-							);
-						})}
+						{metadata ? (
+							metadata.Teachers?.map((clas, i) => {
+								return (
+									<div key={clas} className="item-viewset">
+										{clas}
+									</div>
+								);
+							})
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
-
-				<div className="viewset-button-wrapper">
-					{/**Sets mode to flashcard */}
-					<button
-						className="viewset-buttons"
-						onClick={() => {
-							setMode("Flashcard");
-						}}
-					>
-						Flashcard mode
-					</button>
-					{/* Make these change mode for new components for flashcard modes */}
-					{/*<button className="viewset-buttons"> Learn mode </button>
-          <button className="viewset-buttons"> Flashcard games </button> */}
-				</div>
-
+				{metadata ? (
+					<div className="viewset-button-wrapper">
+						{/**Sets mode to flashcard */}
+						<button
+							className="viewset-buttons"
+							onClick={() => {
+								setMode("Flashcard");
+							}}
+						>
+							Flashcard mode
+						</button>
+					</div>
+				) : (
+					<></>
+				)}
 				{/**Displays all the cards */}
-				<div className="viewset-card-title">Cards</div>
+				{metadata ? (
+					<div className="viewset-card-title">Cards</div>
+				) : (
+					<></>
+				)}
 				<div className="cards-viewer">
 					{cards?.map((card) => {
 						return (
