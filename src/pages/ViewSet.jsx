@@ -20,7 +20,10 @@ export default function ViewSet() {
 	//Gets the id from the set
 	const { id } = useParams();
 	//Gets the flashcard data to display
-	const uRef = user ? ref(database, "/users/" + user.uid) : null;
+	const uRef =
+		user !== null && user !== undefined
+			? ref(database, "/users/" + user?.uid)
+			: null;
 	const navigate = useNavigate();
 	useEffect(() => {
 		//gets the cards
