@@ -20,10 +20,6 @@ export default function ViewSet() {
 	//Gets the id from the set
 	const { id } = useParams();
 	//Gets the flashcard data to display
-	const uRef =
-		user !== null && user !== undefined
-			? ref(database, "/users/" + user?.uid)
-			: null;
 	const navigate = useNavigate();
 	useEffect(() => {
 		//gets the cards
@@ -39,7 +35,7 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
-
+		console.log("getting DATA");
 		//Gets the metaData
 		onValue(
 			ref(database, "flashcard-sets/" + id),
@@ -51,9 +47,14 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
+		console.log("getting DATA");
 	}, [id]);
 
 	useEffect(() => {
+		const uRef =
+			user !== null && user !== undefined
+				? ref(database, "/users/" + user?.uid)
+				: null;
 		if (uRef !== null) {
 			onValue(
 				uRef,
@@ -66,7 +67,8 @@ export default function ViewSet() {
 		} else {
 			setUserdata(null);
 		}
-	}, [uRef]);
+		console.log("getting DATA");
+	}, [user]);
 
 	function copySet() {
 		//Generated new id
