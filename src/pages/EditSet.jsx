@@ -37,7 +37,6 @@ export default function EditSet() {
 				onlyOnce: true,
 			}
 		);
-		console.log("getting DATA");
 		onValue(
 			ref(database, "flashcard-sets/" + id),
 			(snapshot) => {
@@ -49,7 +48,6 @@ export default function EditSet() {
 				onlyOnce: true,
 			}
 		);
-		console.log("getting DATA");
 		//eslint-disable-next-line
 	}, []);
 
@@ -87,7 +85,6 @@ export default function EditSet() {
 				onlyOnce: true,
 			}
 		);
-		console.log("getting DATA");
 		remove(ref(database, "flashcard-sets/" + id));
 		remove(ref(database, id));
 		navigate("/Home");

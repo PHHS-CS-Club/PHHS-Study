@@ -25,7 +25,6 @@ export default function SearchPage() {
 			const data = snapshot.val();
 			setFlashcardMeta(data);
 		});
-		console.log("getting DATA");
 		// eslint-disable-next-line
 	}, []);
 
@@ -58,7 +57,6 @@ export default function SearchPage() {
 		});
 		let test = false;
 		item?.Teachers?.forEach((x, i) => {
-			console.table(Object.keys(temp).includes(x));
 			if (Object.keys(temp).includes(x)) {
 				test = true;
 			}
@@ -76,7 +74,6 @@ export default function SearchPage() {
 		});
 		let test = false;
 		item?.Classes?.forEach((x, i) => {
-			console.table(Object.keys(temp).includes(x));
 			if (Object.keys(temp).includes(x)) {
 				test = true;
 			}

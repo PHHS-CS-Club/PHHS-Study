@@ -35,7 +35,6 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
-		console.log("getting DATA");
 		//Gets the metaData
 		onValue(
 			ref(database, "flashcard-sets/" + id),
@@ -47,7 +46,6 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
-		console.log("getting DATA");
 	}, [id]);
 
 	useEffect(() => {
@@ -67,7 +65,6 @@ export default function ViewSet() {
 		} else {
 			setUserdata(null);
 		}
-		console.log("getting DATA");
 	}, [user]);
 
 	function copySet() {
@@ -80,8 +77,6 @@ export default function ViewSet() {
 		newData.Author = userdata.username;
 		// sets the metaData for the deck
 		set(ref(database, "flashcard-sets/" + newId), newData);
-		console.log(newData);
-		console.log(newId);
 		//Updates madeSets
 		if (userdata.madeSets?.length > 0) {
 			update(ref(database, "users/" + user.uid), {
@@ -94,7 +89,6 @@ export default function ViewSet() {
 			});
 		}
 		//Resets page data and navigates to where the set was created.
-		console.log("navigating to set");
 		navigate("/Edit/" + newId);
 	}
 
