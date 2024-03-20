@@ -119,7 +119,6 @@ const SetBoxView = (id) => {
 			remove(ref(database, "/users/" + user.uid + "/madeSets/" + id.id));
 		}
 		remove(ref(database, id.id));
-		console.log("REMOVED ID: " + id.id);
 	}
 };
 

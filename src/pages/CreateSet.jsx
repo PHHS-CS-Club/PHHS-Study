@@ -190,7 +190,6 @@ export default function CreateSet() {
 			//Resets page data and navigates to where the set was created.
 			setCards([]);
 			setName("");
-			console.log("navigating to set");
 			navigate("/Set/" + newId);
 		}
 	}
