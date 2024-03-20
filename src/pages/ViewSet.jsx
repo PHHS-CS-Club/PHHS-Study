@@ -20,7 +20,6 @@ export default function ViewSet() {
 	//Gets the id from the set
 	const { id } = useParams();
 	//Gets the flashcard data to display
-	const uRef = user ? ref(database, "/users/" + user.uid) : null;
 	const navigate = useNavigate();
 	useEffect(() => {
 		//gets the cards
@@ -36,7 +35,6 @@ export default function ViewSet() {
 				onlyOnce: true,
 			}
 		);
-
 		//Gets the metaData
 		onValue(
 			ref(database, "flashcard-sets/" + id),
@@ -51,6 +49,10 @@ export default function ViewSet() {
 	}, [id]);
 
 	useEffect(() => {
+		const uRef =
+			user !== null && user !== undefined
+				? ref(database, "/users/" + user?.uid)
+				: null;
 		if (uRef !== null) {
 			onValue(
 				uRef,
@@ -63,7 +65,7 @@ export default function ViewSet() {
 		} else {
 			setUserdata(null);
 		}
-	}, [uRef]);
+	}, [user]);
 
 	function copySet() {
 		//Generated new id
@@ -75,8 +77,6 @@ export default function ViewSet() {
 		newData.Author = userdata.username;
 		// sets the metaData for the deck
 		set(ref(database, "flashcard-sets/" + newId), newData);
-		console.log(newData);
-		console.log(newId);
 		//Updates madeSets
 		if (userdata.madeSets?.length > 0) {
 			update(ref(database, "users/" + user.uid), {
@@ -89,7 +89,6 @@ export default function ViewSet() {
 			});
 		}
 		//Resets page data and navigates to where the set was created.
-		console.log("navigating to set");
 		navigate("/Edit/" + newId);
 	}
 
