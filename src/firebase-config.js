@@ -12,7 +12,6 @@ const messagingSenderId = process.env.REACT_APP_MESSAGING_SENDER_ID;
 const appId = process.env.REACT_APP_APP_ID;
 const measurementId = process.env.REACT_APP_MEASUREMENT_ID;
 const captchaSiteKey = process.env.REACT_APP_CAPTCHA_SITE_KEY;
-console.log(captchaSiteKey);
 const firebaseConfig = {
 	apiKey: apiKey,
 	authDomain: authDomain,
