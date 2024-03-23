@@ -218,7 +218,7 @@ export default function ViewSet() {
 				>
 					Exit Flashcard Mode
 				</button>
-				<FlashcardMode cards={cards} />
+				<FlashcardMode setid={id} cards={cards} />
 			</div>
 		);
 	}
