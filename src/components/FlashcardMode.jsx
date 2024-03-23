@@ -128,6 +128,7 @@ export default function FlashcardMode(props) {
 		if (user?.displayName !== undefined) {
 			remove(ref(database, "users/" + user.uid + "/" + id));
 		}
+		setUserStatus({});
 	};
 
 	const handleIncorrect = () => {
