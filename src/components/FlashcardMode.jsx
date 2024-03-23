@@ -154,7 +154,6 @@ export default function FlashcardMode(props) {
 	return (
 		<div className="flashcard-mode-body">
 			<div className="cl-container">
-				<button onClick={() => console.log(flipped)}>FLIPPEd?</button>
 				<div className="current-level">
 					Card level: {userStatus[currentCard?.id]}
 				</div>
