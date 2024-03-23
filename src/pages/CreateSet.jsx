@@ -177,7 +177,7 @@ export default function CreateSet() {
 				Teachers: trueTeachers,
 			});
 			//Updates madeSets
-			if (userData.madeSets?.length > 0) {
+			if (userData?.madeSets?.length > 0) {
 				update(ref(database, "users/" + user.uid), {
 					madeSets: [...userData.madeSets, newId],
 				});

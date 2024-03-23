@@ -1,78 +1,49 @@
-import React, {
-  useState,
-  useRef,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
 import { InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import "./Flashcard.css";
 
-//Watch this video to see how I made the flashcard
+//Watch this video to see how I made the flashcard styling
 //https://www.youtube.com/watch?v=hEtZ040fsD8&t=193s
 
-const Flashcard = forwardRef((flashcard, ref) => {
-  const [flip, setFlip] = useState(false);
-  const [transitioning, setTransitioning] = useState(false);
-
-  const frontEl = useRef();
-  const backEl = useRef();
-
-  useImperativeHandle(ref, () => ({
-    async setFlipped(to) {
-      setTransitioning(true);
-      setFlip(to);
-      await timeout(300);
-      setTransitioning(false);
-    },
-  }));
-
-  function timeout(delay) {
-    return new Promise((res) => setTimeout(res, delay));
-  }
-
-  return (
-    <>
-      <div
-        className={
-          "card" +
-          (flip ? " flip" : "") +
-          (transitioning ? " trans" : " notrans")
-        }
-        //style={{ height: height }}
-        onClick={() => {
-          setFlip(!flip);
-          flashcard.flip();
-        }}
-      >
-        {!flip ? (
-          flashcard.mFront ? (
-            <div className="front" ref={frontEl}>
-              <div className="front-text">
-                {" "}
-                <InlineMath>{flashcard.question}</InlineMath>
-              </div>
-            </div>
-          ) : (
-            <div className="front" ref={frontEl}>
-              <div className="front-text"> {flashcard.question}</div>
-            </div>
-          )
-        ) : flashcard.mBack ? (
-          <div className="back" ref={backEl}>
-            <div className="back-text">
-              {" "}
-              <InlineMath>{flashcard.answer}</InlineMath>
-            </div>
-          </div>
-        ) : (
-          <div className="back" ref={backEl}>
-            <div className="back-text"> {flashcard.answer}</div>
-          </div>
-        )}
-      </div>
-    </>
-  );
-});
-
-export default Flashcard;
+export default function Flashcard(props) {
+	return (
+		<>
+			<div
+				className={
+					"card" + (props.flipped ? " flip" : "")
+					//(transitioning ? " trans" : " notrans")
+				}
+				//style={{ height: height }}
+				onClick={() => {
+					props.flip();
+				}}
+			>
+				{!props.flipped ? (
+					props.mFront ? (
+						<div className="front">
+							<div className="front-text">
+								{" "}
+								<InlineMath>{props.question}</InlineMath>
+							</div>
+						</div>
+					) : (
+						<div className="front">
+							<div className="front-text"> {props.question}</div>
+						</div>
+					)
+				) : props.mBack ? (
+					<div className="back">
+						<div className="back-text">
+							{" "}
+							<InlineMath>{props.answer}</InlineMath>
+						</div>
+					</div>
+				) : (
+					<div className="back">
+						<div className="back-text"> {props.answer}</div>
+					</div>
+				)}
+			</div>
+		</>
+	);
+}
