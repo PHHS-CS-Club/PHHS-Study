@@ -22,88 +22,60 @@ const nullCard = {
 
 export default function FlashcardMode(props) {
 	//eslint-disable-next-line
-	const [cards, setCards] = useState(props.cards);
 	const [userStatus, setUserStatus] = useState({});
-	const [retrieved, setRetrieved] = useState(false);
+	const [updateDB, setUpdateDB] = useState(false);
 	const [currentCard, setCurrentCard] = useState();
 	const [flipped, setFlipped] = useState(false);
+	const [needNew, setNeedNew] = useState(true);
 	const { user } = UserAuth();
 	const { id } = useParams();
 	const [singleBucket, setSingleBucket] = useState(-1);
 
 	const cardIds = useMemo(() => {
 		let ids = [];
-		cards.forEach((c) => ids.push(c.id));
+		props.cards.forEach((c) => ids.push(c.id));
 		return ids;
-	}, [cards]);
+	}, [props.cards]);
 
-	useEffect(() => {
-		const dbRef = ref(database, "users/" + user.uid + "/" + props.setid);
-		onValue(
-			dbRef,
-			async (snapshot) => {
-				const data = await snapshot.val();
-				if (data != null) {
-					setUserStatus(data);
-				}
-				setRetrieved(true);
-			},
-			{
-				onlyOnce: true,
-			}
-		);
-	}, [user, props]);
-
-	useEffect(() => {
-		if (cards != null) {
-			cards.forEach((c) => {
-				if (userStatus[c.id] == null) {
-					userStatus[c.id] = 1;
-				}
-			});
+	const currentId = useMemo(() => {
+		if (currentCard != null) {
+			return currentCard.id;
 		}
-		if (userStatus != null) {
-			let temp = userStatus;
-			Object.entries(temp).forEach((s) => {
-				if (!cardIds.includes(s[0])) {
-					temp[s[0]] = null;
-				}
-			});
-		}
-	}, [cards, userStatus, cardIds]);
-
-	useEffect(() => {
-		if (user != null && userStatus != null && props != null && retrieved) {
-			const dbRef = ref(
-				database,
-				"users/" + user.uid + "/" + props.setid
-			);
-			set(dbRef, userStatus);
-		}
-	}, [userStatus, props, user, retrieved]);
+		return null;
+	}, [currentCard]);
 
 	const getCard = useCallback(() => {
 		// Applies a weight according to the bucket const
 		// Sums weights, generates a random value for them,
 		// then grabs card once sum reaches the random num
-		if (cards != null) {
+		if (props.cards != null) {
 			let sum = 0;
-			cards.forEach((c) => {
-				if (singleBucket === -1 || singleBucket === userStatus[c.id]) {
+			props.cards.forEach((c) => {
+				if (
+					(singleBucket === -1 ||
+						singleBucket === userStatus[c.id]) &&
+					c.id !== currentId
+				) {
 					sum += buckets[userStatus[c.id] - 1];
 				}
 			});
 			if (sum === 0) {
-				setCurrentCard(nullCard);
+				if (
+					props.cards.filter((e) => userStatus[e.id] === singleBucket)
+						.length === 0
+				) {
+					setCurrentCard(nullCard);
+				}
 			} else {
 				let index = Math.random() * sum;
 				sum = 0;
 				let BreakException = {};
 				try {
-					cards.forEach((c) => {
+					props.cards.forEach((c) => {
 						if (
-							singleBucket === -1 ||
-							singleBucket === userStatus[c.id]
+							(singleBucket === -1 ||
+								singleBucket === userStatus[c.id]) &&
+							c.id !== currentId
 						) {
 							sum += buckets[userStatus[c.id] - 1];
 						}
@@ -117,11 +89,71 @@ export default function FlashcardMode(props) {
 				}
 			}
 		}
-	}, [cards, userStatus, singleBucket]);
+	}, [props.cards, userStatus, singleBucket, currentId]);
 
 	useEffect(() => {
-		getCard();
-	}, [getCard]);
+		if (user) {
+			const dbRef = ref(
+				database,
+				"users/" + user.uid + "/" + props.setid
+			);
+			onValue(
+				dbRef,
+				async (snapshot) => {
+					const data = await snapshot.val();
+					if (data != null) {
+						setUserStatus(data);
+					}
+				},
+				{
+					onlyOnce: true,
+				}
+			);
+		}
+	}, [user, props]);
+
+	useEffect(() => {
+		let temp = { ...userStatus };
+		if (props.cards != null) {
+			props.cards.forEach((c) => {
+				if (temp[c.id] == null) {
+					temp = { ...temp, [c.id]: 1 };
+				}
+			});
+		}
+		if (temp != null) {
+			Object.entries(temp).forEach((s) => {
+				if (!cardIds.includes(s[0])) {
+					temp = { ...temp, [s[0]]: null };
+				}
+			});
+		}
+		if (JSON.stringify(temp) !== JSON.stringify(userStatus)) {
+			setUserStatus(temp);
+		}
+	}, [props.cards, userStatus, cardIds]);
+
+	useEffect(() => {
+		if (user != null && userStatus != null && props != null && updateDB) {
+			const dbRef = ref(
+				database,
+				"users/" + user.uid + "/" + props.setid
+			);
+			set(dbRef, userStatus);
+			setUpdateDB(false);
+		}
+	}, [userStatus, props, user, updateDB]);
+
+	useEffect(() => {
+		if (needNew) {
+			getCard();
+			setNeedNew(false);
+		}
+	}, [needNew, getCard]);
+
+	useEffect(() => {
+		setNeedNew(true);
+	}, [userStatus]);
 
 	//Deletes progress
 	const resetProgress = () => {
@@ -129,27 +161,75 @@ export default function FlashcardMode(props) {
 			remove(ref(database, "users/" + user.uid + "/" + id));
 		}
 		setUserStatus({});
+		setUpdateDB(true);
 	};
 
-	const handleIncorrect = () => {
-		setUserStatus({
-			...userStatus,
-			[currentCard.id]: Math.max(1, userStatus[currentCard.id] - 1),
-		});
+	const handleIncorrect = useCallback(() => {
+		if (currentId) {
+			setUserStatus({
+				...userStatus,
+				[currentId]: Math.max(1, userStatus[currentId] - 1),
+			});
+			setFlipped(false);
+			setUpdateDB(true);
+		}
+	}, [currentId, userStatus]);
+
+	const handleCorrect = useCallback(() => {
+		if (currentId) {
+			setUserStatus({
+				...userStatus,
+				[currentId]: Math.min(userStatus[currentId] + 1, 5),
+			});
+			setFlipped(false);
+			setUpdateDB(true);
+		}
+	}, [currentId, userStatus]);
+
+	const flipCard = useCallback(() => {
+		setFlipped(!flipped);
+	}, [flipped]);
+
+	const changeBucket = (index) => {
+		setSingleBucket(singleBucket === index + 1 ? -1 : index + 1);
+		setNeedNew(true);
 		setFlipped(false);
 	};
 
-	const handleCorrect = () => {
-		setUserStatus({
-			...userStatus,
-			[currentCard.id]: Math.min(userStatus[currentCard.id] + 1, 5),
-		});
-		setFlipped(false);
-	};
+	const bucketItem = useCallback(
+		(cardid) => {
+			return (
+				<GoDotFill
+					key={cardid}
+					className={
+						currentId === cardid ? "yellow-dot" : "green-dot"
+					}
+				/>
+			);
+		},
+		[currentId]
+	);
 
-	function bucketItem(cardid) {
-		return <GoDotFill key={cardid} className="green-dot" />;
-	}
+	useEffect(() => {
+		const detectKeyDown = (e) => {
+			switch (e.key) {
+				case " ":
+					flipCard();
+					break;
+				case "Backspace":
+					handleIncorrect();
+					break;
+				case "Enter":
+					handleCorrect();
+					break;
+				default:
+					break;
+			}
+		};
+
+		document.addEventListener("keydown", detectKeyDown);
+		return () => document.removeEventListener("keydown", detectKeyDown);
+	}, [flipCard, handleIncorrect, handleCorrect]);
 
 	return (
 		<div className="flashcard-mode-body">
@@ -168,9 +248,7 @@ export default function FlashcardMode(props) {
 					answer={currentCard?.back}
 					mFront={currentCard?.mathModeFront}
 					mBack={currentCard?.mathModeBack}
-					flip={() => {
-						setFlipped(!flipped);
-					}}
+					flip={flipCard}
 					flipped={flipped}
 				/>
 				<div
@@ -219,11 +297,7 @@ export default function FlashcardMode(props) {
 								(index + 1) +
 								" bucket "
 							}
-							onClick={() => {
-								setSingleBucket(
-									singleBucket === index + 1 ? -1 : index + 1
-								);
-							}}
+							onClick={() => changeBucket(index)}
 						>
 							<div className="bucket-title">
 								Bucket {index + 1}
@@ -235,7 +309,7 @@ export default function FlashcardMode(props) {
 											className="dot-holder"
 											key={i + " " + index}
 										>
-											{bucketItem()}
+											{bucketItem(card[0])}
 										</div>
 									) : (
 										<Fragment key={card[0] + (index + 1)} />
