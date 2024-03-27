@@ -92,42 +92,44 @@ export default function FlashcardMode(props) {
 	}, [props.cards, userStatus, singleBucket, currentId]);
 
 	useEffect(() => {
-		const dbRef = ref(database, "users/" + user.uid + "/" + props.setid);
-		onValue(
-			dbRef,
-			async (snapshot) => {
-				const data = await snapshot.val();
-				if (data != null) {
-					setUserStatus(data);
+		if (user) {
+			const dbRef = ref(
+				database,
+				"users/" + user.uid + "/" + props.setid
+			);
+			onValue(
+				dbRef,
+				async (snapshot) => {
+					const data = await snapshot.val();
+					if (data != null) {
+						setUserStatus(data);
+					}
+				},
+				{
+					onlyOnce: true,
 				}
-				setNeedNew(true);
-			},
-			{
-				onlyOnce: true,
-			}
-		);
+			);
+		}
 	}, [user, props]);
 
 	useEffect(() => {
-		let upd = false;
+		let temp = { ...userStatus };
 		if (props.cards != null) {
 			props.cards.forEach((c) => {
-				if (userStatus[c.id] == null) {
-					setUserStatus({ ...userStatus, [c.id]: 1 });
-					upd = true;
+				if (temp[c.id] == null) {
+					temp = { ...temp, [c.id]: 1 };
 				}
 			});
 		}
-		if (userStatus != null) {
-			Object.entries(userStatus).forEach((s) => {
+		if (temp != null) {
+			Object.entries(temp).forEach((s) => {
 				if (!cardIds.includes(s[0])) {
-					setUserStatus({ ...userStatus, [s[0]]: null });
-					upd = true;
+					temp = { ...temp, [s[0]]: null };
 				}
 			});
 		}
-		if (upd) {
-			setNeedNew(true);
+		if (JSON.stringify(temp) !== JSON.stringify(userStatus)) {
+			setUserStatus(temp);
 		}
 	}, [props.cards, userStatus, cardIds]);
 
@@ -149,6 +151,10 @@ export default function FlashcardMode(props) {
 		}
 	}, [needNew, getCard]);
 
+	useEffect(() => {
+		setNeedNew(true);
+	}, [userStatus]);
+
 	//Deletes progress
 	const resetProgress = () => {
 		if (user?.displayName !== undefined) {
@@ -165,7 +171,6 @@ export default function FlashcardMode(props) {
 				[currentId]: Math.max(1, userStatus[currentId] - 1),
 			});
 			setFlipped(false);
-			setNeedNew(true);
 			setUpdateDB(true);
 		}
 	}, [currentId, userStatus]);
@@ -177,7 +182,6 @@ export default function FlashcardMode(props) {
 				[currentId]: Math.min(userStatus[currentId] + 1, 5),
 			});
 			setFlipped(false);
-			setNeedNew(true);
 			setUpdateDB(true);
 		}
 	}, [currentId, userStatus]);
@@ -189,6 +193,7 @@ export default function FlashcardMode(props) {
 	const changeBucket = (index) => {
 		setSingleBucket(singleBucket === index + 1 ? -1 : index + 1);
 		setNeedNew(true);
+		setFlipped(false);
 	};
 
 	const bucketItem = useCallback(
