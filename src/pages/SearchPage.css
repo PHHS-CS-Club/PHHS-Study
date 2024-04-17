@@ -1,97 +1,95 @@
 :root {
-  --search-margin: 2vw;
+	--search-margin: 2vw;
 }
 
 .search-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .search-header {
-  padding-top: 20px;
-  background: rgb(52, 131, 0);
-  background: linear-gradient(
-    180deg,
-    #305e11 7%,
-    #1c360b 95%
-  );
+	padding-top: 20px;
+	background: rgb(52, 131, 0);
+	background: linear-gradient(180deg, #305e11 27%, #25490d 95%);
 }
 
 .search-items {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	width: 100%;
+	border-top: 1px solid black;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(180deg, #25490d 7%, rgb(27, 56, 7) 95%);
 }
 
 .search-bar-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .search-box {
-  font-size: 25px;
-  height: 40px;
-  width: 90vw;
-  border: 1.5px solid black;
-  border-radius: 5px;
-  box-shadow: 0px 0px 0px 0px black;
+	font-size: 25px;
+	height: 40px;
+	width: 90vw;
+	border: 1.5px solid black;
+	border-radius: 5px;
+	box-shadow: 0px 0px 0px 0px black;
 }
 
 .search-filters {
-  padding: 10px 0px;
-  display: flex;
-  border-width: 0px 0px 1px 0px;
-  justify-content: space-evenly;
-  width: 100vw;
+	padding: 10px 0px;
+	display: flex;
+	border-width: 0px 0px 1px 0px;
+	justify-content: space-evenly;
+	width: 100vw;
 }
 
 @media (max-width: 600px) {
-  .search-filters {
-    align-items: center;
-    flex-direction: column;
-  }
-  .search-page {
-    width: 100vw;
-  }
+	.search-filters {
+		align-items: center;
+		flex-direction: column;
+	}
+	.search-page {
+		width: 100vw;
+	}
 }
 
 .search-glass:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .key {
-  border: 1px solid rgb(0, 0, 0);
-  box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
-  text-align: center;
-  height: 100px;
-  width: 200px;
-  margin-top: 10px;
+	border: 1px solid rgb(0, 0, 0);
+	box-shadow: 3px 3px 3px 1px rgb(196, 196, 196);
+	text-align: center;
+	height: 100px;
+	width: 200px;
+	margin-top: 10px;
 }
 
 .key:hover {
-  transition: 0.15s;
-  opacity: 0.7;
+	transition: 0.15s;
+	opacity: 0.7;
 }
 
 .key-link {
-  text-decoration: none;
-  color: rgb(1, 33, 175);
-  display: inline-block;
-  width: 100%;
-  height: 100%;
+	text-decoration: none;
+	color: rgb(1, 33, 175);
+	display: inline-block;
+	width: 100%;
+	height: 100%;
 }
 
 .search-container {
-  z-index: 1;
+	z-index: 1;
 }
 
 a {
-  text-decoration: none;
-  color: black;
+	text-decoration: none;
+	color: black;
 }

@@ -14,7 +14,7 @@ import FlashcardMode from "../components/FlashcardMode";
 export default function ViewSet() {
 	const { user } = UserAuth();
 	const [cards, setCards] = useState([]);
-	const [mode, setMode] = useState("view");
+	const [mode, setMode] = useState("flashcard");
 	const [metadata, setMetadata] = useState({});
 	const [userdata, setUserdata] = useState("");
 	//Gets the id from the set
@@ -28,7 +28,9 @@ export default function ViewSet() {
 			(snapshot) => {
 				const data = snapshot.val();
 				if (data !== null) {
-					setCards(data.cards);
+					setTimeout(() => {
+						setCards(data.cards);
+					}, 500);
 				}
 			},
 			{
@@ -165,7 +167,7 @@ export default function ViewSet() {
 						<button
 							className="viewset-buttons"
 							onClick={() => {
-								setMode("Flashcard");
+								setMode("flashcard");
 							}}
 						>
 							Flashcard mode
@@ -207,7 +209,7 @@ export default function ViewSet() {
 			</div>
 		);
 		//If mode is set to Flashcard, renders the FlashcardMode component on the page
-	} else if (mode === "Flashcard") {
+	} else if (mode === "flashcard") {
 		return (
 			<div className="flashcard-mode-container">
 				<button
