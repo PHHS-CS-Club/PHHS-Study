@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SetBoxView from "../components/SetBoxView";
 import ChangeUsername from "../components/ChangeUsername";
-import ChangeRole from "../components/ChangeRole";
 import "./Account.css";
 import EditButton from "../icons/pencil-edit-button.svg";
 import XButton from "../icons/x-symbol.svg";
@@ -21,7 +20,6 @@ export default function Signin() {
 	const [madeSets, setMadeSets] = useState([]);
 
 	const [changingUsername, setChangingUsername] = useState(false);
-	const [changingRole, setChangingRole] = useState(false);
 
 	const dbRef = ref(database, "users/" + id);
 
@@ -96,20 +94,6 @@ export default function Signin() {
 		return <></>;
 	};
 
-	//Opens or closes the ui for changing role upon pressing pencil button
-	const changeRoleSwitch = () => {
-		setChangingRole(!changingRole);
-	};
-
-	//If the user clicks the pencil button and sets changingRole to true, it shows the ui for changing role
-	//If the user doesn't press it or presses it again to close it, it shows nothing
-	const changeRoleDisplay = () => {
-		if (changingRole) {
-			return <ChangeRole></ChangeRole>;
-		}
-		return <></>;
-	};
-
 	//Changes the icon for opening/closing the ui for changing a user field
 	//If the ui is not open, shows a pencil icon
 	//If the button is pressed and the ui is opened, shows an x icon
@@ -156,16 +140,6 @@ export default function Signin() {
 					</div>
 					<div className="user-field">
 						<div className="field-text">Role: {role}</div>
-						<button
-							onClick={changeRoleSwitch}
-							className="change-field-button"
-						>
-							{changeFieldDisplayIcon(
-								changingRole,
-								"Change role"
-							)}
-						</button>
-						{changeRoleDisplay()}
 					</div>
 					<div className="user-field">
 						<div className="field-text">Email: {email}</div>
