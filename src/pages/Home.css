@@ -11,12 +11,12 @@
 }
 
 .complaint-link {
-	color: rgb(141, 141, 245);
+	color: rgb(40, 158, 255);
 	text-decoration: underline;
 }
 
 .home-starter {
-	font-size: 6vw;
+	font-size: calc(4vw + 2vh);
 	margin: 10px;
 }
 
@@ -25,6 +25,6 @@
 .how-to-use,
 .contributors-writing {
 	margin: 5px 10px;
-	font-size: 3vw;
+	font-size: calc(2vw + 1vh);
 	padding: 2px;
 }

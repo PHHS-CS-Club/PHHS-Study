@@ -15,10 +15,15 @@ export default function Home() {
 			</div>
 			<br />
 			<div className="what-we-are">
-				We are the premier studying tool specifically made for students
-				at Patrick Henry High School with specialized study sets made by
-				students for students. All developers are high schoolers from
-				the school apart of the computer science club!
+				We are the premier studying tool made both by and for students
+				at Patrick Henry High School. All developers are high schoolers
+				from the school who are apart of the{" "}
+				<a
+					className="complaint-link"
+					href="https://sites.google.com/mrjaffesclass.com/csclub"
+				>
+					computer science club!
+				</a>
 			</div>
 			<br />
 			<div className="how-to-use">
@@ -40,13 +45,15 @@ export default function Home() {
 
 			<div className="contributors-div">
 				<div className="contributors-writing">
-					<div className="contributors-title">Contributors</div>
+					<div className="contributors-title">Contributors:</div>
 					<div className="contributors-names">
-						President: Ryan Virtue
+						Ryan Virtue
 						<br />
-						Vice President: Oliver Cushman
+						Oliver Cushman
 						<br />
-						Goat: Drew Miller
+						Drew Miller
+						<br />
+						Charlie Havens
 					</div>
 				</div>
 				<div className="contributors-container-image"></div>
