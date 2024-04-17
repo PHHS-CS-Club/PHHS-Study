@@ -17,6 +17,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-icons": "^4.7.1",
     "react-katex": "^3.0.1",
+    "react-spinners": "^0.13.8",
     "react-tex": "^1.5.0",
     "react-tooltip": "^5.10.0",
     "react-transition-group": "^4.4.5",

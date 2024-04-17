@@ -1,80 +1,79 @@
 .search-set-container {
-  transition: 0.15s;
-  border: 1px solid black;
-  background-color: rgb(238, 238, 238);
-  width: fit-content;
-  min-height: 100px;
-  min-width: 300px;
-  border-radius: 25px;
-  margin: 10px;
-  padding: 10px;
-  height: fit-content;
-  box-shadow: 2px 3px 2px 1px rgb(116, 116, 116);
-  transform: perspective(1000px) translateY(var(--translate-y, 0));
-  text-decoration: none;
-  z-index: 2;
+	transition: 0.15s;
+	border: 1px solid black;
+	background-color: rgb(238, 238, 238);
+	width: fit-content;
+	min-height: 100px;
+	min-width: 300px;
+	border-radius: 25px;
+	margin: 10px;
+	padding: 10px;
+	height: fit-content;
+	transform: perspective(1000px) translateY(var(--translate-y, 0));
+	text-decoration: none;
+	z-index: 2;
 }
 
 .edit-icon-setbox {
-  position: absolute;
-  top: 6px;
-  right: 8px;
+	position: absolute;
+	top: 6px;
+	right: 8px;
 }
 
 .edit-icon-setbox:hover {
-  color: rgb(125, 125, 255);
+	color: rgb(125, 125, 255);
 }
 
 .search-set-classes,
 .search-set-teachers {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .tooltip-container {
-  margin-left: 5px;
-  display: flex;
-  justify-content: left;
+	margin-left: 5px;
+	display: flex;
+	justify-content: left;
 }
 
 .classes-info {
-  position: absolute;
-  opacity: 0;
-  min-width: 200px;
-  max-width: 200px;
-  right: 28%;
-  display: flex;
-  flex-direction: row;
-  padding: 2px;
-  border-radius: 2px;
-  margin-left: 25px;
-  background-color: gray;
-  transition: 0.15s;
+	position: absolute;
+	opacity: 0;
+	min-width: 200px;
+	max-width: 200px;
+	right: 28%;
+	display: flex;
+	flex-direction: row;
+	padding: 2px;
+	border-radius: 2px;
+	margin-left: 25px;
+	background-color: gray;
+	transition: 0.15s;
 }
 
 .class-text {
-  display: inline;
-  margin: 5px;
+	display: inline;
+	margin: 5px;
 }
 
 .classes-hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .search-set-name,
 .search-set-author,
 .search-set-classes,
 .search-set-teachers {
-  text-decoration: none;
-  z-index: 3;
-  width: fit-content;
+	text-decoration: none;
+	z-index: 3;
+	width: fit-content;
 }
 
 .search-set-name {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .search-set-container:hover {
-  --translate-y: -4px;
+	--translate-y: -4px;
 }

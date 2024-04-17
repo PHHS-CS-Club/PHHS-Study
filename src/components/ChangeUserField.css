@@ -1,43 +1,44 @@
+.field-container {
+	border: 1px solid black;
+	width: 50%;
+	margin: 0px 0px 10px 0px;
+	display: flex;
+	flex-direction: column;
+}
+
+.user-field-change-label {
+	background-color: rgb(247, 255, 173);
+	border-bottom: 1px solid black;
+	color: black;
+	padding: 5px 0px;
+	flex: 1;
+}
+
 .change-field-wrap {
-  border-style: solid;
-  border-width: 10px;
-  border-color:rgb(125, 164, 236);
-  border-radius: 20px;
-  margin-top: 5px;
-  margin-bottom: 15px;
+	display: flex;
 }
 .change-username-input {
-  width: 53.5%;
-  height: 20px;
-  border: none;
-  background-color: rgb(243, 243, 243);
-  border-top-left-radius: 11px;
-  border-bottom-left-radius: 11px;
-  padding-left: 1.5%;
-  padding-right: 0px;
+	flex: 1;
+	border: none;
+	background-color: rgb(243, 243, 243);
 }
 .change-role-select {
-  width: 55%;
-  border: none;
-  height: 22px;
-  border-top-left-radius: 11px;
-  border-bottom-left-radius: 11px;
-  background-color: rgb(243, 243, 243);
+	flex: 1;
+	border: none;
+	background-color: rgb(243, 243, 243);
 }
 .change-field {
-  width: 45%;
-  border: none;
-  height: 22px;
-  border-top-right-radius: 11px;
-  border-bottom-right-radius: 11px;
-  background-color: rgb(205, 225, 231);
-  padding: 0px;
-  transition: background-color 0.25s;
+	flex: 1;
+	border: none;
+	background-color: white;
+	padding: 0px;
+	min-height: 25px;
+	transition: background-color 0.25s;
 }
 .change-field:hover {
-  background-color: rgb(205, 205, 255);
-  cursor: pointer;
+	background-color: rgb(205, 205, 255);
+	cursor: pointer;
 }
 .change-field:active {
-  background-color: rgb(236, 210, 125);
+	background-color: rgb(236, 210, 125);
 }
