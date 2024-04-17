@@ -57,7 +57,7 @@ export default function Signin() {
 		if (madeSets !== null && madeSets !== undefined) {
 			return (
 				<div className="owned-sets">
-					<div className="owned-sets-header">My Sets</div>
+					<div className="owned-sets-header">Sets</div>
 					<div className="owned-sets-boxes">
 						{madeSets.map((key, index) => (
 							<div key={key} className="search-container">
@@ -140,7 +140,6 @@ export default function Signin() {
 	return (
 		<div className="account-page">
 			<div className="outer-border">
-				<div className="title">My Account</div>
 				<div className="account-info">
 					<div className="user-field">
 						<div className="field-text">Username: {username}</div>

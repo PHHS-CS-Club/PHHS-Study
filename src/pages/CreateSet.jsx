@@ -293,22 +293,16 @@ export default function CreateSet() {
 		if (frontBack === "front" && card.mathModeFront === true) {
 			return (
 				<>
-					<div style={{ overflow: "auto", height: "100%" }}>
-						<InlineMath
-							className="katex-display"
-							math={card.front}
-							maxExpand="5"
-						></InlineMath>
+					<div className="math-container">
+						<InlineMath>{card.front}</InlineMath>
+						{mathModeButtons(card, frontBack, id)}
 					</div>
-					{mathModeButtons(card, frontBack, id)}
 				</>
 			);
 		} else if (frontBack === "back" && card.mathModeBack === true) {
 			return (
-				<div style={{ overflow: "auto", height: "100%" }}>
-					<InlineMath style={{ position: "relative" }}>
-						{card.back}
-					</InlineMath>
+				<div className="math-container">
+					<InlineMath>{card.back}</InlineMath>
 					{mathModeButtons(card, frontBack, id)}
 				</div>
 			);
@@ -317,26 +311,29 @@ export default function CreateSet() {
 			return (
 				<>
 					{/** */}
-					<textarea
-						maxLength="360"
-						type="text"
-						placeholder={
-							frontBack.charAt(0).toUpperCase() +
-							frontBack.slice(1)
-						}
-						className={frontBack + "-side"}
-						id={frontBack}
-						value={frontBack === "front" ? card.front : card.back}
-						onChange={(event) => {
-							if (frontBack === "front") {
-								updateFront(event.target.value, card.id);
-							} else if (frontBack === "back") {
-								updateBack(event.target.value, card.id);
+					<div className="text-area-container">
+						<textarea
+							maxLength="360"
+							type="text"
+							placeholder={
+								frontBack.charAt(0).toUpperCase() +
+								frontBack.slice(1)
 							}
-						}}
-					/>
-
-					{mathModeButtons(card, frontBack, id)}
+							className={frontBack + "-side"}
+							id={frontBack}
+							value={
+								frontBack === "front" ? card.front : card.back
+							}
+							onChange={(event) => {
+								if (frontBack === "front") {
+									updateFront(event.target.value, card.id);
+								} else if (frontBack === "back") {
+									updateBack(event.target.value, card.id);
+								}
+							}}
+						/>
+						{mathModeButtons(card, frontBack, id)}
+					</div>
 				</>
 			);
 		}
@@ -353,35 +350,37 @@ export default function CreateSet() {
 		<>
 			{/**Name text area */}
 			<div className="create-set-container">
-				<textarea
-					maxLength="72"
-					type="text"
-					placeholder="Name set"
-					id="name-set"
-					onChange={(event) => {
-						setName(event.target.value);
-					}}
-				/>
-				<br />
-				{/**Generates card div for each card containing the two card boxes */}
-				{cards.map((card, i) => {
-					return (
-						<div className="card-container-cs" key={card.id}>
-							<TiDelete
-								size="20"
-								className="delete-button"
-								onClick={() => deleteCard(card.id)}
-							></TiDelete>{" "}
-							<div className="input-box-container">
-								{genCardBox(card, "front", i)}
+				<div className="name-set-container">
+					<textarea
+						maxLength="72"
+						type="text"
+						placeholder="Name set"
+						id="name-set"
+						onChange={(event) => {
+							setName(event.target.value);
+						}}
+					/>
+				</div>
+				<div className="all-cards">
+					{/**Generates card div for each card containing the two card boxes */}
+					{cards.map((card, i) => {
+						return (
+							<div className="card-container-cs" key={card.id}>
+								<div className="input-box-container">
+									{genCardBox(card, "front", i)}
+								</div>
+								<div className="input-box-container">
+									{genCardBox(card, "back", i)}
+									<TiDelete
+										size="20"
+										className="delete-button"
+										onClick={() => deleteCard(card.id)}
+									></TiDelete>
+								</div>
 							</div>
-							<div className="input-box-container">
-								{genCardBox(card, "back", i)}
-							</div>
-						</div>
-					);
-				})}
-				<br />
+						);
+					})}
+				</div>
 				<button className="add-card-button" onClick={createCard}>
 					Add card
 				</button>

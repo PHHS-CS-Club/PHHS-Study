@@ -1,105 +1,94 @@
 .class-container {
-  background-color: rgb(256, 244, 212);
-  width: fit-content;
-  /*border: 2px solid black;*/
-  min-height: 200px;
-  max-height: 200px;
-  transition: 0.05s;
-  font-size: 20px;
-}
-
-@media (max-width: 600px) {
-  .class-container {
-    width: 90vw;
-    height: 200px;
-  }
-  .cs-class-buttons {
-    max-width: 90vw;
-  }
-  .class-button {
-    font-size: 3vw;
-  }
+	background-color: rgb(256, 244, 212);
+	width: fit-content;
+	/*border: 2px solid black;*/
+	min-height: 200px;
+	max-height: 200px;
+	transition: 0.05s;
+	font-size: 20px;
+	border: 1px solid black;
 }
 
 .class-checkbox {
-  width: fit-content;
-  border-width: 0px 0px 1px 0px;
-  border-color: black;
-  border-style: solid;
+	width: fit-content;
+	border-width: 0px 0px 1px 0px;
+	border-color: black;
+	border-style: solid;
 }
 
 .class-checkbox:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
-.class-label:hover, .class-check:hover {
-  cursor: pointer;
+.class-label:hover,
+.class-check:hover {
+	cursor: pointer;
 }
 
-.class-label{
-  transition: 0.25s;
+.class-label {
+	transition: 0.25s;
 }
 
-.class-label:hover{
-  transition: 0.25s;
-  color:blue;
-  cursor: pointer;
+.class-label:hover {
+	transition: 0.25s;
+	color: blue;
+	cursor: pointer;
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .class-select-title {
-  text-align: center;
-  background-color: rgb(243, 243, 243);
+	text-align: center;
+	background-color: rgb(243, 243, 243);
 }
 
 .cs-class-buttons > button {
-  -webkit-appearance: none;
-  appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .class-button {
-  flex: 1;
-  color: black;
-  border: 1px solid rgb(0, 0, 0);
-  border-width: 0px 0px 1px 0px;
+	flex: 1;
+	color: black;
+	border: 1px solid rgb(0, 0, 0);
+	border-width: 0px 0px 1px 0px;
 
-  padding: px;
-  margin: 0;
-  display: inline-block;
-  border-radius: 0px;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: rgb(213, 213, 213);
-  box-shadow: none;
-  cursor: pointer;
-  transition: ease 0.3s;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+	padding: px;
+	margin: 0;
+	display: inline-block;
+	border-radius: 0px;
+	font-size: 15px;
+	font-weight: bold;
+	background-color: rgb(213, 213, 213);
+	box-shadow: none;
+	cursor: pointer;
+	transition: ease 0.3s;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
 .class-button:hover {
-  background-color: rgb(247, 247, 247);
-  opacity: 0.8;
-  transition: 0.15s;
-  cursor: pointer;
+	background-color: rgb(247, 247, 247);
+	opacity: 0.8;
+	transition: 0.15s;
+	cursor: pointer;
 }
 
 .border {
-  background-color: black;
+	background-color: black;
 }
 
 .cs-class-buttons {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
 }
 
 #main,
@@ -110,27 +99,27 @@
 #history,
 #world_language,
 #english {
-  width: 100%;
-  max-height: 74.5%;
-  overflow-y: scroll;
-  background-color: rgb(256, 244, 212);
+	width: 100%;
+	max-height: 74.5%;
+	overflow-y: scroll;
+	background-color: rgb(256, 244, 212);
 }
 
 .main-enter {
-  position: absolute;
-  transform: translateX(-110%);
+	position: absolute;
+	transform: translateX(-110%);
 }
 
 .main-enter-active {
-  transform: translateX(0%);
-  transition: all 0.2s ease;
+	transform: translateX(0%);
+	transition: all 0.2s ease;
 }
 
 .main-exit {
-  position: absolute;
+	position: absolute;
 }
 
 .main-exit-active {
-  transform: translateX(-110%);
-  transition: all 0.2s ease;
+	transform: translateX(-110%);
+	transition: all 0.2s ease;
 }
