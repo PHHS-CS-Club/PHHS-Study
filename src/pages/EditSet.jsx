@@ -320,16 +320,16 @@ export default function EditSet() {
 					{cards?.map((card, i) => {
 						return (
 							<div className="card-container-cs" key={card.id}>
-								<TiDelete
-									size="20"
-									className="delete-button"
-									onClick={() => deleteCard(card.id)}
-								></TiDelete>{" "}
 								<div className="input-box-container">
 									{genCardBox(card, "front", i)}
 								</div>
 								<div className="input-box-container">
 									{genCardBox(card, "back", i)}
+									<TiDelete
+										size="20"
+										className="delete-button"
+										onClick={() => deleteCard(card.id)}
+									></TiDelete>{" "}
 								</div>
 							</div>
 						);
