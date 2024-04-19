@@ -245,23 +245,15 @@ export default function EditSet() {
 		if (frontBack === "front" && card.mathModeFront === true) {
 			return (
 				<>
-					<div style={{ overflow: "auto", height: "100%" }}>
-						<InlineMath
-							className="katex-display"
-							math={card.front}
-							maxExpand="5"
-						></InlineMath>
+					<div className="math-container">
+						<InlineMath>{card.front}</InlineMath>
 					</div>
-					{mathModeButtons(card, frontBack, id)}
 				</>
 			);
 		} else if (frontBack === "back" && card.mathModeBack === true) {
 			return (
-				<div style={{ overflow: "auto", height: "100%" }}>
-					<InlineMath style={{ position: "relative" }}>
-						{card.back}
-					</InlineMath>
-					{mathModeButtons(card, frontBack, id)}
+				<div className="math-container">
+					<InlineMath>{card.back}</InlineMath>
 				</div>
 			);
 		} else {
@@ -285,8 +277,6 @@ export default function EditSet() {
 							}
 						}}
 					/>
-
-					{mathModeButtons(card, frontBack, id)}
 				</>
 			);
 		}
@@ -304,35 +294,39 @@ export default function EditSet() {
 				<button className="deleteset-button" onClick={deleteSet}>
 					Delete Set
 				</button>
-				<textarea
-					maxLength="72"
-					type="text"
-					placeholder="Name set"
-					id="name-set"
-					value={name}
-					onChange={(event) => {
-						setName(event.target.value);
-					}}
-				/>
-				<br />
-				{cards?.map((card, i) => {
-					return (
-						<div className="card-container-cs" key={card.id}>
-							<TiDelete
-								size="20"
-								className="delete-button"
-								onClick={() => deleteCard(card.id)}
-							></TiDelete>{" "}
-							<div className="input-box-container">
-								{genCardBox(card, "front", i)}
+				<div className="name-set-container">
+					<textarea
+						maxLength="72"
+						type="text"
+						placeholder="Name set"
+						id="name-set"
+						value={name}
+						onChange={(event) => {
+							setName(event.target.value);
+						}}
+					/>
+				</div>
+				<div className="all-cards">
+					{cards?.map((card, i) => {
+						return (
+							<div className="card-container-cs" key={card.id}>
+								<div className="input-box-container">
+									{genCardBox(card, "front", i)}
+									{mathModeButtons(card, "front", i)}
+								</div>
+								<div className="input-box-container">
+									{genCardBox(card, "back", i)}
+									<TiDelete
+										size="20"
+										className="delete-button"
+										onClick={() => deleteCard(card.id)}
+									></TiDelete>
+									{mathModeButtons(card, "back", i)}
+								</div>
 							</div>
-							<div className="input-box-container">
-								{genCardBox(card, "back", i)}
-							</div>
-						</div>
-					);
-				})}
-				<br />
+						);
+					})}
+				</div>
 				<button className="add-card-button" onClick={createCard}>
 					Add card
 				</button>
