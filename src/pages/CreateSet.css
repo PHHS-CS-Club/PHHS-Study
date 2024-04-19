@@ -76,7 +76,7 @@ input:focus {
 .front-side,
 .back-side {
 	white-space: pre-line;
-	padding: 2px;
+	padding: 0px;
 	width: 100%;
 	margin: 0px;
 	position: relative;
@@ -84,6 +84,7 @@ input:focus {
 	resize: none;
 	flex: 1;
 	aspect-ratio: 2/1;
+	margin-bottom: -4px;
 }
 
 .text-area-container {

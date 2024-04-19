@@ -245,23 +245,15 @@ export default function EditSet() {
 		if (frontBack === "front" && card.mathModeFront === true) {
 			return (
 				<>
-					<div style={{ overflow: "auto", height: "100%" }}>
-						<InlineMath
-							className="katex-display"
-							math={card.front}
-							maxExpand="5"
-						></InlineMath>
+					<div className="math-container">
+						<InlineMath>{card.front}</InlineMath>
 					</div>
-					{mathModeButtons(card, frontBack, id)}
 				</>
 			);
 		} else if (frontBack === "back" && card.mathModeBack === true) {
 			return (
-				<div style={{ overflow: "auto", height: "100%" }}>
-					<InlineMath style={{ position: "relative" }}>
-						{card.back}
-					</InlineMath>
-					{mathModeButtons(card, frontBack, id)}
+				<div className="math-container">
+					<InlineMath>{card.back}</InlineMath>
 				</div>
 			);
 		} else {
@@ -285,8 +277,6 @@ export default function EditSet() {
 							}
 						}}
 					/>
-
-					{mathModeButtons(card, frontBack, id)}
 				</>
 			);
 		}
@@ -322,6 +312,7 @@ export default function EditSet() {
 							<div className="card-container-cs" key={card.id}>
 								<div className="input-box-container">
 									{genCardBox(card, "front", i)}
+									{mathModeButtons(card, "front", id)}
 								</div>
 								<div className="input-box-container">
 									{genCardBox(card, "back", i)}
@@ -329,7 +320,8 @@ export default function EditSet() {
 										size="20"
 										className="delete-button"
 										onClick={() => deleteCard(card.id)}
-									></TiDelete>{" "}
+									></TiDelete>
+									{mathModeButtons(card, "back", id)}
 								</div>
 							</div>
 						);
