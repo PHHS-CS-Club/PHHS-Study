@@ -21,8 +21,7 @@ export default function Flashcard(props) {
 				{!props.flipped ? (
 					props.mFront ? (
 						<div className="front">
-							<div className="front-text">
-								{" "}
+							<div className="flashcard-math-container">
 								<InlineMath>{props.question}</InlineMath>
 							</div>
 						</div>
@@ -33,8 +32,7 @@ export default function Flashcard(props) {
 					)
 				) : props.mBack ? (
 					<div className="back">
-						<div className="back-text">
-							{" "}
+						<div className="flashcard-math-container">
 							<InlineMath>{props.answer}</InlineMath>
 						</div>
 					</div>
