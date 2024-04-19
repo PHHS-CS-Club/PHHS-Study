@@ -1,15 +1,15 @@
 .deleteset-button {
-  margin: 20px;
-  width: 80%;
-  font-size: 25px;
-  padding: 10px;
-  background-color: rgb(242, 88, 88);
-  border: 1px solid black;
-  border-radius: 10px;
-  cursor: pointer;
+	margin: 20px;
+	width: 80%;
+	font-size: 25px;
+	padding: 10px;
+	background-color: rgb(242, 88, 88);
+	border: 1px solid black;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 .deleteset-button:hover {
-  opacity: 0.85;
-  transition: 0.25s;
+	opacity: 0.85;
+	transition: 0.25s;
 }

@@ -304,35 +304,37 @@ export default function EditSet() {
 				<button className="deleteset-button" onClick={deleteSet}>
 					Delete Set
 				</button>
-				<textarea
-					maxLength="72"
-					type="text"
-					placeholder="Name set"
-					id="name-set"
-					value={name}
-					onChange={(event) => {
-						setName(event.target.value);
-					}}
-				/>
-				<br />
-				{cards?.map((card, i) => {
-					return (
-						<div className="card-container-cs" key={card.id}>
-							<TiDelete
-								size="20"
-								className="delete-button"
-								onClick={() => deleteCard(card.id)}
-							></TiDelete>{" "}
-							<div className="input-box-container">
-								{genCardBox(card, "front", i)}
+				<div className="name-set-container">
+					<textarea
+						maxLength="72"
+						type="text"
+						placeholder="Name set"
+						id="name-set"
+						value={name}
+						onChange={(event) => {
+							setName(event.target.value);
+						}}
+					/>
+				</div>
+				<div className="all-cards">
+					{cards?.map((card, i) => {
+						return (
+							<div className="card-container-cs" key={card.id}>
+								<TiDelete
+									size="20"
+									className="delete-button"
+									onClick={() => deleteCard(card.id)}
+								></TiDelete>{" "}
+								<div className="input-box-container">
+									{genCardBox(card, "front", i)}
+								</div>
+								<div className="input-box-container">
+									{genCardBox(card, "back", i)}
+								</div>
 							</div>
-							<div className="input-box-container">
-								{genCardBox(card, "back", i)}
-							</div>
-						</div>
-					);
-				})}
-				<br />
+						);
+					})}
+				</div>
 				<button className="add-card-button" onClick={createCard}>
 					Add card
 				</button>
