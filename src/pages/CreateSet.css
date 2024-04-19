@@ -76,15 +76,14 @@ input:focus {
 .front-side,
 .back-side {
 	white-space: pre-line;
-	padding: 0;
-	height: 100% - 4px;
+	padding: 2px;
 	width: 100%;
 	margin: 0px;
-	border: none;
 	position: relative;
 	text-align: center;
 	resize: none;
 	flex: 1;
+	aspect-ratio: 2/1;
 }
 
 .text-area-container {
@@ -114,8 +113,13 @@ input:focus {
 	cursor: pointer;
 }
 
-.mathnormal {
-	font-size: calc(1.2vw + 1.4vh);
+.katex-html {
+	font-size: max(14px, min(2.4vw, 24px));
+}
+
+textarea {
+	font-size: max(12px, min(2vw, 20px));
+	border: none;
 }
 
 .create-set-button {
