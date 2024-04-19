@@ -312,7 +312,7 @@ export default function EditSet() {
 							<div className="card-container-cs" key={card.id}>
 								<div className="input-box-container">
 									{genCardBox(card, "front", i)}
-									{mathModeButtons(card, "front", id)}
+									{mathModeButtons(card, "front", i)}
 								</div>
 								<div className="input-box-container">
 									{genCardBox(card, "back", i)}
@@ -321,7 +321,7 @@ export default function EditSet() {
 										className="delete-button"
 										onClick={() => deleteCard(card.id)}
 									></TiDelete>
-									{mathModeButtons(card, "back", id)}
+									{mathModeButtons(card, "back", i)}
 								</div>
 							</div>
 						);
